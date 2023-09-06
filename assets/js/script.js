@@ -8,7 +8,7 @@ $(function () {
     // Declare variable for rawg API key
     var rawgID = "?key=ad61e1d9ed3844018c1885a37313c3e9";
     // Declare variable for user input
-    var userInput;
+    var userFavorites = [$('#input-1'), $('#input-2'), $('#input-3')]
 
     
     // FUNCTION DECLARATIONS
@@ -74,17 +74,34 @@ $("#home-button").on("click", function(event){
      })
 
     
-    // Realistically I'll move the code in this function up into the getData function because I'll need access to the local variables
-    // function findMatches () {
-        // Search input against database with game search endpoint
-        
-        // Get genre and store in variable
-        // var userGenre = data.genreElement
+    // Declare findMatches function
+    function findMatches () {
 
-        // search userGenre for top games of same genre
-        // 
-
-    // }
+        // userFavorites.forEach(element => {
+            
+            // Search input against database with game search endpoint
+            let requestSearch = rawgURL + "games" + rawgID + "&search=" + "god of war" + "&search_exact=true";
+            console.log(requestSearch);
+        // });
+            fetch(requestSearch)
+            .then(function (response) {
+                if (response.ok) {
+                    return response.json();
+                } else if (response.status === 404) {
+                    return;
+                }
+            })
+            .then(function (data) {
+                console.log(data);
+                // Get genre and store in variable
+                
+                // var userGenre = data.genreElement
+                
+                // search userGenre for top games of same genre
+                
+                
+            })
+    }
     
     
     
@@ -101,7 +118,7 @@ $("#home-button").on("click", function(event){
     // FUNCTION CALLS
     
     getData();
-
+    findMatches();
 
 // Push this down to keep code above the closing bracket/parenthesis
 });
