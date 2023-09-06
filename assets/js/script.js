@@ -37,6 +37,27 @@ $(function () {
     }
 
 
+
+
+
+    
+    // Realistically I'll move the code in this function up into the getData function because I'll need access to the local variables
+    // function findMatches () {
+        // Search input against database with game search endpoint
+        
+        // Get genre and store in variable
+        // var userGenre = data.genreElement
+
+        // search userGenre for top games of same genre
+        // 
+
+    // }
+    
+    
+    
+    
+    // EVENT LISTENERS
+    
 // Show main and hide favorites list
 $("#home-button").on("click", function(event){
     $("#favorites-list").addClass("hide"); 
@@ -72,6 +93,21 @@ $("#home-button").on("click", function(event){
 
     })
 
+
+     //genre button event listener to display games based on the api genre data
+    $("#nav-el").on("click", function (event) {
+        event.stopPropagation();
+        $("#main").addClass("hide"); 
+        $("#games-list").removeClass("hide");
+
+
+    
+    var choice = event.target;
+    var userSelect = choice.getAttribute("id");
+
+    findMatches ();
+    
+})
     
     // Declare findMatches function
     function findMatches () {
@@ -135,6 +171,7 @@ $("#home-button").on("click", function(event){
     
     
     
+
     
     // FUNCTION CALLS
     
