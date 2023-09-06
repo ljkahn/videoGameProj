@@ -36,14 +36,32 @@ $(function () {
 
     function renderCurrentTopGame()
     {
-        let requestLink = rawgURL +"games" + rawgID + "&ordering=-metacritic";
+        let requestLink = rawgURL +"games" + rawgID + "&ordering=-metacritic&dates=2022-01-01,2023-09-05";
         fetch(requestLink)
         .then(function (response) {
             return response.json();
         })
         .then(function (data) {
             console.log(data);
+
+            let topGameImg = $(".top-game-img");
+            let topGameName = $(".top-game-name");
+            let topGameGenre = $(".top-game-genre")
+            let topGameScore = $(".top-game-score");
+            
+            for (let i = 0; i < topGameImg.length; i++)
+            {
+                $(topGameImg[i]).attr('src', data.results[i].background_image);
+                $(topGameName[i]).text(data.results[i].name);
+                $(topGameScore[i]).text("Metacritic Score: " + data.results[i].metacritic);
+
+                for (let x = 0; x < data.results[i].genres.length; x++)
+                {
+                    $(topGameGenre[i]).append("<li>" + data.results[i].genres[x].name) + "</li>";
+                }
+            }
         })
+
     }
 
 
