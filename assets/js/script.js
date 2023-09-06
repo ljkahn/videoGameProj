@@ -34,7 +34,7 @@ $(function () {
         .then(function (data) {
             console.log(data);
         })
-    }
+    };
     
     // Declare findMatches function
     function findMatches () {
