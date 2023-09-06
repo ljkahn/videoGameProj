@@ -56,7 +56,7 @@
                 <a id="favorites-button" class="nav-link" href="#">Favorites</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="#">Game Wiki's</a>
+                <a id="game-wiki" class="nav-link" href="#">Game Wiki's</a>
               </li>
               <li class="nav-item dropdown">
                 <a
@@ -69,48 +69,72 @@
                   Genre
                 </a>
                 <ul class="dropdown-menu">
-                  <li><a class="dropdown-item" href="#">Action</a></li>
-                  <li><a class="dropdown-item" href="#">Indie</a></li>
-                  <li><a class="dropdown-item" href="#">Adventure</a></li>
-                  <li><a class="dropdown-item" href="#">RPG</a></li>
-                  <li><a class="dropdown-item" href="#">Strategy</a></li>
-                  <li><a class="dropdown-item" href="#">Casual</a></li>
-                  <li><a class="dropdown-item" href="#">Simulation</a></li>
                   <li>
-                    <a class="dropdown-item" href="#">Puzzle</a>
+                    <a id="nav-el" class="dropdown-item" href="#">Action</a>
                   </li>
                   <li>
-                    <a class="dropdown-item" href="#">Arcade</a>
+                    <a id="indie" class="dropdown-item" href="#">Indie</a>
                   </li>
                   <li>
-                    <a class="dropdown-item" href="#">Platformner</a>
+                    <a id="adventure" class="dropdown-item" href="#"
+                      >Adventure</a
+                    >
+                  </li>
+                  <li><a id="RPG" class="dropdown-item" href="#">RPG</a></li>
+                  <li>
+                    <a id="strategy" class="dropdown-item" href="#">Strategy</a>
                   </li>
                   <li>
-                    <a class="dropdown-item" href="#">Massivley Multiplayer</a>
+                    <a id="casual" class="dropdown-item" href="#">Casual</a>
                   </li>
                   <li>
-                    <a class="dropdown-item" href="#">Racing</a>
+                    <a id="simulation" class="dropdown-item" href="#"
+                      >Simulation</a
+                    >
                   </li>
                   <li>
-                    <a class="dropdown-item" href="#">Sports</a>
+                    <a id="puzzle" class="dropdown-item" href="#">Puzzle</a>
                   </li>
                   <li>
-                    <a class="dropdown-item" href="#">Fighting</a>
+                    <a id="arcade" class="dropdown-item" href="#">Arcade</a>
                   </li>
                   <li>
-                    <a class="dropdown-item" href="#">Fighting</a>
+                    <a id="platformer" class="dropdown-item" href="#"
+                      >Platformner</a
+                    >
                   </li>
                   <li>
-                    <a class="dropdown-item" href="#">Family</a>
+                    <a id="massively-multiplayer" class="dropdown-item" href="#"
+                      >Massivley Multiplayer</a
+                    >
                   </li>
                   <li>
-                    <a class="dropdown-item" href="#">Board Games</a>
+                    <a id="racing" class="dropdown-item" href="#">Racing</a>
                   </li>
                   <li>
-                    <a class="dropdown-item" href="#">Educational</a>
+                    <a id="sports" class="dropdown-item" href="#">Sports</a>
                   </li>
                   <li>
-                    <a class="dropdown-item" href="#">Card</a>
+                    <a id="fighting" class="dropdown-item" href="#">Fighting</a>
+                  </li>
+                  <li>
+                    <a id="fighting" class="dropdown-item" href="#">Fighting</a>
+                  </li>
+                  <li>
+                    <a id="family" class="dropdown-item" href="#">Family</a>
+                  </li>
+                  <li>
+                    <a id="board-games" class="dropdown-item" href="#"
+                      >Board Games</a
+                    >
+                  </li>
+                  <li>
+                    <a id="educational" class="dropdown-item" href="#"
+                      >Educational</a
+                    >
+                  </li>
+                  <li>
+                    <a id="card" class="dropdown-item" href="#">Card</a>
                   </li>
                 </ul>
               </li>
@@ -119,15 +143,17 @@
         </div>
       </div>
     </nav>
+
     <main id="main">
-      <h2>MAIN SECTION</h2>
+      <h2 class="mt-100 position-absolute top-50 start-50">MAIN SECTION</h2>
     </main>
+
     <div id="favorites-list" class="hide">favorites list</div>
+
+    <div id="games-list">games list</div>
 
     <section class="w-50">
       <h2>Get a game recommendation!</h2>
-
-      
 
       <div class="input-group mb-3">
         <label class="input-group-text" for="inputGroupSelect02">Price</label>
@@ -152,7 +178,9 @@
       </div>
 
       <div class="input-group mb-3">
-        <label class="input-group-text" for="inputGroupSelect01">Platform</label>
+        <label class="input-group-text" for="inputGroupSelect01"
+          >Platform</label
+        >
         <select class="form-select" id="inputGroupSelect01">
           <option selected>Choose...</option>
           <option value="1">PC</option>
