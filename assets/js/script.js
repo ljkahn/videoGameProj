@@ -42,7 +42,7 @@ $(function () {
         // userFavorites.forEach(element => {
             
             // Search input against database with game search endpoint
-            let requestSearch = rawgURL + "games" + rawgID + "&search=" + "god of war" + "&search_precise=true" + "&search_exact=true";
+            let requestSearch = rawgURL + "games" + rawgID + "&search=" + "god of war" + "&search_exact=true";
             console.log(requestSearch);
         // });
             fetch(requestSearch)
