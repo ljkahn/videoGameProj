@@ -96,7 +96,6 @@ $("#home-button").on("click", function(event){
 
      });
 
-<<<<<<< HEAD
 
      //genre button event listener to display games based on the api genre data
      $("#nav-el").on("click", function (event) {
@@ -112,7 +111,6 @@ $("#home-button").on("click", function(event){
      findMatches ();
       
 })
-=======
     
     // Declare findMatches function
     function findMatches () {
@@ -150,7 +148,6 @@ $("#home-button").on("click", function(event){
     
     
     
->>>>>>> origin/main
     
     
     
