@@ -17,8 +17,6 @@ $(function () {
     {
         let requestLink = rawgURL + "genres" + rawgID;
         
-        console.log(requestLink);
-        
         fetch(requestLink)
         .then(function (response) {
             if (response.ok)
@@ -30,6 +28,18 @@ $(function () {
             {
                 //404 error
             }
+        })
+        .then(function (data) {
+            console.log(data);
+        })
+    }
+
+    function renderCurrentTopGame()
+    {
+        let requestLink = rawgURL +"games" + rawgID + "&ordering=-metacritic";
+        fetch(requestLink)
+        .then(function (response) {
+            return response.json();
         })
         .then(function (data) {
             console.log(data);
@@ -57,10 +67,10 @@ $("#home-button").on("click", function(event){
      //store search results
      //create variable to store searches in
 
-     var favGames = JSON.parse(localStorage.getItem("favorites"))|| [];
+    var favGames = JSON.parse(localStorage.getItem("favorites"))|| [];
 
-     function updateFave () {
-             favGames.forEach(function(game) {
+    function updateFave () {
+                favGames.forEach(function(game) {
                  $("#favorites-list").append(`<li>${game}</li>`);
              });
          };
@@ -101,6 +111,7 @@ $("#home-button").on("click", function(event){
     // FUNCTION CALLS
     
     getData();
+    renderCurrentTopGame();
 
 
 // Push this down to keep code above the closing bracket/parenthesis
