@@ -1,3 +1,9 @@
+//Random stuff
+//More random
+//Even more random
+//
+//
+//
 // Do everything inside jquery function to make sure DOM loads first
 $(function () {
 
