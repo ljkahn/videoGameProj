@@ -34,3 +34,6 @@ body {
 }
 
 /* ID */
+.hide {
+    display: none;
+}
