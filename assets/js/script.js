@@ -2,6 +2,8 @@
 $(function () {
 
     // VARIABLE DECLARATIONS
+
+    // The quick brown fox jumped over the lazy dog TEST TEST TEST TEST TEST
     
     // Declare variable for rawgURL
     var rawgURL = "https://api.rawg.io/api/";
