@@ -37,6 +37,27 @@ $(function () {
     }
 
 
+
+
+
+    
+    // Realistically I'll move the code in this function up into the getData function because I'll need access to the local variables
+    // function findMatches () {
+        // Search input against database with game search endpoint
+        
+        // Get genre and store in variable
+        // var userGenre = data.genreElement
+
+        // search userGenre for top games of same genre
+        // 
+
+    // }
+    
+    
+    
+    
+    // EVENT LISTENERS
+    
 // Show main and hide favorites list
 $("#home-button").on("click", function(event){
     $("#favorites-list").addClass("hide"); 
@@ -71,32 +92,45 @@ $("#home-button").on("click", function(event){
         localStorage.setItem("favorite-game", JSON.stringify(favGames));
         updateFave();
 
-     })
+     });
 
-    
-    // Realistically I'll move the code in this function up into the getData function because I'll need access to the local variables
-    // function findMatches () {
-        // Search input against database with game search endpoint
-        
-        // Get genre and store in variable
-        // var userGenre = data.genreElement
 
-        // search userGenre for top games of same genre
-        // 
+     //genre button event listener to display games based on the api genre data
+     $("#nav-el").on("click", function (event) {
+        event.stopPropagation();
+        $("#main").addClass("hide"); 
+        $("#games-list").removeClass("hide");
 
-    // }
+
+     
+     var choice = event.target;
+     var userSelect = choice.getAttribute("id");
+
+     if (userSelect) {
+        $.get(rawgURL, function(data) {
+            var games = data.results;
+
+            var gameList = $("#games-list");
+            
+
+            games.forEach(function(game) {
+                var gameItem=$("<div>");
+                template = `
+                <h2>${game.name}</h2>
+                <p>Rating: ${game.rating}</p>
+                <img src="${game.cover_url}" alt = "${game.name}">
+                `
+                gameList.append(gameItem);
+            })
+        } )
+     }
+      
+})
     
     
     
     
-    // EVENT LISTENERS
-    
-    
-    
-    
-    
-    
-    
+
     
     // FUNCTION CALLS
     
