@@ -7,7 +7,7 @@ $(function () {
     var rawgURL = "https://api.rawg.io/api/";
     // Declare variable for rawg API key
     var rawgID = "?key=ad61e1d9ed3844018c1885a37313c3e9";
-    // Declare variable for user input
+    // Declare variable for user input  [$('input-1'), $('input-2'), $('input-3')]
     var userFavorites = ["God OF war", 'smash bros', 'the witcher']
 
     
@@ -104,7 +104,7 @@ $("#home-button").on("click", function(event){
                     for (var j = 0; j < results.length; j++) {
                         var resultsLower = results[j].name.toLowerCase();
                         if (resultsLower.includes(namesLower) && results[j].genres.length > 0) {
-                            
+                            // Push genres of top matches to genres array
                             genres.push(results[j].genres[0].name);
                         }
                         
@@ -112,14 +112,14 @@ $("#home-button").on("click", function(event){
                 }
                 // remove duplicates
                 genres = [...new Set(genres)];
-                
-                // search user's genres for top games of same genres
                 console.log(genres);
-
-                });
-                // var userGenre = data.genreElement
                 
+                // For each genre pulled from the favorite games 
+                genres.forEach(element => {
+                    // Search games of the same genre from the metacritic filtered list
+                });
             });
+        });
                 
             
     }
