@@ -34,6 +34,7 @@ $(function () {
         })
     }
 
+    //Pulls recent games with highest metacritic score and displays their data
     function renderCurrentTopGame()
     {
         let requestLink = rawgURL +"games" + rawgID + "&ordering=-metacritic&dates=2022-01-01,2023-09-05";
@@ -55,6 +56,7 @@ $(function () {
                 $(topGameName[i]).text(data.results[i].name);
                 $(topGameScore[i]).text("Metacritic Score: " + data.results[i].metacritic);
 
+                //Gets all genres listed for game
                 for (let x = 0; x < data.results[i].genres.length; x++)
                 {
                     $(topGameGenre[i]).append("<li>" + data.results[i].genres[x].name) + "</li>";
