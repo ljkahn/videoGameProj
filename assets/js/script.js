@@ -8,7 +8,7 @@ $(function () {
     // Declare variable for rawg API key
     var rawgID = "?key=ad61e1d9ed3844018c1885a37313c3e9";
     // Declare variable for user input  [$('input-1'), $('input-2'), $('input-3')]
-    var userFavorites = ["God OF war", 'smash bros', 'the witcher']
+    var userFavorites = ["hollowknight", 'hades', 'limbo']
 
     
     // FUNCTION DECLARATIONS
@@ -109,20 +109,20 @@ $("#home-button").on("click", function(event){
     
 })
     
-    // Declare findMatches function
-    function findMatches () {
+    // Declare findMatches async function
+    async function findMatches () {
         // Declare variable with all concatenated queries
-        var queries = "games" + rawgID + "&search_precise=true" + "&search_exact=true" + "&ordering=-metacritic" + "&dates=2020-01-01,2023-01-01" + "&search=";
+        var queries = "games" + rawgID + "&search_precise=true" + "&search_exact=true" + "&ordering=-metacritic" + "&search=";
         // Declare genres variable to store genres of favorite games
         var genres = [];
 
-        userFavorites.forEach(element => {
-            
-            // Search input against database with game search endpoint
+        // Use for of loop to iterate through array of user input
+        for (const element of userFavorites) {
+            // Declare variable for endpoint with concatenated queries and user input
             let requestSearch = rawgURL + queries + element;
-            console.log(requestSearch);
-        
-            fetch(requestSearch)
+            // Declare data variable that will get the results from fetching the above variable
+            const data = await fetch(requestSearch)
+            // 
             .then(function (response) {
                 // Validation
                 if (response.status === 404) {
@@ -130,32 +130,54 @@ $("#home-button").on("click", function(event){
                 }
                 return response.json();
             })
-            .then(function (data) {
                 console.log(data);
                 var results = data.results;
-                console.log(results);
+                // console.log(results);
                 // Get genre and store in variable
                 for (var i = 0; i < userFavorites.length; i++) {
                     var namesLower = userFavorites[i].toLowerCase();
+                    var temp = [];
                     for (var j = 0; j < results.length; j++) {
                         var resultsLower = results[j].name.toLowerCase();
-                        if (resultsLower.includes(namesLower) && results[j].genres.length > 0) {
+                        if (resultsLower.includes(namesLower) && results[j].genres.length > 0 && results[j].metacritic) {
                             // Push genres of top matches to genres array
                             genres.push(results[j].genres[0].name);
+                            temp.push(results[j]);
                         }
-                        
                     }
+                    console.log(temp);
                 }
-                // remove duplicates
-                genres = [...new Set(genres)];
-                console.log(genres);
+            }
+            // remove duplicates
+            genres = [...new Set(genres)];
+            console.log(genres);
+        //         // Get genre and store in variable
+        //         for (var i = 0; i < userFavorites.length; i++) {
+        //             var namesLower = userFavorites[i].toLowerCase();
+        //             for (var j = 0; j < results.length; j++) {
+        //                 var resultsLower = results[j].name.toLowerCase();
+        //                 if (resultsLower.includes(namesLower) && results[j].genres.length > 0) {
+        //                     // Push genres of top matches to genres array
+        //                     genres.push(results[j].genres[0].name);
+        //                 }
+                        
+        //             }
+        //         }
+        //         // remove duplicates
+        //         genres = [...new Set(genres)];
+        //         console.log(genres);
                 
-                // For each genre pulled from the favorite games 
-                genres.forEach(element => {
-                    // Search games of the same genre from the metacritic filtered list
-                });
-            });
-        });
+        //         // For each genre pulled from the favorite games 
+        //         genres.forEach(element => {
+        //             // Search games of the same genre from the metacritic filtered list
+        //         });
+        //     });
+        // });
+
+        
+
+
+
                 
             
     }
