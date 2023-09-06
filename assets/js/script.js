@@ -8,7 +8,7 @@ $(function () {
     // Declare variable for rawg API key
     var rawgID = "?key=ad61e1d9ed3844018c1885a37313c3e9";
     // Declare variable for user input
-    var userInput;
+    var userFavorites = [$('#input-1'), $('#input-2'), $('#input-3')]
 
     
     // FUNCTION DECLARATIONS
@@ -36,17 +36,22 @@ $(function () {
         })
     }
     
-    // Realistically I'll move the code in this function up into the getData function because I'll need access to the local variables
-    // function findMatches () {
+    // Declare findMatches function
+    function findMatches () {
+
+        userFavorites
         // Search input against database with game search endpoint
-        
+        let requestLink = rawgURL + "search" + rawgID;
+
+        console.log(requestLink);
+
         // Get genre and store in variable
         // var userGenre = data.genreElement
 
         // search userGenre for top games of same genre
-        // 
+        
 
-    // }
+    }
     
     
     
