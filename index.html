@@ -44,10 +44,16 @@
           <div class="offcanvas-body">
             <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
               <li class="nav-item">
-                <a class="nav-link active" aria-current="page" href="#">Home</a>
+                <a
+                  id="home-button"
+                  class="nav-link active"
+                  aria-current="page"
+                  href="#"
+                  >Home</a
+                >
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="#">Favorites</a>
+                <a id="favorites-button" class="nav-link" href="#">Favorites</a>
               </li>
               <li class="nav-item">
                 <a class="nav-link" href="#">Game Wiki's</a>
@@ -64,14 +70,47 @@
                 </a>
                 <ul class="dropdown-menu">
                   <li><a class="dropdown-item" href="#">Action</a></li>
-                  <li><a class="dropdown-item" href="#">Another action</a></li>
-                  <li><a class="dropdown-item" href="#">Another action</a></li>
-                  <li><a class="dropdown-item" href="#">Another action</a></li>
-                  <li><a class="dropdown-item" href="#">Another action</a></li>
-                  <li><a class="dropdown-item" href="#">Another action</a></li>
-                  <li><a class="dropdown-item" href="#">Another action</a></li>
+                  <li><a class="dropdown-item" href="#">Indie</a></li>
+                  <li><a class="dropdown-item" href="#">Adventure</a></li>
+                  <li><a class="dropdown-item" href="#">RPG</a></li>
+                  <li><a class="dropdown-item" href="#">Strategy</a></li>
+                  <li><a class="dropdown-item" href="#">Casual</a></li>
+                  <li><a class="dropdown-item" href="#">Simulation</a></li>
                   <li>
-                    <a class="dropdown-item" href="#">Something else here</a>
+                    <a class="dropdown-item" href="#">Puzzle</a>
+                  </li>
+                  <li>
+                    <a class="dropdown-item" href="#">Arcade</a>
+                  </li>
+                  <li>
+                    <a class="dropdown-item" href="#">Platformner</a>
+                  </li>
+                  <li>
+                    <a class="dropdown-item" href="#">Massivley Multiplayer</a>
+                  </li>
+                  <li>
+                    <a class="dropdown-item" href="#">Racing</a>
+                  </li>
+                  <li>
+                    <a class="dropdown-item" href="#">Sports</a>
+                  </li>
+                  <li>
+                    <a class="dropdown-item" href="#">Fighting</a>
+                  </li>
+                  <li>
+                    <a class="dropdown-item" href="#">Fighting</a>
+                  </li>
+                  <li>
+                    <a class="dropdown-item" href="#">Family</a>
+                  </li>
+                  <li>
+                    <a class="dropdown-item" href="#">Board Games</a>
+                  </li>
+                  <li>
+                    <a class="dropdown-item" href="#">Educational</a>
+                  </li>
+                  <li>
+                    <a class="dropdown-item" href="#">Card</a>
                   </li>
                 </ul>
               </li>
@@ -80,6 +119,10 @@
         </div>
       </div>
     </nav>
+    <main id="main">
+      <h2>MAIN SECTION</h2>
+    </main>
+    <div id="favorites-list" class="hide">favorites list</div>
 
     <section class="w-50">
       <h2>Get a game recommendation!</h2>
@@ -109,8 +152,8 @@
       </div>
 
       <div class="input-group mb-3">
-        <label class="input-group-text" for="inputGroupSelect04">Platform</label>
-        <select class="form-select" id="inputGroupSelect04">
+        <label class="input-group-text" for="inputGroupSelect01">Platform</label>
+        <select class="form-select" id="inputGroupSelect01">
           <option selected>Choose...</option>
           <option value="1">PC</option>
           <option value="2">Playstation 5</option>
