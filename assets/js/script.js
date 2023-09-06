@@ -39,18 +39,30 @@ $(function () {
     // Declare findMatches function
     function findMatches () {
 
-        userFavorites
-        // Search input against database with game search endpoint
-        let requestLink = rawgURL + "search" + rawgID;
-
-        console.log(requestLink);
-
-        // Get genre and store in variable
-        // var userGenre = data.genreElement
-
-        // search userGenre for top games of same genre
-        
-
+        // userFavorites.forEach(element => {
+            
+            // Search input against database with game search endpoint
+            let requestSearch = rawgURL + "games" + rawgID + "&search=" + "god of war" + "&search_precise=true" + "&search_exact=true";
+            console.log(requestSearch);
+        // });
+            fetch(requestSearch)
+            .then(function (response) {
+                if (response.ok) {
+                    return response.json();
+                } else if (response.status === 404) {
+                    return;
+                }
+            })
+            .then(function (data) {
+                console.log(data);
+                // Get genre and store in variable
+                
+                // var userGenre = data.genreElement
+                
+                // search userGenre for top games of same genre
+                
+                
+            })
     }
     
     
@@ -68,7 +80,7 @@ $(function () {
     // FUNCTION CALLS
     
     getData();
-
+    findMatches();
 
 // Push this down to keep code above the closing bracket/parenthesis
 });
