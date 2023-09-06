@@ -34,7 +34,45 @@ $(function () {
         .then(function (data) {
             console.log(data);
         })
-    };
+    }
+
+
+// Show main and hide favorites list
+$("#home-button").on("click", function(event){
+    $("#favorites-list").addClass("hide"); 
+    $("#main").removeClass("hide");
+
+});
+
+
+
+
+    //favorites button --> local storage 
+    $("#favorites-button").on("click", function(event){
+        // var userInput = $("#input").val();
+
+        $("#main").addClass("hide"); 
+        $("#favorites-list").removeClass("hide");
+
+     //store search results
+     //create variable to store searches in
+
+     var favGames = JSON.parse(localStorage.getItem("favorites"))|| [];
+
+     function updateFave () {
+             favGames.forEach(function(game) {
+                 $("#favorites-list").append(`<li>${game}</li>`);
+             });
+         };
+
+
+        var game =$("#input").val();
+        favGames.unshift(game);
+        localStorage.setItem("favorite-game", JSON.stringify(favGames));
+        updateFave();
+
+     })
+
     
     // Declare findMatches function
     function findMatches () {
