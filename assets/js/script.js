@@ -84,6 +84,8 @@ $("#home-button").on("click", function(event){
              favGames.forEach(function(game) {
                  $("#favorites-list").append(`<li>${game}</li>`);
              });
+
+             
          };
 
 
@@ -106,24 +108,7 @@ $("#home-button").on("click", function(event){
      var choice = event.target;
      var userSelect = choice.getAttribute("id");
 
-     if (userSelect) {
-        $.get(rawgURL, function(data) {
-            var games = data.results;
-
-            var gameList = $("#games-list");
-            
-
-            games.forEach(function(game) {
-                var gameItem=$("<div>");
-                template = `
-                <h2>${game.name}</h2>
-                <p>Rating: ${game.rating}</p>
-                <img src="${game.cover_url}" alt = "${game.name}">
-                `
-                gameList.append(gameItem);
-            })
-        } )
-     }
+     findMatches ();
       
 })
     
