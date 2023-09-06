@@ -34,7 +34,7 @@ $(function () {
         .then(function (data) {
             console.log(data);
         })
-    }
+    };
     
     // Realistically I'll move the code in this function up into the getData function because I'll need access to the local variables
     // function findMatches () {
