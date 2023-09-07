@@ -59,7 +59,7 @@ $(function () {
                 return response.json();
             })
             // console.log(data);
-            // Declare results variable to make dot 
+            // Declare results variable to reduce dot notation 
             var results = data.results;
             // console.log(results);
             // Make input lowercase for comparison
@@ -107,8 +107,10 @@ $(function () {
         // Concat queries to endpoint URL
         var requestGenres = rawgURL + genreSearchQuery
 
+        // Fetch request data for games by genre
         fetch(requestGenres)
         .then(function (response) {
+            // Validation
             if (response.status === 404)
             {
                 return;
