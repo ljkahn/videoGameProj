@@ -18,28 +18,28 @@ $(function () {
     
     // FUNCTION DECLARATIONS
     
-    function getData()
-    {
-        let requestLink = rawgURL + "genres" + rawgID;
+    // function getData()
+    // {
+    //     let requestLink = rawgURL + "genres" + rawgID;
         
-        // console.log(requestLink);
+    //     // console.log(requestLink);
         
-        fetch(requestLink)
-        .then(function (response) {
-            if (response.ok)
-            {
-                //Data returns
-                return response.json();
-            }
-            else if (response.status === 404)
-            {
-                //404 error
-            }
-        })
-        .then(function (data) {
-            // console.log(data);
-        })
-    }
+    //     fetch(requestLink)
+    //     .then(function (response) {
+    //         if (response.ok)
+    //         {
+    //             //Data returns
+    //             return response.json();
+    //         }
+    //         else if (response.status === 404)
+    //         {
+    //             //404 error
+    //         }
+    //     })
+    //     .then(function (data) {
+    //         // console.log(data);
+    //     })
+    // }
 
     function renderCurrentTopGame()
     {
@@ -68,7 +68,6 @@ $(function () {
                 }
             }
         })
-
     }
     
 
@@ -162,8 +161,6 @@ $(function () {
     
     
     // EVENT LISTENERS
-    
-    // LIA - Use this in your event listener when I'm done with the genreSearch function  
 
     // Show main and hide favorites list
     $("#home-button").on("click", function(event){
@@ -185,13 +182,13 @@ $(function () {
         //store search results
         //create variable to store searches in
 
-    var favGames = JSON.parse(localStorage.getItem("favorites"))|| [];
+        var favGames = JSON.parse(localStorage.getItem("favorites"))|| [];
 
-    function updateFave () {
-            favGames.forEach(function(game) {
-                $("#favorites-list").append(`<li>${game}</li>`);
-            });
-        };
+        function updateFave () {
+                favGames.forEach(function(game) {
+                    $("#favorites-list").append(`<li>${game}</li>`);
+                });
+            };
 
         var game =$("#input").val();
         favGames.unshift(game);
@@ -209,13 +206,13 @@ $(function () {
 
 
     
-            $("#main").addClass("hide"); 
-            $("#favorites-list").removeClass("hide");
+        $("#main").addClass("hide"); 
+        $("#favorites-list").removeClass("hide");
     
-         //store search results
-         //create variable to store searches in
+        //store search results
+        //create variable to store searches in
     
-        var favGames = JSON.parse(localStorage.getItem("favorites"))|| [];
+        var favGames = JSON.parse(localStorage.getItem("favorites")) || [];
     
         function updateFave () {
                 favGames.forEach(function(game) {
@@ -228,36 +225,29 @@ $(function () {
             localStorage.setItem("favorite-game", JSON.stringify(favGames));
             updateFave();
     
-        })
+    })
     
     
-         //genre button event listener to display games based on the api genre data
-        $(".dropdown-item").on("click", function (event) {
-            event.stopPropagation();
-            $("#main").addClass("hide"); 
-            $("#recommendation").addClass("hide");
-            $("#games-list").removeClass("hide");
-    
-    
-        
+        //genre button event listener to display games based on the api genre data
+    $(".dropdown-item").on("click", function (event) {
+        event.stopPropagation();
+        $("#main").addClass("hide"); 
+        $("#recommendation").addClass("hide");
+        $("#games-list").removeClass("hide");
+
         var choice = event.target.textContent;
         console.log(choice);
-            searchGenre("world of warcraft");
+        searchGenre(choice);
 
-        //input = whatever number they choose from dropdown
-        // var listLimit = $('input')
-        // for (var i = 0; i < listLimit; i++) {
+    //input = whatever number they choose from dropdown
+    // var listLimit = $('input')
+    // for (var i = 0; i < listLimit; i++) {
 
-        //     searchGenre()
-        // };
-    
+    //     searchGenre()
+    // };
+
         
     });
-    
-    
-    
-    // EVENT LISTENERS
-    
     
 
     $('#game-finder').on('click', function (event) {
@@ -270,15 +260,9 @@ $(function () {
     })
     
     
-    // EVENT LISTENERS
-    
-    
-    
-
-    
     // FUNCTION CALLS
     
-    getData();
+    // getData();
     // findMatches();
     renderCurrentTopGame();
 
