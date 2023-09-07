@@ -103,6 +103,8 @@ $("#home-button").on("click", function(event){
         $("#main").addClass("hide"); 
         $("#games-list").removeClass("hide");
 
+            var listLimit = $("input");
+            for(var i = 0; i< listLimit; i++ )
 
      
      var choice = event.target;
