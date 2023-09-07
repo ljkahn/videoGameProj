@@ -13,6 +13,17 @@ h2 {
 }
 
 /* CLASSES */
+li {
+  text-align: center;
+}
+
+.flex-column {
+  justify-content: space-between;
+}
+
+a .btn {
+  align-items: center;
+}
 
 .w-50 {
   align-items: center;
