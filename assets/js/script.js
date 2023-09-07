@@ -83,18 +83,25 @@ $(function () {
         console.log(genres);
         
         // For each genre pulled from the favorite games 
-        for (const element of genres) {
+        // for (const element of genres) {
             
-        }
+        // }
         // Search games of the same genre from the metacritic filtered list             
     }
+
+    // Create function for searching by genre
+    // function searchGenre (aGenre) {
+    //     aGenre 
+    // }
     
     
-
-
     // EVENT LISTENERS
     
-
+    // LIA - Use this in your event listener when I'm done with the genreSearch function  
+    // var listLimit = $('input')
+    // for (var i = 0; i < listLimit; i++) {
+    //     // Call genreSearch()
+    // }
 
     // Show main and hide favorites list
     $("#home-button").on("click", function(event){
