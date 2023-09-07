@@ -139,6 +139,9 @@
         </div>
       </div>
     </nav>
+    <h2>GAME SEEKERS</h2>
+
+    <div class="container mt-1">
     <main id="main">
       <div class="container mt-5">
         <div class="row">
@@ -150,40 +153,63 @@
               alt="..."
             />
             <div class="card-body">
-              <h5 class="card-title">GAME FINDER</h5>
+              <!-- <h5 class="card-title">Game Seekers</h5> -->
+              <h5 class="card-title">GAME RECOMMENDATIONS</h5>
+              <div class="col-md-12 px-3">
+                <h6>Choose your platform</h6>
+              </div>
               <form class="container">
                 <div class="mb-3 row align-items-center">
-                  <label for="game-1" class="gameCardInput form-label"
-                    >Choose Your Game 1</label
-                  >
-                  <input
-                    type="email"
-                    class="form-control game"
-                    id="game-1"
-                    aria-describedby="emailHelp"
-                  />
-                </div>
-                <div class="mb-3 row">
-                  <label for="game-2" class="gameCardInput form-label"
-                    >Choose Your Game 2</label
-                  >
-                  <input
-                    type="password"
-                    class="form-control game"
-                    id="game-2"
-                  />
-                </div>
-                <div class="mb-3 row">
-                  <label for="game-3" class="gameCardInput form-label"
-                    >Choose Your Game 3</label
-                  >
-                  <input class="form-control game" id="game-3" />
-                </div>
-                <div class="row">
-                  <button type="submit" class="btn btn-secondary mx-auto col-6">
-                    Submit
-                  </button>
-                </div>
+                  <div class="input-group mb-3 col-md-12">
+                    <label class="input-group-text" for="inputGroupSelect01"
+                      >Platform</label
+                    >
+                    <select class="form-select" id="inputGroupSelect01">
+                      <option selected>Choose...</option>
+                      <option value="1">PC</option>
+                      <option value="2">Playstation 5</option>
+                      <option value="3">Playstation 4</option>
+                      <option value="3">Xbox One</option>
+                      <option value="3">Xbox Series S/X</option>
+                      <option value="3">Nintendo Switch</option>
+                    </select>
+                  </div>
+                  <div class="col-md-12">
+                    <h6>Choose your top 3 games</h6>
+                  </div>
+                  <div class="col-md-4 col-sm-12">
+                    <label for="exapleGame1" class="gameCardInput form-label"
+                      >Game 1</label
+                    >
+                    <input
+                      type="email"
+                      class="form-control"
+                      id="exampleInputEmail1"
+                      aria-describedby="emailHelp"
+                    />
+                  </div>
+  
+                  <div class="col-md-4">
+                    <label for="exampleGame2" class="gameCardInput form-label"
+                      >Game 2</label
+                    >
+                    <input
+                      type="password"
+                      class="form-control"
+                      id="exampleInputPassword1"
+                    />
+                  </div>
+                  <div class="col-md-4">
+                    <label for="exampleGame3" class="gameCardInput form-label"
+                      >Game 3</label
+                    >
+                    <input class="form-control" id="exampleGame" />
+                  </div>
+                  
+                  <div class="d-grid gap-2 col-md-3 mt-4 mx-auto">
+                    <button type="submit" class="btn btn-dark">Submit</button>
+                  </div>
+                 
               </form>
             </div>
           </div>
