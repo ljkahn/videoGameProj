@@ -17,7 +17,7 @@ $(function () {
     {
         let requestLink = rawgURL + "genres" + rawgID;
         
-        console.log(requestLink);
+        // console.log(requestLink);
         
         fetch(requestLink)
         .then(function (response) {
@@ -32,17 +32,17 @@ $(function () {
             }
         })
         .then(function (data) {
-            console.log(data);
+            // console.log(data);
         })
     }
     
     
+    // Declare genres variable to store genres of favorite games
+    var genres = [];
     // Declare findMatches async function
     async function findMatches () {
         // Declare variable with all concatenated queries
-        var queries = "games" + rawgID + "&search_precise=true" + "&search_exact=true" + "&ordering=-metacritic" + "&search=";
-        // Declare genres variable to store genres of favorite games
-        var genres = [];
+        var queries = "games" + rawgID + "&search_precise=true" + "&search_exact=true" + "&exclude_additions=true" + "&ordering=-metacritic" + "&search=";
         
         // Use for of loop to iterate through array of user input
         for (const element of userFavorites) {
@@ -50,7 +50,7 @@ $(function () {
             let requestSearch = rawgURL + queries + element;
             // Declare data variable that will get the results from fetching the above variable
             const data = await fetch(requestSearch)
-            // 
+            // then function uses fetch results
             .then(function (response) {
                 // Validation
                 if (response.status === 404) {
@@ -58,7 +58,7 @@ $(function () {
                 }
                 return response.json();
             })
-            console.log(data);
+            // console.log(data);
             // Declare results variable to make dot 
             var results = data.results;
             // console.log(results);
@@ -67,13 +67,14 @@ $(function () {
             // for loop to compare results against user input
             for (var j = 0; j < results.length; j++) {
                 var dataGenres = results[j].genres
+                // console.log(dataGenres);
                 var resultsLower = results[j].name.toLowerCase();
                 // Limit search to game titles including user input and a metacritic score
-                if (resultsLower.includes(namesLower) && results[j].metacritic) {
+                if (resultsLower.includes(namesLower) && results[j].metacritic && dataGenres) {
                     // Nested loop finds each genre if game has more than one listed 
                     for (const key of dataGenres) {
                         // Push genres of top matches to genres array
-                        genres.push(results[j].genres[0].name);
+                        genres.push(key.name);
                     }
                 }
             }
@@ -83,15 +84,33 @@ $(function () {
         console.log(genres);
         
         // For each genre pulled from the favorite games 
-        // for (const element of genres) {
-            
-        // }           
+        for (const element of genres) {
+            searchGenre(element);
+        }           
     }
 
     // Create function for searching by genre
-    // asynch function searchGenre (aGenre) {
-    //     var genreSearchQuery = "games" + rawgID + "&ordering=-metacritic"
-    // }
+    function searchGenre (aGenre) {
+        // Declare variable to store api queries
+        var genreSearchQuery = "games" + rawgID + "&ordering=-metacritic" + "&genres=" + aGenre + "&exclude_additions=true";
+
+        // Concat queries to endpoint URL
+        var requestGenres = rawgURL + genreSearchQuery;
+        // Declare data variable that will get the results from fetching the above variable
+        fetch(requestGenres)
+        // Use fetch return for then function
+        .then(function (response) {
+            // Validation
+            if (response.status === 404) {
+                return;
+            }
+            return response.json();
+        })
+        .then(function (data) {
+            
+        })
+        console.log(data);
+    }
     
     
     // EVENT LISTENERS
@@ -149,7 +168,7 @@ $(function () {
         var choice = event.target;
         var userSelect = choice.getAttribute("id");
     
-        findMatches ();
+        searchGenre();
         
     })
     
