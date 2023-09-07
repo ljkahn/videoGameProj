@@ -182,7 +182,7 @@ $(function () {
     
     function renderCurrentTopGame()
     {
-        let requestLink = rawgURL +"games" + rawgID + "&ordering=-metacritic&dates=2022-01-01,2023-09-05";
+        let requestLink = rawgURL + "games" + rawgID + "&ordering=-metacritic&dates=2022-01-01,2023-09-05";
         fetch(requestLink)
         .then(function (response) {
             return response.json();
@@ -225,7 +225,7 @@ $(function () {
     // FUNCTION CALLS
     
     getData();
-    findMatches();
+    // findMatches();
     renderCurrentTopGame();
 
 // Push this down to keep code above the closing bracket/parenthesis
