@@ -133,18 +133,17 @@ $(function () {
     function searchGenre (aGenre) {
         // Convert searches to lowercase to pull up results
         aGenre = aGenre.toLowerCase();
-        // If input is RPG search by genre id to pull up results
+        // If input is RPG or MMO search by genre id to pull up results
         if (aGenre === 'rpg') {
             // RPG id
             aGenre = 5;
-        } else if (aGenre === 'platformer') {
-            // Platformer id
-            aGenre = 83;
         } else if (aGenre === 'massively multiplayer') {
+            // MMO id
             aGenre = 59;
         }
+
         // Declare variable to store api queries
-        var genreSearchQuery = "games" + rawgID + "&ordering=-metacritic" + "&genres=" + aGenre + "&exclude_additions=true";
+        var genreSearchQuery = "games" + rawgID + "&ordering=-metacritic" + "&genres=" + aGenre + "&exclude_additions=true" + "&dates=2010-01-01,2023-09-06";
 
         // Concat queries to endpoint URL
         var requestGenres = rawgURL + genreSearchQuery
