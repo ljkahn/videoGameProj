@@ -8,7 +8,7 @@ $(function () {
     // Declare variable for rawg API key
     var rawgID = "?key=ad61e1d9ed3844018c1885a37313c3e9";
     // Declare variable for user input  [$('input-1'), $('input-2'), $('input-3')]
-    var userFavorites = ["hades", 'god of war', 'limbo']
+    var userFavorites = ["horizon forbidden west", 'horizon zero dawn', 'left 4 dead 2']
 
     
     // FUNCTION DECLARATIONS
@@ -42,7 +42,7 @@ $(function () {
     // Declare findMatches async function
     async function findMatches () {
         // Declare variable with all concatenated queries
-        var queries = "games" + rawgID + "&search_precise=true" + "&search_exact=true" + "&exclude_additions=true" + "&ordering=-metacritic" + "&search=";
+        var queries = "games" + rawgID + "&search_precise=true" + "&search_exact=true" + "&exclude_additions=true" + "&ordering=-metacritic" + "&exclude_collection=true" + "&search=";
         
         // Use for of loop to iterate through array of user input
         for (const element of userFavorites) {
@@ -68,7 +68,8 @@ $(function () {
             for (var j = 0; j < results.length; j++) {
                 var dataGenres = results[j].genres
                 var resultsLower = results[j].name.toLowerCase();
-                // Limit search to game titles including user input and a metacritic score
+                // Limit search to game titles including user input and a metacritic score  
+                // consider adding this or similar for narrower results  -> && results[j].suggestions_count > 600
                 if (resultsLower.includes(namesLower) && results[j].metacritic && dataGenres) {
                     // Nested loop finds each genre if game has more than one listed 
                     for (const key of dataGenres) {
