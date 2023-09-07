@@ -84,32 +84,45 @@ $(function () {
         console.log(genres);
         
         // For each genre pulled from the favorite games 
-        for (const element of genres) {
-            searchGenre(element);
-        }           
+        // for (const element of genres) {
+        //     searchGenre(element);
+        // }           
     }
+
+    searchGenre("");
 
     // Create function for searching by genre
     function searchGenre (aGenre) {
+        aGenre = aGenre.toLowerCase();
         // Declare variable to store api queries
         var genreSearchQuery = "games" + rawgID + "&ordering=-metacritic" + "&genres=" + aGenre + "&exclude_additions=true";
 
         // Concat queries to endpoint URL
         var requestGenres = rawgURL + genreSearchQuery;
         // Declare data variable that will get the results from fetching the above variable
+        // fetch(requestGenres)
+        // .then(function (response) {
+        //     // Validation
+        //     if (response.status === 404) {
+        //         return;
+        //     }
+        //     return response.json();
+        // })
+        // .then(function (data) {
+
+        // })
+        // console.log(data);
         fetch(requestGenres)
-        // Use fetch return for then function
         .then(function (response) {
-            // Validation
-            if (response.status === 404) {
+            if (response.status === 404)
+            {
                 return;
             }
             return response.json();
         })
         .then(function (data) {
-            
+            console.log(data);
         })
-        console.log(data);
     }
     
     
