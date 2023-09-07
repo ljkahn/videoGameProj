@@ -166,6 +166,7 @@ $(function () {
         $("#dropdown-item").on("click", function (event) {
             event.stopPropagation();
             $("#main").addClass("hide"); 
+            $("#recommendation").addClass("hide");
             $("#games-list").removeClass("hide");
     
     
