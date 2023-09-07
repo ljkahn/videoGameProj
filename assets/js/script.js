@@ -10,6 +10,12 @@ $(function () {
     // Declare genres array variable
     var genres = []
 
+    var bombKey = "e5af497a03a411164e9f7c6c123e898f0a91fcff";
+
+    var bombUrl = "URL: https://www.giantbomb.com/api/games/?api_key=[e5af497a03a411164e9f7c6c123e898f0a91fcff]";
+
+
+    
     // FUNCTION DECLARATIONS
     
     function getData()
