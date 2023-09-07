@@ -158,10 +158,6 @@ $(function () {
     // EVENT LISTENERS
     
     // LIA - Use this in your event listener when I'm done with the genreSearch function  
-    // var listLimit = $('input')
-    // for (var i = 0; i < listLimit; i++) {
-    //     // Call searchGenre()
-    // }
 
     // Show main and hide favorites list
     $("#home-button").on("click", function(event){
@@ -207,13 +203,50 @@ $(function () {
 
 
     
-    var choice = event.target.textContent;
-    console.log(choice);
-    // var userSelect = choice.getAttribute("id");
-
-    searchGenre(choice);
+            $("#main").addClass("hide"); 
+            $("#favorites-list").removeClass("hide");
+    
+         //store search results
+         //create variable to store searches in
+    
+        var favGames = JSON.parse(localStorage.getItem("favorites"))|| [];
+    
+        function updateFave () {
+                favGames.forEach(function(game) {
+                    $("#favorites-list").append(`<li>${game}</li>`);
+                });
+            };
+    
+            var game =$("#input").val();
+            favGames.unshift(game);
+            localStorage.setItem("favorite-game", JSON.stringify(favGames));
+            updateFave();
+    
+        })
+    
+    
+         //genre button event listener to display games based on the api genre data
+        $("#dropdown-item").on("click", function (event) {
+            event.stopPropagation();
+            $("#main").addClass("hide"); 
+            $("#recommendation").addClass("hide");
+            $("#games-list").removeClass("hide");
+    
+    
         
-    })
+        var choice = event.target.textContent;
+        console.log(choice);
+            searchGenre(choice);
+
+        //input = whatever number they choose from dropdown
+        // var listLimit = $('input')
+        // for (var i = 0; i < listLimit; i++) {
+
+        //     searchGenre()
+        // };
+    
+        
+    });
     
     
     
