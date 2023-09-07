@@ -157,9 +157,62 @@ $(function () {
         })
         .then(function (data) {
             console.log(data);
+            renderGenreList(data);
         })
     }
     
+    //Creates 20 card to display game when a genre is selected from 
+    //the nav bar on load, as to not clog the HTML file
+    function createGenreList()
+    {
+        let genreList = $(".genre-list");
+        let genreGameCard = $(".game-genre-card");
+      
+        for (let i = 0; i < 19; i++)
+        {
+            genreGameCard.clone().appendTo(genreList);
+        }
+    }
+
+    //Update the text and images of the cards to show the data for the current genre
+    function renderGenreList(data)
+    {
+        let genreList = $(".genre-list");
+
+        //Reveals all the cards
+        for (let a = 0; a < 20; a++)
+        {
+            genreList.children().eq(a).removeClass("hide");
+        }
+
+        let genreGameImg = $("[id=genre-game-img]");
+        let genreGameName = $("[id=genre-game-name]");
+        let genreGameScore = $("[id=genre-game-score]");
+        let genreGenreList = $("[id=genre-genre-list]");
+        let genrePlatformsList = $("[id=genre-platform-list]");
+
+        for (let x = 0; x < data.results.length; x++)
+        {
+            //Sets image, name, and metacritic score
+            $(genreGameImg[x]).attr('src', data.results[x].background_image);
+            $(genreGameName[x]).text(data.results[x].name);
+            $(genreGameScore[x]).text("Metacritic Score: " + data.results[x].metacritic);
+            
+            //Creates a list of every genre listed listed for the game
+            for (let y = 0; y < data.results[x].genres.length; y++)
+            {
+
+                $(genreGenreList[x]).append("<li>" + data.results[x].genres[y].name + "</li>");
+            }
+            
+            //Creates a list of all platforms the game is on
+            for (let z = 0; z < data.results[x].platforms.length; z++)
+            {
+                $(genrePlatformsList[x]).append("<li>" + data.results[x].platforms[z].platform.name + "</li>");             
+            }
+        }
+
+    }
     
     // EVENT LISTENERS
     
@@ -254,6 +307,35 @@ $(function () {
         
     });
     
+    function renderCurrentTopGame()
+    {
+        let requestLink = rawgURL + "games" + rawgID + "&ordering=-metacritic&dates=2022-01-01,2023-09-05";
+        fetch(requestLink)
+        .then(function (response) {
+            return response.json();
+        })
+        .then(function (data) {
+
+            let topGameImg = $(".top-game-img");
+            let topGameName = $(".top-game-name");
+            let topGameScore = $(".top-game-score");
+            let topGameGenre = $(".top-game-genre");
+            
+            for (let i = 0; i < 3; i++)
+            {
+                $(topGameImg[i]).attr('src', data.results[i].background_image);
+                $(topGameName[i]).text(data.results[i].name);
+                $(topGameScore[i]).text("Metacritic Score: " + data.results[i].metacritic);
+
+                for (let x = 0; x < data.results[i].genres.length; x++)
+                {
+                    $(topGameGenre[i]).append("<li>" + data.results[i].genres[x].name) + "</li>";
+                }
+            }
+        })
+
+    }
+    
     
     
     // EVENT LISTENERS
@@ -279,6 +361,7 @@ $(function () {
     // FUNCTION CALLS
     
     getData();
+    createGenreList();
     // findMatches();
     renderCurrentTopGame();
 
