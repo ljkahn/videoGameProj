@@ -3,7 +3,8 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Game Seekers</title>
+    <title>Game Finder</title>
+    <link rel="icon" type="image/x-icon" href="./assets/images/favicon.ico" />
     <link
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css"
       rel="stylesheet"
@@ -72,7 +73,7 @@
                 </a>
                 <ul class="dropdown-menu">
                   <li>
-                    <a id="nav-el" class="dropdown-item" href="#">Action</a>
+                    <a class="dropdown-item" href="#">Action</a>
                   </li>
                   <li>
                     <a id="indie" class="dropdown-item" href="#">Indie</a>
@@ -120,16 +121,9 @@
                     <a id="fighting" class="dropdown-item" href="#">Fighting</a>
                   </li>
                   <li>
-                    <a id="fighting" class="dropdown-item" href="#">Fighting</a>
-                  </li>
-                  <li>
                     <a id="family" class="dropdown-item" href="#">Family</a>
                   </li>
-                  <li>
-                    <a id="board-games" class="dropdown-item" href="#"
-                      >Board Games</a
-                    >
-                  </li>
+
                   <li>
                     <a id="educational" class="dropdown-item" href="#"
                       >Educational</a
@@ -145,141 +139,72 @@
         </div>
       </div>
     </nav>
-
-    <h2>GAME SEEKERS</h2>
-
-    <div class="container mt-1">
-      <div class="row">
-        <!-- <div class="col-9 mx-auto"> -->
-        <div class="card mx-auto col-9">
-          <img
-            src="./assets/images/devil-may-cry-dead-space-mirror-s-edge-metal-gear-solid-wallpaper-preview.jpg"
-            class="card-img-center m-2"
-            alt="..."
-          />
-          <div class="card-body">
-            <h5 class="card-title">GAME RECOMMENDATIONS</h5>
-            <div class="col-md-12 px-2">
-              <h6>Choose your platform</h6>
-            </div>
-            <form class="container">
-              <div class="mb-3 row align-items-center">
-                <div class="input-group mb-3 col-md-12">
-                  <label class="input-group-text" for="inputGroupSelect01"
-                    >Platform</label
-                  >
-                  <select class="form-select" id="inputGroupSelect01">
-                    <option selected>Choose...</option>
-                    <option value="1">PC</option>
-                    <option value="2">Playstation 5</option>
-                    <option value="3">Playstation 4</option>
-                    <option value="3">Xbox One</option>
-                    <option value="3">Xbox Series S/X</option>
-                    <option value="3">Nintendo Switch</option>
-                  </select>
-                </div>
-                <div class="col-md-12">
-                  <h6>Choose your top 3 games</h6>
-                </div>
-                <div class="col-md-4 col-sm-12">
-                  <label for="exapleGame1" class="gameCardInput form-label"
-                    >Game 1</label
+    <main id="main">
+      <div class="container mt-5">
+        <div class="row">
+          <!-- <div class="col-9 mx-auto"> -->
+          <div class="card mx-auto col-9">
+            <img
+              src="./assets/images/devil-may-cry-dead-space-mirror-s-edge-metal-gear-solid-wallpaper-preview.jpg"
+              class="card-img-center m-2"
+              alt="..."
+            />
+            <div class="card-body">
+              <h5 class="card-title">GAME FINDER</h5>
+              <form class="container">
+                <div class="mb-3 row align-items-center">
+                  <label for="game-1" class="gameCardInput form-label"
+                    >Choose Your Game 1</label
                   >
                   <input
                     type="email"
-                    class="form-control"
-                    id="exampleInputEmail1"
+                    class="form-control game"
+                    id="game-1"
                     aria-describedby="emailHelp"
                   />
                 </div>
-
-                <div class="col-md-4">
-                  <label for="exampleGame2" class="gameCardInput form-label"
-                    >Game 2</label
+                <div class="mb-3 row">
+                  <label for="game-2" class="gameCardInput form-label"
+                    >Choose Your Game 2</label
                   >
                   <input
                     type="password"
-                    class="form-control"
-                    id="exampleInputPassword1"
+                    class="form-control game"
+                    id="game-2"
                   />
                 </div>
-                <div class="col-md-4">
-                  <label for="exampleGame3" class="gameCardInput form-label"
-                    >Game 3</label
+                <div class="mb-3 row">
+                  <label for="game-3" class="gameCardInput form-label"
+                    >Choose Your Game 3</label
                   >
-                  <input class="form-control" id="exampleGame" />
+                  <input class="form-control game" id="game-3" />
                 </div>
-                <!-- <div class="input-group mb-3">
-                <label class="input-group-text" for="inputGroupSelect01"
-                  >Platform</label
-                >
-                <select class="form-select" id="inputGroupSelect01">
-                  <option selected>Choose...</option>
-                  <option value="1">PC</option>
-                  <option value="2">Playstation 5</option>
-                  <option value="3">Playstation 4</option>
-                  <option value="3">Xbox One</option>
-                  <option value="3">Xbox Series S/X</option>
-                  <option value="3">Nintendo Switch</option>
-                </select>
-              </div> -->
-                <div class="d-grid gap-2 col-md-3 mt-4 mx-auto">
-                  <button type="submit" class="btn btn-dark">Submit</button>
+                <div class="row">
+                  <button type="submit" class="btn btn-secondary mx-auto col-6">
+                    Submit
+                  </button>
                 </div>
-              </div>
-            </form>
+              </form>
+            </div>
           </div>
+          <!-- </div> -->
         </div>
-        <!-- </div> -->
+      </div>
+    </main>
+    <div id="footer" class="mt-2 container">
+      <div class="row">
+        <div class="col-3 mx-auto">
+          <p class="text-center">this is a footer</p>
+        </div>
       </div>
     </div>
-    <main id="main">
-      <h2 class="mt-100 position-absolute top-50 start-50"></h2>
-    </main>
 
     <div id="favorites-list" class="hide">favorites list</div>
 
-    <!-- <div id="games-list">games list</div> -->
+    <div id="games-list" class="hide"></div>
 
-    <section class="mx-auto w-50">
-      <!-- <h2>Get a game recommendation!</h2> -->
-
-      <!-- <div class="input-group mb-3">
-        <label class="input-group-text" for="inputGroupSelect02">Price</label>
-        <select class="form-select" id="inputGroupSelect02">
-          <option selected>Choose...</option>
-          <option value="1">No preference</option>
-          <option value="2">Under $60</option>
-          <option value="3">Under $30</option>
-          <option value="3">Under $10</option>
-        </select>
-      </div> -->
-      <!-- 
-      <div class="input-group mb-3">
-        <label class="input-group-text" for="inputGroupSelect03">Release</label>
-        <select class="form-select" id="inputGroupSelect03">
-          <option selected>Choose...</option>
-          <option value="1">No preference</option>
-          <option value="2">Last 10 years</option>
-          <option value="3">Last 5 years</option>
-          <option value="3">This year</option>
-        </select>
-      </div> -->
-
-      <!-- <div class="input-group mb-3">
-        <label class="input-group-text" for="inputGroupSelect01"
-          >Platform</label
-        >
-        <select class="form-select" id="inputGroupSelect01">
-          <option selected>Choose...</option>
-          <option value="1">PC</option>
-          <option value="2">Playstation 5</option>
-          <option value="3">Playstation 4</option>
-          <option value="3">Xbox One</option>
-          <option value="3">Xbox Series S/X</option>
-          <option value="3">Nintendo Switch</option>
-        </select>
-      </div> -->
+    <section id="recommendation" class="hide w-50">
+      <h2>Get a game recommendation!</h2>
     </section>
     <div id="footer" class="mt-2 container">
       <div class="row">
@@ -288,6 +213,38 @@
         </div>
       </div>
     </div>
+
+    <section class="d-flex flex-row top-games">
+      <div class="card mx-auto" style="width: 30rem">
+        <img class="card-img-top top-game-img" src="#" alt="Card image cap" />
+        <div class="card-body">
+          <h5 class="card-title top-game-name"></h5>
+          <h6 class="top-game-genre"></h6>
+          <p class="card-text top-game-score"></p>
+          <a href="#" class="btn btn-primary">Add to favorites</a>
+        </div>
+      </div>
+
+      <div class="card mx-auto" style="width: 30rem">
+        <img class="card-img-top top-game-img" src="#" alt="Card image cap" />
+        <div class="card-body">
+          <h5 class="card-title top-game-name"></h5>
+          <h6 class="top-game-genre"></h6>
+          <p class="card-text top-game-score"></p>
+          <a href="#" class="btn btn-primary">Add to favorites</a>
+        </div>
+      </div>
+
+      <div class="card mx-auto" style="width: 30rem">
+        <img class="card-img-top top-game-img" src="#" alt="Card image cap" />
+        <div class="card-body">
+          <h5 class="card-title top-game-name"></h5>
+          <h6 class="top-game-genre"></h6>
+          <p class="card-text top-game-score"></p>
+          <a href="#" class="btn btn-primary">Add to favorites</a>
+        </div>
+      </div>
+    </section>
 
     <script
       src="https://code.jquery.com/jquery-3.5.1.min.js"
