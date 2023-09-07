@@ -18,28 +18,28 @@ $(function () {
     
     // FUNCTION DECLARATIONS
     
-    // function getData()
-    // {
-    //     let requestLink = rawgURL + "genres" + rawgID;
+    function getData()
+    {
+        let requestLink = rawgURL + "genres" + rawgID;
         
-    //     // console.log(requestLink);
+        // console.log(requestLink);
         
-    //     fetch(requestLink)
-    //     .then(function (response) {
-    //         if (response.ok)
-    //         {
-    //             //Data returns
-    //             return response.json();
-    //         }
-    //         else if (response.status === 404)
-    //         {
-    //             //404 error
-    //         }
-    //     })
-    //     .then(function (data) {
-    //         // console.log(data);
-    //     })
-    // }
+        fetch(requestLink)
+        .then(function (response) {
+            if (response.ok)
+            {
+                //Data returns
+                return response.json();
+            }
+            else if (response.status === 404)
+            {
+                //404 error
+            }
+        })
+        .then(function (data) {
+            console.log(data);
+        })
+    }
 
     function renderCurrentTopGame()
     {
@@ -137,6 +137,11 @@ $(function () {
         if (aGenre === 'rpg') {
             // RPG id
             aGenre = 5;
+        } else if (aGenre === 'platformer') {
+            // Platformer id
+            aGenre = 83;
+        } else if (aGenre === 'massively multiplayer') {
+            aGenre = 59;
         }
         // Declare variable to store api queries
         var genreSearchQuery = "games" + rawgID + "&ordering=-metacritic" + "&genres=" + aGenre + "&exclude_additions=true";
@@ -166,7 +171,7 @@ $(function () {
     {
         let genreList = $(".genre-list");
         let genreGameCard = $(".game-genre-card");
-      
+        
         for (let i = 0; i < 19; i++)
         {
             genreGameCard.clone().appendTo(genreList);
@@ -177,6 +182,7 @@ $(function () {
     function renderGenreList(data)
     {
         let genreList = $(".genre-list");
+        genreList.replaceChildren
 
         //Reveals all the cards
         for (let a = 0; a < 20; a++)
@@ -349,7 +355,7 @@ $(function () {
     
     // FUNCTION CALLS
     
-    // getData();
+    getData();
     createGenreList();
     // findMatches();
     renderCurrentTopGame();
