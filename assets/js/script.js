@@ -8,7 +8,7 @@ $(function () {
     // Declare variable for rawg API key
     var rawgID = "?key=ad61e1d9ed3844018c1885a37313c3e9";
     // Declare variable for user input  [$('input-1'), $('input-2'), $('input-3')]
-    var userFavorites = ["hollowknight", 'hades', 'limbo']
+    var userFavorites = ["hades", 'god of war', 'limbo']
 
     
     // FUNCTION DECLARATIONS
@@ -35,79 +35,7 @@ $(function () {
             console.log(data);
         })
     }
-
-
-
-
-
     
-    // Realistically I'll move the code in this function up into the getData function because I'll need access to the local variables
-    // function findMatches () {
-        // Search input against database with game search endpoint
-        
-        // Get genre and store in variable
-        // var userGenre = data.genreElement
-
-        // search userGenre for top games of same genre
-        // 
-
-    // }
-    
-    
-    
-    
-    // EVENT LISTENERS
-    
-// Show main and hide favorites list
-$("#home-button").on("click", function(event){
-    $("#favorites-list").addClass("hide"); 
-    $("#main").removeClass("hide");
-
-});
-
-
-
-
-    //favorites button --> local storage 
-    $("#favorites-button").on("click", function(event){
-        // var userInput = $("#input").val();
-
-        $("#main").addClass("hide"); 
-        $("#favorites-list").removeClass("hide");
-
-     //store search results
-     //create variable to store searches in
-
-    var favGames = JSON.parse(localStorage.getItem("favorites"))|| [];
-
-    function updateFave () {
-            favGames.forEach(function(game) {
-                $("#favorites-list").append(`<li>${game}</li>`);
-            });
-        };
-
-        var game =$("#input").val();
-        favGames.unshift(game);
-        localStorage.setItem("favorite-game", JSON.stringify(favGames));
-        updateFave();
-
-    })
-
-
-     //genre button event listener to display games based on the api genre data
-    $("#nav-el").on("click", function (event) {
-        event.stopPropagation();
-        $("#main").addClass("hide"); 
-        $("#games-list").removeClass("hide");
-
-
-    
-    var choice = event.target;
-    var userSelect = choice.getAttribute("id");
-
-    findMatches ();
-    
-})
     
     // Declare findMatches async function
     async function findMatches () {
@@ -115,7 +43,7 @@ $("#home-button").on("click", function(event){
         var queries = "games" + rawgID + "&search_precise=true" + "&search_exact=true" + "&ordering=-metacritic" + "&search=";
         // Declare genres variable to store genres of favorite games
         var genres = [];
-
+        
         // Use for of loop to iterate through array of user input
         for (const element of userFavorites) {
             // Declare variable for endpoint with concatenated queries and user input
@@ -130,63 +58,94 @@ $("#home-button").on("click", function(event){
                 }
                 return response.json();
             })
-                console.log(data);
-                var results = data.results;
-                // console.log(results);
-                // Get genre and store in variable
-                for (var i = 0; i < userFavorites.length; i++) {
-                    var namesLower = userFavorites[i].toLowerCase();
-                    var temp = [];
-                    for (var j = 0; j < results.length; j++) {
-                        var resultsLower = results[j].name.toLowerCase();
-                        if (resultsLower.includes(namesLower) && results[j].genres.length > 0 && results[j].metacritic) {
-                            // Push genres of top matches to genres array
-                            genres.push(results[j].genres[0].name);
-                            temp.push(results[j]);
-                        }
+            console.log(data);
+            // Declare results variable to make dot 
+            var results = data.results;
+            // console.log(results);
+            // Make input lowercase for comparison
+            var namesLower = element.toLowerCase();
+            // for loop to compare results against user input
+            for (var j = 0; j < results.length; j++) {
+                var dataGenres = results[j].genres
+                var resultsLower = results[j].name.toLowerCase();
+                // Limit search to game titles including user input and a metacritic score
+                if (resultsLower.includes(namesLower) && results[j].metacritic) {
+                    // Nested loop finds each genre if game has more than one listed 
+                    for (const key of dataGenres) {
+                        // Push genres of top matches to genres array
+                        genres.push(results[j].genres[0].name);
                     }
-                    console.log(temp);
                 }
             }
-            // remove duplicates
-            genres = [...new Set(genres)];
-            console.log(genres);
-        //         // Get genre and store in variable
-        //         for (var i = 0; i < userFavorites.length; i++) {
-        //             var namesLower = userFavorites[i].toLowerCase();
-        //             for (var j = 0; j < results.length; j++) {
-        //                 var resultsLower = results[j].name.toLowerCase();
-        //                 if (resultsLower.includes(namesLower) && results[j].genres.length > 0) {
-        //                     // Push genres of top matches to genres array
-        //                     genres.push(results[j].genres[0].name);
-        //                 }
-                        
-        //             }
-        //         }
-        //         // remove duplicates
-        //         genres = [...new Set(genres)];
-        //         console.log(genres);
-                
-        //         // For each genre pulled from the favorite games 
-        //         genres.forEach(element => {
-        //             // Search games of the same genre from the metacritic filtered list
-        //         });
-        //     });
-        // });
-
+        }
+        // remove duplicates
+        genres = [...new Set(genres)];
+        console.log(genres);
         
-
-
-
-                
+        // For each genre pulled from the favorite games 
+        for (const element of genres) {
             
+        }
+        // Search games of the same genre from the metacritic filtered list             
     }
     
     
-    
-    
+
+
     // EVENT LISTENERS
     
+
+
+    // Show main and hide favorites list
+    $("#home-button").on("click", function(event){
+        $("#favorites-list").addClass("hide"); 
+        $("#main").removeClass("hide");
+    
+    });
+    
+    
+    
+    
+        //favorites button --> local storage 
+        $("#favorites-button").on("click", function(event){
+            // var userInput = $("#input").val();
+    
+            $("#main").addClass("hide"); 
+            $("#favorites-list").removeClass("hide");
+    
+         //store search results
+         //create variable to store searches in
+    
+        var favGames = JSON.parse(localStorage.getItem("favorites"))|| [];
+    
+        function updateFave () {
+                favGames.forEach(function(game) {
+                    $("#favorites-list").append(`<li>${game}</li>`);
+                });
+            };
+    
+            var game =$("#input").val();
+            favGames.unshift(game);
+            localStorage.setItem("favorite-game", JSON.stringify(favGames));
+            updateFave();
+    
+        })
+    
+    
+         //genre button event listener to display games based on the api genre data
+        $("#nav-el").on("click", function (event) {
+            event.stopPropagation();
+            $("#main").addClass("hide"); 
+            $("#games-list").removeClass("hide");
+    
+    
+        
+        var choice = event.target;
+        var userSelect = choice.getAttribute("id");
+    
+        findMatches ();
+        
+    })
     
     
     
