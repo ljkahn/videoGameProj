@@ -124,10 +124,7 @@ $(function () {
     // EVENT LISTENERS
     
     // LIA - Use this in your event listener when I'm done with the genreSearch function  
-    // var listLimit = $('input')
-    // for (var i = 0; i < listLimit; i++) {
-    //     // Call genreSearch()
-    // }
+
 
     // Show main and hide favorites list
     $("#home-button").on("click", function(event){
@@ -166,19 +163,27 @@ $(function () {
     
     
          //genre button event listener to display games based on the api genre data
-        $("#nav-el").on("click", function (event) {
+        $("#dropdown-item").on("click", function (event) {
             event.stopPropagation();
             $("#main").addClass("hide"); 
+            $("#recommendation").addClass("hide");
             $("#games-list").removeClass("hide");
     
     
         
-        var choice = event.target;
-        var userSelect = choice.getAttribute("id");
+        var choice = event.target.textContent;
+        console.log(choice);
+            searchGenre(choice);
+
+        //input = whatever number they choose from dropdown
+        // var listLimit = $('input')
+        // for (var i = 0; i < listLimit; i++) {
+
+        //     searchGenre()
+        // };
     
-        searchGenre();
         
-    })
+    });
     
     function renderCurrentTopGame()
     {

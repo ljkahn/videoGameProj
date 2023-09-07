@@ -70,7 +70,7 @@
                 </a>
                 <ul class="dropdown-menu">
                   <li>
-                    <a id="nav-el" class="dropdown-item" href="#">Action</a>
+                    <a class="dropdown-item" href="#">Action</a>
                   </li>
                   <li>
                     <a id="indie" class="dropdown-item" href="#">Indie</a>
@@ -118,16 +118,9 @@
                     <a id="fighting" class="dropdown-item" href="#">Fighting</a>
                   </li>
                   <li>
-                    <a id="fighting" class="dropdown-item" href="#">Fighting</a>
-                  </li>
-                  <li>
                     <a id="family" class="dropdown-item" href="#">Family</a>
                   </li>
-                  <li>
-                    <a id="board-games" class="dropdown-item" href="#"
-                      >Board Games</a
-                    >
-                  </li>
+
                   <li>
                     <a id="educational" class="dropdown-item" href="#"
                       >Educational</a
@@ -143,56 +136,58 @@
         </div>
       </div>
     </nav>
-    <div class="container mt-5">
-      <div class="row">
-        <!-- <div class="col-9 mx-auto"> -->
-        <div class="card mx-auto col-9">
-          <img
-            src="./assets/images/devil-may-cry-dead-space-mirror-s-edge-metal-gear-solid-wallpaper-preview.jpg"
-            class="card-img-center m-2"
-            alt="..."
-          />
-          <div class="card-body">
-            <h5 class="card-title">GAME FINDER</h5>
-            <form class="container">
-              <div class="mb-3 row align-items-center">
-                <label for="exapleGame1" class="gameCardInput form-label"
-                  >Choose Your Game 1</label
-                >
-                <input
-                  type="email"
-                  class="form-control"
-                  id="exampleInputEmail1"
-                  aria-describedby="emailHelp"
-                />
-              </div>
-              <div class="mb-3 row">
-                <label for="exampleGame2" class="gameCardInput form-label"
-                  >Choose Your Game 2</label
-                >
-                <input
-                  type="password"
-                  class="form-control"
-                  id="exampleInputPassword1"
-                />
-              </div>
-              <div class="mb-3 row">
-                <label for="exampleGame3" class="gameCardInput form-label"
-                  >Choose Your Game 3</label
-                >
-                <input class="form-control" id="exampleGame" />
-              </div>
-              <div class="row">
-                <button type="submit" class="btn btn-secondary mx-auto col-6">
-                  Submit
-                </button>
-              </div>
-            </form>
+    <main id="main">
+      <div class="container mt-5">
+        <div class="row">
+          <!-- <div class="col-9 mx-auto"> -->
+          <div class="card mx-auto col-9">
+            <img
+              src="./assets/images/devil-may-cry-dead-space-mirror-s-edge-metal-gear-solid-wallpaper-preview.jpg"
+              class="card-img-center m-2"
+              alt="..."
+            />
+            <div class="card-body">
+              <h5 class="card-title">GAME FINDER</h5>
+              <form class="container">
+                <div class="mb-3 row align-items-center">
+                  <label for="exapleGame1" class="gameCardInput form-label"
+                    >Choose Your Game 1</label
+                  >
+                  <input
+                    type="email"
+                    class="form-control"
+                    id="exampleInputEmail1"
+                    aria-describedby="emailHelp"
+                  />
+                </div>
+                <div class="mb-3 row">
+                  <label for="exampleGame2" class="gameCardInput form-label"
+                    >Choose Your Game 2</label
+                  >
+                  <input
+                    type="password"
+                    class="form-control"
+                    id="exampleInputPassword1"
+                  />
+                </div>
+                <div class="mb-3 row">
+                  <label for="exampleGame3" class="gameCardInput form-label"
+                    >Choose Your Game 3</label
+                  >
+                  <input class="form-control" id="exampleGame" />
+                </div>
+                <div class="row">
+                  <button type="submit" class="btn btn-secondary mx-auto col-6">
+                    Submit
+                  </button>
+                </div>
+              </form>
+            </div>
           </div>
+          <!-- </div> -->
         </div>
-        <!-- </div> -->
       </div>
-    </div>
+    </main>
     <div id="footer" class="mt-2 container">
       <div class="row">
         <div class="col-3 mx-auto">
@@ -201,16 +196,11 @@
       </div>
     </div>
 
-
-    <main id="main">
-      <h2 class="mt-100 position-absolute top-50 start-50">MAIN SECTION</h2>
-    </main>
-
     <div id="favorites-list" class="hide">favorites list</div>
 
-    <div id="games-list">games list</div>
+    <div id="games-list" class="hide">games list</div>
 
-    <section class="w-50">
+    <section id="recommendation" class="hide w-50">
       <h2>Get a game recommendation!</h2>
 
       <div class="input-group mb-3">
