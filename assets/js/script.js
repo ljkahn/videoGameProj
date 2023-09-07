@@ -170,17 +170,18 @@ $(function () {
 
 
     //genre button event listener to display games based on the api genre data
-    $("#nav-el").on("click", function (event) {
+    $(".dropdown-item").on("click", function (event) {
         event.stopPropagation();
         $("#main").addClass("hide"); 
         $("#games-list").removeClass("hide");
 
 
     
-    var choice = event.target;
-    var userSelect = choice.getAttribute("id");
+    var choice = event.target.textContent;
+    console.log(choice);
+    // var userSelect = choice.getAttribute("id");
 
-    searchGenre(userSelect);
+    searchGenre(choice);
         
     })
     
