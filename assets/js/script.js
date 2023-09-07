@@ -18,28 +18,28 @@ $(function () {
     
     // FUNCTION DECLARATIONS
     
-    function getData()
-    {
-        let requestLink = rawgURL + "genres" + rawgID;
+    // function getData()
+    // {
+    //     let requestLink = rawgURL + "genres" + rawgID;
         
-        // console.log(requestLink);
+    //     // console.log(requestLink);
         
-        fetch(requestLink)
-        .then(function (response) {
-            if (response.ok)
-            {
-                //Data returns
-                return response.json();
-            }
-            else if (response.status === 404)
-            {
-                //404 error
-            }
-        })
-        .then(function (data) {
-            console.log(data);
-        })
-    }
+    //     fetch(requestLink)
+    //     .then(function (response) {
+    //         if (response.ok)
+    //         {
+    //             //Data returns
+    //             return response.json();
+    //         }
+    //         else if (response.status === 404)
+    //         {
+    //             //404 error
+    //         }
+    //     })
+    //     .then(function (data) {
+    //         console.log(data);
+    //     })
+    // }
 
     function renderCurrentTopGame()
     {
@@ -74,7 +74,7 @@ $(function () {
     // Declare findMatches async function
     async function findMatches (userInput) {
         // Declare variable with all concatenated queries
-        let queries = "games" + rawgID + "&search_precise=true" + "&search_exact=true" + "&exclude_additions=true" + "&ordering=-metacritic" + "&exclude_collection=true" + "&search=";
+        let queries = "games" + rawgID + "&search_precise=true" + "&search_exact=true" + "&exclude_additions=true" + "&dates=2010-01-01,2023-08-05" + "&ordering=-metacritic" + "&exclude_collection=true" + "&search=";
 
         // Clear genres array every time findMatches is called
         genres = []
@@ -342,11 +342,11 @@ $(function () {
     
     
 
-    $('#game-finder').on('click', function (event) {
+    $('#game-seeker').on('click', function (event) {
         event.stopPropagation();
         event.preventDefault();
         // Declare variable for user input
-        var userFavorites = [$('#input-1').val(), $('#input-2').val(), $('#input-3').val()];
+        var userFavorites = [$('#game-1').val(), $('#game-2').val(), $('#game-3').val()];
         
         findMatches(userFavorites);
     })
@@ -354,7 +354,7 @@ $(function () {
     
     // FUNCTION CALLS
     
-    getData();
+    // getData();
     createGenreList();
     // findMatches();
     renderCurrentTopGame();
