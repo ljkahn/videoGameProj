@@ -7,10 +7,9 @@ $(function () {
     var rawgURL = "https://api.rawg.io/api/";
     // Declare variable for rawg API key
     var rawgID = "?key=ad61e1d9ed3844018c1885a37313c3e9";
-    // Declare variable for user input  [$('input-1'), $('input-2'), $('input-3')]
-    var userFavorites = ["horizon forbidden west", 'horizon zero dawn', 'left 4 dead 2']
+    // Declare genres array variable
+    var genres = []
 
-    
     // FUNCTION DECLARATIONS
     
     function getData()
@@ -36,16 +35,18 @@ $(function () {
         })
     }
     
-    
-    // Declare genres variable to store genres of favorite games
-    var genres = [];
+
     // Declare findMatches async function
-    async function findMatches () {
+    async function findMatches (userInput) {
         // Declare variable with all concatenated queries
-        var queries = "games" + rawgID + "&search_precise=true" + "&search_exact=true" + "&exclude_additions=true" + "&ordering=-metacritic" + "&exclude_collection=true" + "&search=";
-        
+        let queries = "games" + rawgID + "&search_precise=true" + "&search_exact=true" + "&exclude_additions=true" + "&ordering=-metacritic" + "&exclude_collection=true" + "&search=";
+
+        // Clear genres array every time findMatches is called
+        genres = []
         // Use for of loop to iterate through array of user input
-        for (const element of userFavorites) {
+        for (const element of userInput) {
+            
+            console.log(userInput)
             // Declare variable for endpoint with concatenated queries and user input
             let requestSearch = rawgURL + queries + element;
             // Declare data variable that will get the results from fetching the above variable
@@ -59,18 +60,18 @@ $(function () {
                 return response.json();
             })
             // console.log(data);
-            // Declare results variable to reduce dot notation 
-            var results = data.results;
-            // console.log(results);
+            console.log(results);
             // Make input lowercase for comparison
             var namesLower = element.toLowerCase();
+            // Declare results variable to reduce dot notation 
+            var results = data.results;
             // for loop to compare results against user input
-            for (var j = 0; j < results.length; j++) {
-                var dataGenres = results[j].genres
-                var resultsLower = results[j].name.toLowerCase();
+            for (var i = 0; i < results.length; i++) {
+                var dataGenres = results[i].genres
+                var resultsLower = results[i].name.toLowerCase();
                 // Limit search to game titles including user input and a metacritic score  
                 // consider adding this or similar for narrower results  -> && results[j].suggestions_count > 600
-                if (resultsLower.includes(namesLower) && results[j].metacritic && dataGenres) {
+                if (resultsLower.includes(namesLower) && results[i].metacritic && results[i].suggestions_count > 600) {
                     // Nested loop finds each genre if game has more than one listed 
                     for (const key of dataGenres) {
                         // Push genres of top matches to genres array by id
@@ -129,7 +130,7 @@ $(function () {
     // LIA - Use this in your event listener when I'm done with the genreSearch function  
     // var listLimit = $('input')
     // for (var i = 0; i < listLimit; i++) {
-    //     // Call genreSearch()
+    //     // Call searchGenre()
     // }
 
     // Show main and hide favorites list
@@ -142,48 +143,56 @@ $(function () {
     
     
     
-        //favorites button --> local storage 
-        $("#favorites-button").on("click", function(event){
-            // var userInput = $("#input").val();
+    //favorites button --> local storage 
+    $("#favorites-button").on("click", function(event){
+        // var userInput = $("#input").val();
+
+        $("#main").addClass("hide"); 
+        $("#favorites-list").removeClass("hide");
+
+        //store search results
+        //create variable to store searches in
+
+    var favGames = JSON.parse(localStorage.getItem("favorites"))|| [];
+
+    function updateFave () {
+            favGames.forEach(function(game) {
+                $("#favorites-list").append(`<li>${game}</li>`);
+            });
+        };
+
+        var game =$("#input").val();
+        favGames.unshift(game);
+        localStorage.setItem("favorite-game", JSON.stringify(favGames));
+        updateFave();
+
+    })
+
+
+    //genre button event listener to display games based on the api genre data
+    $("#nav-el").on("click", function (event) {
+        event.stopPropagation();
+        $("#main").addClass("hide"); 
+        $("#games-list").removeClass("hide");
+
+
     
-            $("#main").addClass("hide"); 
-            $("#favorites-list").removeClass("hide");
-    
-         //store search results
-         //create variable to store searches in
-    
-        var favGames = JSON.parse(localStorage.getItem("favorites"))|| [];
-    
-        function updateFave () {
-                favGames.forEach(function(game) {
-                    $("#favorites-list").append(`<li>${game}</li>`);
-                });
-            };
-    
-            var game =$("#input").val();
-            favGames.unshift(game);
-            localStorage.setItem("favorite-game", JSON.stringify(favGames));
-            updateFave();
-    
-        })
-    
-    
-         //genre button event listener to display games based on the api genre data
-        $("#nav-el").on("click", function (event) {
-            event.stopPropagation();
-            $("#main").addClass("hide"); 
-            $("#games-list").removeClass("hide");
-    
-    
-        
-        var choice = event.target;
-        var userSelect = choice.getAttribute("id");
-    
-        searchGenre();
+    var choice = event.target;
+    var userSelect = choice.getAttribute("id");
+
+    searchGenre(userSelect);
         
     })
     
-    
+
+    $('#game-finder').on('click', function (event) {
+        event.stopPropagation();
+        event.preventDefault();
+        // Declare variable for user input
+        var userFavorites = [$('#input-1').val(), $('#input-2').val(), $('#input-3').val()];
+        
+        findMatches(userFavorites);
+    })
     
     
     
@@ -193,7 +202,7 @@ $(function () {
     // FUNCTION CALLS
     
     getData();
-    findMatches();
+    // findMatches();
 
 // Push this down to keep code above the closing bracket/parenthesis
 });
