@@ -85,13 +85,12 @@ $(function () {
         // For each genre pulled from the favorite games 
         // for (const element of genres) {
             
-        // }
-        // Search games of the same genre from the metacritic filtered list             
+        // }           
     }
 
     // Create function for searching by genre
-    // function searchGenre (aGenre) {
-    //     aGenre 
+    // asynch function searchGenre (aGenre) {
+    //     var genreSearchQuery = "games" + rawgID + "&ordering=-metacritic"
     // }
     
     
