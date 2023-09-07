@@ -21,11 +21,17 @@ body {
 .card {
   background-color: #444b5a;
 }
+
 .card-title {
   text-align: center;
   font-weight: 700;
   font-size: 3.25rem;
   font-family: Arial, Helvetica, sans-serif;
+  color: white;
+}
+
+.game-genre-card {
+  background-color: #444b5a;
   color: white;
 }
 

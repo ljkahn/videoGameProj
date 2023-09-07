@@ -117,9 +117,14 @@ $(function () {
         })
         .then(function (data) {
             console.log(data);
+            renderGenreList(data);
         })
     }
     
+    function renderGenreList(data)
+    {
+        
+    }
     
     // EVENT LISTENERS
     
@@ -163,7 +168,7 @@ $(function () {
     
     
          //genre button event listener to display games based on the api genre data
-        $("#dropdown-item").on("click", function (event) {
+        $(".dropdown-item").on("click", function (event) {
             event.stopPropagation();
             $("#main").addClass("hide"); 
             $("#recommendation").addClass("hide");
