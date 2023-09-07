@@ -67,14 +67,15 @@ $(function () {
             // for loop to compare results against user input
             for (var j = 0; j < results.length; j++) {
                 var dataGenres = results[j].genres
-                // console.log(dataGenres);
                 var resultsLower = results[j].name.toLowerCase();
                 // Limit search to game titles including user input and a metacritic score
                 if (resultsLower.includes(namesLower) && results[j].metacritic && dataGenres) {
                     // Nested loop finds each genre if game has more than one listed 
                     for (const key of dataGenres) {
-                        // Push genres of top matches to genres array
+                        // Push genres of top matches to genres array by id
                         genres.push(key.name);
+                        // console.log(key.id);
+                        // console.log(key.name);
                     }
                 }
             }
@@ -84,34 +85,28 @@ $(function () {
         console.log(genres);
         
         // For each genre pulled from the favorite games 
-        // for (const element of genres) {
-        //     searchGenre(element);
-        // }           
+        for (const element of genres) {
+            searchGenre(element);
+            console.log(element);
+        }           
     }
 
-    searchGenre("");
 
     // Create function for searching by genre
     function searchGenre (aGenre) {
+        // Convert searches to lowercase to pull up results
         aGenre = aGenre.toLowerCase();
+        // If input is RPG search by genre id to pull up results
+        if (aGenre === 'rpg') {
+            // RPG id
+            aGenre = 5;
+        }
         // Declare variable to store api queries
         var genreSearchQuery = "games" + rawgID + "&ordering=-metacritic" + "&genres=" + aGenre + "&exclude_additions=true";
 
         // Concat queries to endpoint URL
-        var requestGenres = rawgURL + genreSearchQuery;
-        // Declare data variable that will get the results from fetching the above variable
-        // fetch(requestGenres)
-        // .then(function (response) {
-        //     // Validation
-        //     if (response.status === 404) {
-        //         return;
-        //     }
-        //     return response.json();
-        // })
-        // .then(function (data) {
+        var requestGenres = rawgURL + genreSearchQuery
 
-        // })
-        // console.log(data);
         fetch(requestGenres)
         .then(function (response) {
             if (response.status === 404)
