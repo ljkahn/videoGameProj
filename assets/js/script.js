@@ -9,10 +9,10 @@ $(function () {
     var rawgID = "?key=ad61e1d9ed3844018c1885a37313c3e9";
     // Declare genres array variable
     var genres = []
-
+    // Declare variable for giant bomb api key
     var bombKey = "e5af497a03a411164e9f7c6c123e898f0a91fcff";
-
-    var bombUrl = "URL: https://www.giantbomb.com/api/games/?api_key=[e5af497a03a411164e9f7c6c123e898f0a91fcff]";
+    // Declare variable for giant bomb endpoint url 
+    var bombUrl = "https://www.giantbomb.com/api/games/?api_key=";
 
 
     
