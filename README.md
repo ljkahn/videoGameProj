@@ -22,7 +22,11 @@ N/A
 
 ## Usage
 
+To use this video game finder, scroll down to the input form and enter in what platform you use and then enter three games that you like to play and hit submit! Our application will return back \_\_\_ amount of games that will be similar to what you already know and love!
 
+To search games by genre, click on the three line icon on the top right corner of the web browser and click the "Genre" button. A dropdown menu will display and you can click on any genre! \_\_\_\_ amount of games will display. If you hover over the game, a modal will pop up with a brief description, rating, and image.
+
+Once you have found a game (or a few) that you want to save, hit the "Add to Favorites" button and those games will be saved in a list for you to go back too. To access that list you can hit the three lined button on the top right of the web browser and you will see "Favorites".
 
 ## Mock-Up
 
@@ -31,8 +35,6 @@ The following gif shows the Game Finder application's appearance and functionali
 ![Gif of Game Finder application](./assets/images/#)
 
 ## Credits
-
-
 
 ## License
 
