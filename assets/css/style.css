@@ -13,6 +13,17 @@ h2 {
 }
 
 /* CLASSES */
+p,
+h6 {
+  font-weight: 700;
+  color: rgba(255, 255, 255, 0.54);
+  padding-left: 0.5rem;
+}
+
+label {
+  padding-left: 0.5rem;
+}
+
 li {
   text-align: center;
 }
