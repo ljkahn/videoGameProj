@@ -26,6 +26,7 @@ label {
 
 li {
   text-align: center;
+  font-weight: 700;
 }
 
 .flex-column {
@@ -50,7 +51,7 @@ a .btn {
 
 /* .btn {
   
- 
+  
 } */
 
 .card {
