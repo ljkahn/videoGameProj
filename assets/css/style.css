@@ -15,6 +15,7 @@ h2 {
 /* CLASSES */
 li {
   text-align: center;
+  font-weight: 700;
 }
 
 .flex-column {
@@ -35,6 +36,11 @@ a .btn {
 
 .footer {
   align-items: center;
+}
+
+p, h6 {
+  font-weight: 700;
+  color: rgb(16, 16, 16);
 }
 
 /* .btn {
