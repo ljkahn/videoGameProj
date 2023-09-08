@@ -175,7 +175,8 @@ $(function () {
         })
         .then(function (data) {
             console.log(data);
-            renderGenreList(data, 5);
+            // renderGenreList(data, 5);
+            renderGenreList(data);
         });
     }
 
@@ -191,11 +192,13 @@ $(function () {
     }
 
     //Update the text and images of the cards to show the data for the current genre
-    function renderGenreList(data, iterations) {
+    // function renderGenreList(data, iterations) {
+    function renderGenreList(data) {
         let genreList = $(".genre-list");
 
         //Reveals all the cards
-        for (let a = 0; a < iterations; a++) {
+        // for (let a = 0; a < iterations; a++) {
+        for (let a = 0; a < 20; a++) {
         genreList.children().eq(a).removeClass("hide");
         }
 
