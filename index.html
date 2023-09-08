@@ -14,7 +14,7 @@
     <link rel="stylesheet" href="./assets/css/style.css" />
   </head>
   <body>
-    <nav class="navbar bg-body-tertiary fixed-top">
+    <nav class="navbar fixed-top">
       <div class="container-fluid">
         <a class="navbar-brand" href="#"></a>
         <button
@@ -34,7 +34,9 @@
           aria-labelledby="offcanvasNavbarLabel"
         >
           <div class="offcanvas-header">
-            <h5 class="offcanvas-title" id="offcanvasNavbarLabel">Offcanvas</h5>
+            <h5 class="offcanvas-title" id="offcanvasNavbarLabel">
+              GAME SEEKERS
+            </h5>
             <button
               type="button"
               class="btn-close"
@@ -137,8 +139,10 @@
         </div>
       </div>
     </nav>
-    <main id="main">
-      <div class="container mt-5">
+    <h2 class="mt-1">GAME SEEKERS</h2>
+ <!-- <div class="container mt-1"> -->
+    <main id="main" class="container mt-1">
+      <!-- <div class="container mt-5"> -->
         <div class="row">
           <!-- <div class="col-9 mx-auto"> -->
           <div class="card mx-auto col-9">
@@ -148,46 +152,108 @@
               alt="..."
             />
             <div class="card-body">
-              <h5 class="card-title">GAME FINDER</h5>
+              <!-- <h5 class="card-title">Game Seekers</h5> -->
+              <h5 class="card-title">GAME RECOMMENDATIONS</h5>
+              <div class="col-md-12 px-3">
+                <h6>Choose your platform</h6>
+              </div>
               <form class="container">
                 <div class="mb-3 row align-items-center">
-                  <label for="game-1" class="gameCardInput form-label"
-                    >Choose Your Game 1</label
-                  >
-                  <input
-                    type="input"
-                    class="form-control game"
-                    id="game-1"
-                    aria-describedby="emailHelp"
-                  />
-                </div>
-                <div class="mb-3 row">
-                  <label for="game-2" class="gameCardInput form-label"
-                    >Choose Your Game 2</label
-                  >
-                  <input
-                    type="input"
-                    class="form-control game"
-                    id="game-2"
-                  />
-                </div>
-                <div class="mb-3 row">
-                  <label for="game-3" class="gameCardInput form-label"
-                    >Choose Your Game 3</label
-                  >
-                  <input type="input" class="form-control game" id="game-3" />
-                </div>
-                <div class="row">
-                  <button type="submit" class="btn btn-secondary mx-auto col-6" id="game-seeker">
-                    Submit
-                  </button>
-                </div>
+                  <div class="input-group mb-3 col-md-12">
+                    <label class="input-group-text" for="inputGroupSelect01"
+                      >Platform</label
+                    >
+                    <select class="form-select" id="inputGroupSelect01">
+                      <option selected>Choose...</option>
+                      <option value="1">PC</option>
+                      <option value="2">Playstation 5</option>
+                      <option value="3">Playstation 4</option>
+                      <option value="3">Xbox One</option>
+                      <option value="3">Xbox Series S/X</option>
+                      <option value="3">Nintendo Switch</option>
+                    </select>
+                  </div>
+                  <div class="col-md-12">
+                    <h6>Choose your top 3 games</h6>
+                  </div>
+                  <div class="col-md-4 col-sm-12">
+                    <label for="game-1" class="gameCardInput form-label"
+                      >Game 1</label
+                    >
+                    <input
+                      type="input"
+                      class="form-control game"
+                      id="game-1"
+                      aria-describedby="emailHelp"
+                    />
+                  </div>
+  
+                  <div class="col-md-4">
+                    <label for="game-2" class="gameCardInput form-label"
+                      >Game 2</label
+                    >
+                    <input
+                      type="input"
+                      class="form-control game"
+                      id="game-2"
+                    />
+                  </div>
+                  <div class="col-md-4">
+                    <label for="game-3" class="gameCardInput form-label"
+                      >Game 3</label
+                    >
+                    <input type="input" class="form-control game" id="game-3" />
+                  </div>
+                  
+                  <div class="d-grid gap-2 col-md-3 mt-4 mx-auto">
+                    <button type="submit" id="game-seeker" class="btn btn-dark">Submit</button>
+                  </div>
+                 
               </form>
             </div>
           </div>
           <!-- </div> -->
         </div>
-      </div>
+        <section id="recommendation" class="hide w-50">
+          <h2>Get a game recommendation!</h2>
+        </section>
+        <section class="d-flex flex-row top-games mt-3 col-9 mx-auto p-0">
+          <div class="card mx-auto col-4">
+            <div class="ratio ratio-16x9">
+              <img class="card-img-top top-game-img" src="#" alt="Card image cap" />
+            </div>
+            <div class="card-body d-flex flex-column justify-content-space-between">
+              <h5 class="card-title top-game-name"></h5>
+              <h6 class="top-game-genre"></h6>
+              <p class="card-text top-game-score "style="text-align: center;"></p>
+              <a href="#" class="btn btn-dark">Add to favorites</a>
+            </div>
+          </div>
+    
+          <div class="card mx-auto col-4">
+            <div class="ratio ratio-16x9">
+              <img class="card-img-top top-game-img" src="#" alt="Card image cap" />
+            </div>
+            <div class="card-body d-flex flex-column justify-content-space-between">
+              <h5 class="card-title top-game-name"></h5>
+              <h6 class="top-game-genre"></h6>
+              <p class="card-text top-game-score" style="text-align: center;"></p>
+              <a href="#" class="btn btn-dark">Add to favorites</a>
+            </div>
+          </div>
+          <div class="card mx-auto col-4">
+            <div class="ratio ratio-16x9">
+              <img class="card-img-top top-game-img" src="#" alt="Card image cap" />
+            </div>
+            <div class="card-body d-flex flex-column justify-content-space-between">
+              <h5 class="card-title top-game-name"></h5>
+              <h6 class="top-game-genre"></h6>
+              <p class="card-text top-game-score" style="text-align: center;"></p>
+              <a href="#" class="btn btn-dark">Add to favorites</a>
+            </div>
+          </div>
+          </section>
+          </div>
     </main>
     <div id="footer" class="mt-2 container">
       <div class="row">
@@ -201,48 +267,12 @@
 
     <div id="games-list" class="hide"></div>
 
-    <section id="recommendation" class="hide w-50">
+    <!-- <section id="recommendation" class="hide w-50">
       <h2>Get a game recommendation!</h2>
+    </section> -->
+    
 
-      <div class="input-group mb-3">
-        <label class="input-group-text" for="inputGroupSelect02">Price</label>
-        <select class="form-select" id="inputGroupSelect02">
-          <option selected>Choose...</option>
-          <option value="1">No preference</option>
-          <option value="2">Under $60</option>
-          <option value="3">Under $30</option>
-          <option value="3">Under $10</option>
-        </select>
-      </div>
-
-      <div class="input-group mb-3">
-        <label class="input-group-text" for="inputGroupSelect03">Release</label>
-        <select class="form-select" id="inputGroupSelect03">
-          <option selected>Choose...</option>
-          <option value="1">No preference</option>
-          <option value="2">Last 10 years</option>
-          <option value="3">Last 5 years</option>
-          <option value="3">This year</option>
-        </select>
-      </div>
-
-      <div class="input-group mb-3">
-        <label class="input-group-text" for="inputGroupSelect01"
-          >Platform</label
-        >
-        <select class="form-select" id="inputGroupSelect01">
-          <option selected>Choose...</option>
-          <option value="1">PC</option>
-          <option value="2">Playstation 5</option>
-          <option value="3">Playstation 4</option>
-          <option value="3">Xbox One</option>
-          <option value="3">Xbox Series S/X</option>
-          <option value="3">Nintendo Switch</option>
-        </select>
-      </div>
-    </section>
-
-    <section class="d-flex flex-row top-games">
+    <!-- <section class="d-flex flex-row top-games">
       <div class="card mx-auto" style="width: 30rem">
         <img class="card-img-top top-game-img" src="#" alt="Card image cap" />
         <div class="card-body">
@@ -261,9 +291,9 @@
           <p class="card-text top-game-score"></p>
           <a href="#" class="btn btn-primary">Add to favorites</a>
         </div>
-      </div>
+      </div> -->
 
-      <div class="card mx-auto" style="width: 30rem">
+      <!-- <div class="card mx-auto" style="width: 30rem">
         <img class="card-img-top top-game-img" src="#" alt="Card image cap" />
         <div class="card-body">
           <h5 class="card-title top-game-name"></h5>
@@ -272,7 +302,7 @@
           <a href="#" class="btn btn-primary">Add to favorites</a>
         </div>
       </div>
-    </section>
+    </section> -->
 
     <section class="genre-list">
       <div class="container mt-5 mb-5 game-genre-card hide">
