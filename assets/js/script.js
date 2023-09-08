@@ -68,6 +68,8 @@ $(function () {
         });
     }
 
+    //  // Clear genres array every time findMatches is called
+    //  genres = [];
   // Declare findMatches async function
     async function findMatches(userInput) {
         // Declare variable with all concatenated queries
@@ -82,8 +84,6 @@ $(function () {
             "&dates=2010-01-01,2023-08-05" +
             "&search=";
 
-        // Clear genres array every time findMatches is called
-        genres = [];
         // Use for of loop to iterate through array of user input
         for (const element of userInput) {
             console.log(userInput);
@@ -111,11 +111,10 @@ $(function () {
                 var dataGenres = results[i].genres;
                 var resultsLower = results[i].name.toLowerCase();
                 // Limit search to game titles including user input and a metacritic score
-                // consider adding this or similar for narrower results  -> && results[j].suggestions_count > 600
                 if (
                 resultsLower.includes(namesLower) &&
                 results[i].metacritic &&
-                results[i].suggestions_count > 600
+                results[i].suggestions_count > 200
                 ) {
                     // Nested loop finds each genre if game has more than one listed
                     for (const key of dataGenres) {
@@ -133,10 +132,10 @@ $(function () {
         console.log(genres);
 
         // For each genre pulled from the favorite games
-        for (const element of genres) {
-            searchGenre(element);
-            console.log(element);
-        }
+        // for (const element of genres) {
+            searchGenre(genres[0]);
+        //     console.log(element);
+        // }
     }
 
     // Create function for searching by genre
@@ -159,7 +158,8 @@ $(function () {
         "&ordering=-metacritic" +
         "&genres=" +
         aGenre +
-        "&exclude_additions=true";
+        "&exclude_additions=true" +
+        "&dates=2015-01-01,2023-08-05";
 
         // Concat queries to endpoint URL
         var requestGenres = rawgURL + genreSearchQuery;
@@ -217,9 +217,9 @@ $(function () {
         );
 
         //Creates a list of every genre listed listed for the game
-        for (let y = 0; y < data.results[x].genres.length; y++) {
+        for (let y = 0; y < data.results[x].genres.length/2; y++) {
             $(genreGenreList[x]).append(
-            "<li>" + data.results[x].genres[y].name + "</li>"
+            "<li>" + data.results[x].genres[0].name + "</li>"
             );
         }
 
@@ -346,7 +346,7 @@ $(function () {
         $("#recommendation").addClass("hide");
         $("#games-list").removeClass("hide");
         // Declare variable for user input
-        var userFavorites = [
+        userFavorites = [
         $("#game-1").val(),
         $("#game-2").val(),
         $("#game-3").val(),
