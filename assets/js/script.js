@@ -18,25 +18,6 @@ $(function () {
 
   // FUNCTION DECLARATIONS
 
-  //   function getData() {
-  //     let requestLink = rawgURL + "genres" + rawgID;
-
-  //     // console.log(requestLink);
-
-  //     fetch(requestLink)
-  //       .then(function (response) {
-  //         if (response.ok) {
-  //           //Data returns
-  //           return response.json();
-  //         } else if (response.status === 404) {
-  //           //404 error
-  //         }
-  //       })
-  //       .then(function (data) {
-  //         // console.log(data);
-  //       });
-  //   }
-
     function renderCurrentTopGame() {
         let requestLink =
         rawgURL +
@@ -172,7 +153,6 @@ $(function () {
         refinedList = [];
             // Use for of loop to iterate through array of user input
         for (const element of userInput) {
-            console.log(userInput);
         // Declare variable for endpoint with concatenated queries and user input
             let requestSearch = rawgURL + queries + element;
         // Declare data variable that will get the results from fetching the above variable
@@ -185,8 +165,6 @@ $(function () {
 
             const data = await response.json();
             
-            // console.log(data);
-            console.log(data.results.length);
             // Make input lowercase for comparison
             var namesLower = element.toLowerCase();
             // Declare results variable to reduce dot notation
@@ -216,8 +194,6 @@ $(function () {
         // remove duplicates
         genres = [...new Set(genres)];
         console.log(genres);
-        console.log(genres.length);
-        
         const awaitGenres = async function () {
             let searchGenres = [];
             for (const element of genres) {
@@ -225,7 +201,6 @@ $(function () {
             }
             return searchGenres;
         }
-        // For each genre pulled from the favorite games
         
         const searchReturn = await awaitGenres();
 
@@ -235,10 +210,57 @@ $(function () {
             let game = searchResults[pick];
             refinedList.push(game);
         }
-        console.log(refinedList);
-        renderSearchList(refinedList, iteration);
+        renderSearchList(refinedList);
     }
 
+    function renderSearchList(data)
+    {
+        let genreList = $(".genre-list");    
+        let genreGameImg = $("[id=genre-game-img]");
+        let genreGameName = $("[id=genre-game-name]");
+        let genreGameScore = $("[id=genre-game-score]");
+        let genreGenreList = $("[id=genre-genre-list]");
+        let genrePlatformsList = $("[id=genre-platform-list]");
+
+        $("#main").addClass("hide");
+        $("#recommendation").addClass("hide");
+
+        for (let a = 0; a < iteration; a++) {
+            genreList.children().eq(a).removeClass("hide");
+            }
+
+        for (let x = 0; x < data.length; x++) {
+
+            for (let y = 0; y < data[x].genres.length; y++) {
+                $(genreGenreList[x]).children().remove();
+            }
+
+            for (let z = 0; z < data[x].platforms.length; z++) {
+                $(genrePlatformsList[x]).children().remove();
+            }
+
+                //Sets image, name, and metacritic score
+            $(genreGameImg[x]).attr("src", data[x].background_image);
+            $(genreGameName[x]).text(data[x].name);
+            $(genreGameScore[x]).text(
+                "Metacritic Score: " + data[x].metacritic
+            );
+
+            //Creates a list of every genre listed listed for the game
+            for (let y = 0; y < data[x].genres.length; y++) {
+                $(genreGenreList[x]).append(
+                "<li>" + data[x].genres[y].name + "</li>"
+                );
+            }
+
+            //Creates a list of all platforms the game is on
+            for (let z = 0; z < data[x].platforms.length; z++) {
+                $(genrePlatformsList[x]).append(
+                "<li>" + data[x].platforms[z].platform.name + "</li>"
+                );
+            }
+        }
+    }
 
     //Creates 20 card to display game when a genre is selected from
     //the nav bar on load, as to not clog the HTML file
@@ -248,54 +270,6 @@ $(function () {
 
         for (let i = 0; i < 19; i++) {
         genreGameCard.clone().appendTo(genreList);
-        }
-    }
-
-    function renderSearchList(data, iteration)
-    {
-        let genreList = $(".genre-list");    
-        let genreGameImg = $("[id=genre-game-img]");
-        let genreGameName = $("[id=genre-game-name]");
-        let genreGameScore = $("[id=genre-game-score]");
-        let genreGenreList = $("[id=genre-genre-list]");
-        let genrePlatformsList = $("[id=genre-platform-list]");
-
-        //Reveals all the cards
-        // for (let a = 0; a < iterations; a++) {
-        for (let a = 0; a < iteration; a++) {
-        genreList.children().eq(a).removeClass("hide");
-        }
-
-        for (let x = 0; x < data.length; x++) {
-
-            for (let y = 0; y < data[x].genres.length; y++) {
-                $(genreGenreList[x]).children().remove();
-            }
-
-            for (let z = 0; z < data.platforms.length; z++) {
-                $(genrePlatformsList[x]).children().remove();
-            }
-
-        //Sets image, name, and metacritic score
-        $(genreGameImg[x]).attr("src", data[x].background_image);
-        $(genreGameName[x]).text(data[x].name);
-        $(genreGameScore[x]).text(
-            "Metacritic Score: " + data[x].metacritic
-        );
-
-        //Creates a list of every genre listed listed for the game
-        for (let y = 0; y < data[x].genres.length; y++) {
-            $(genreGenreList[x]).append(
-            "<li>" + data[x].genres[y].name + "</li>"
-            );
-        }
-
-        //Creates a list of all platforms the game is on
-        for (let z = 0; z < data[x].platforms.length; z++) {
-            $(genrePlatformsList[x]).append(
-            "<li>" + data[x].platforms[z].platform.name + "</li>"
-            );
-        }
         }
     }
 
@@ -348,37 +322,6 @@ $(function () {
         }
     }
 
-    function renderCurrentTopGame() {
-        let requestLink =
-        rawgURL +
-        "games" +
-        rawgID +
-        "&ordering=-metacritic&dates=2022-01-01,2023-09-05";
-        fetch(requestLink)
-        .then(function (response) {
-            return response.json();
-        })
-        .then(function (data) {
-            let topGameImg = $(".top-game-img");
-            let topGameName = $(".top-game-name");
-            let topGameScore = $(".top-game-score");
-            let topGameGenre = $(".top-game-genre");
-
-            for (let i = 0; i < 3; i++) {
-            $(topGameImg[i]).attr("src", data.results[i].background_image);
-            $(topGameName[i]).text(data.results[i].name);
-            $(topGameScore[i]).text(
-                "Metacritic Score: " + data.results[i].metacritic
-            );
-
-            for (let x = 0; x < data.results[i].genres.length; x++) {
-                $(topGameGenre[i]).append("<li>" + data.results[i].genres[x].name) +
-                "</li>";
-            }
-            }
-        });
-    }
-
     // EVENT LISTENERS
 
     // Show main and hide favorites list
@@ -411,31 +354,6 @@ $(function () {
         updateFave();
     });
 
-    // EVENT LISTENERS
-
-    //genre button event listener to display games based on the api genre data
-    $(".dropdown-item").on("click", function (event) {
-        event.stopPropagation();
-        $("#main").addClass("hide");
-        $("#games-list").removeClass("hide");
-
-        //store search results
-        //create variable to store searches in
-
-        var favGames = JSON.parse(localStorage.getItem("favorites")) || [];
-
-        function updateFave() {
-            favGames.forEach(function (game) {
-                $("#favorites-list").append(`<li>${game}</li>`);
-            });
-        }
-
-        var game = $("#input").val();
-        favGames.unshift(game);
-        localStorage.setItem("favorite-game", JSON.stringify(favGames));
-        updateFave();
-    });
-
     //genre button event listener to display games based on the api genre data
     $(".dropdown-item").on("click", function (event) {
         event.stopPropagation();
@@ -444,7 +362,6 @@ $(function () {
         $("#games-list").removeClass("hide");
 
         var choice = event.target.textContent;
-        console.log(choice);
         listGenres(choice);
     });
 
@@ -465,11 +382,6 @@ $(function () {
     });
 
     // FUNCTION CALLS
-
-    // getData();
-    // findMatches();
     createGenreList();
     renderCurrentTopGame();
-
-  // Push this down to keep code above the closing bracket/parenthesis
 });
