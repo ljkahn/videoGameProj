@@ -79,6 +79,7 @@ $(function () {
     async function findMatches(userInput) {
         // Use the platform selector to get the associated platform id
         var platform = $('.form-select').val();
+        // If no platform chosen use the pc code for generic search
         if (!platform) {
             platform = 4;
         }
