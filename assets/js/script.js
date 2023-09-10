@@ -242,7 +242,11 @@ $(function () {
         {
             let pick = Math.floor(Math.random() * searchResults.length);
             let game = searchResults[pick];
-            refinedList.push(game);
+            if (!refinedList.includes(game)) {
+                refinedList.push(game);
+                continue;
+            }
+            i--;
         }
         renderSearchList(refinedList);
     }
