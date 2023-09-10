@@ -242,6 +242,10 @@ $(function () {
         let genreGameScore = $("[id=genre-game-score]");
         let genreGenreList = $("[id=genre-genre-list]");
         let genrePlatformsList = $("[id=genre-platform-list]");
+        var loadingText = $('#loading-text');
+        loadingText.addClass("hide");
+        let resultsHeader = $('#results-header');
+        resultsHeader.removeClass("hide");
 
         $("#main").addClass("hide");
         $("#recommendation").addClass("hide");
@@ -348,7 +352,11 @@ $(function () {
     // Show main and hide favorites list
     $("#home-button").on("click", function (event) {
         let genreList = $(".genre-list");    
+        let resultsHeader = $("#results-header");
         $("#favorites-list").addClass("hide");
+        resultsHeader.addClass("hide");
+        let genreHeader = $("#genre-header");
+        genreHeader.addClass("hide");
         $("#main").removeClass("hide");
 
         for (let a = 0; a < iteration; a++) 
@@ -389,11 +397,19 @@ $(function () {
     //genre button event listener to display games based on the api genre data
     $(".dropdown-item").on("click", function (event) {
         event.stopPropagation();
+        var choice = event.target.textContent;
+
+        let resultsHeader = $("#results-header");
+        let genreHeader = $("#genre-header");
+
+        $(genreHeader).text(choice + " Games:");
+        genreHeader.removeClass("hide");
+
+        resultsHeader.addClass("hide");
         $("#main").addClass("hide");
         $("#recommendation").addClass("hide");
         $("#games-list").removeClass("hide");
 
-        var choice = event.target.textContent;
         listGenres(choice);
     });
 
@@ -403,6 +419,8 @@ $(function () {
         $("main").addClass("hide");
         $("#recommendation").addClass("hide");
         $("#games-list").removeClass("hide");
+        let genreHeader = $("#genre-header");
+        genreHeader.addClass("hide");
         // Declare variable for user input
         var platformSelection = $('#platform-selection option:selected').val();
 
@@ -411,6 +429,9 @@ $(function () {
         $("#game-2").val(),
         $("#game-3").val(),
         ];
+
+        var loadingText = $('#loading-text');
+        loadingText.removeClass("hide");
 
         findMatches(userFavorites, platformSelection);
     });
