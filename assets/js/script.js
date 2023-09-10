@@ -20,6 +20,7 @@ $(function () {
 
   // FUNCTION DECLARATIONS
 
+  //Gets and renders the top rated games of the last month
     function renderCurrentTopGame() {
         let lastMonth = dayjs().subtract(30, 'day');
         let requestLink =
@@ -42,6 +43,7 @@ $(function () {
             let topGameScore = $(".top-game-score");
             let topGameGenre = $(".top-game-genre");
 
+            //Renders data
             for (let i = 0; i < 3; i++) 
             {
                 $(topGameImg[i]).attr("src", data.results[i].background_image);
@@ -149,26 +151,27 @@ $(function () {
         return searchResults;
     }
 
-    //  // Clear genres array every time findMatches is called
     // Declare findMatches async function
     async function findMatches(userInput, platform) {
         // Declare variable with all concatenated queries
         let queries =
         "games" +
         rawgID +
-            "&search_precise=true" +
-            "&search_exact=true" +
-            "&exclude_additions=true" +
-            "&ordering=-metacritic" +
-            "&exclude_collection=true" +
-            "&dates=2010-01-01,2023-08-05" +
-            "&platforms=" +
-            platform +
-            "&search=";
-            
+        "&search_precise=true" +
+        "&search_exact=true" +
+        "&exclude_additions=true" +
+        "&ordering=-metacritic" +
+        "&exclude_collection=true" +
+        "&dates=2010-01-01,2023-08-05" +
+        "&platforms=" +
+        platform +
+        "&search=";
+        
+        // Clear genres array every time findMatches is called
         genres = [];
         searchResults = [];
         refinedList = [];
+
         // Use for of loop to iterate through array of user input
         for (const element of userInput) 
         {
@@ -178,6 +181,7 @@ $(function () {
             const response = await fetch(requestSearch)
             // then function uses fetch results
 
+            //Can get data
             if (response.response === 404) 
             {
                 return;
@@ -214,7 +218,6 @@ $(function () {
 
         // remove duplicates
         genres = [...new Set(genres)];
-        console.log(genres);
 
         const awaitGenres = async function () 
         {
@@ -227,21 +230,19 @@ $(function () {
         
         const searchReturn = await awaitGenres();
 
-        console.log(searchResults);
-        console.log(platform);
+        //Gets 20 random games from list and adds them to the list to be rendered
         for (let i = 0; i < 20; i++)
         {
             let pick = Math.floor(Math.random() * searchResults.length);
             let game = searchResults[pick];
             refinedList.push(game);
         }
-        console.log(refinedList);
         renderSearchList(refinedList);
     }
 
+    //Renders refinedList
     function renderSearchList(data)
     {
-        console.log(data);
         let genreList = $(".genre-list");    
         let genreGameImg = $("[id=genre-game-img]");
         let genreGameName = $("[id=genre-game-name]");
@@ -253,14 +254,17 @@ $(function () {
         let resultsHeader = $('#results-header');
         resultsHeader.removeClass("hide");
 
+        //Hides other menus
         $("#main").addClass("hide");
         $("#recommendation").addClass("hide");
 
+        //Renders cards
         for (let a = 0; a < data.length; a++) 
         {
             genreList.children().eq(a).removeClass("hide");
         }
 
+        //Updates card with data
         for (let x = 0; x < data.length; x++) 
         {
             for (let y = 0; y < data[x].genres.length; y++) {
@@ -271,7 +275,7 @@ $(function () {
                 $(genrePlatformsList[x]).children().remove();
             }
 
-                //Sets image, name, and metacritic score
+             //Sets image, name, and metacritic score
             $(genreGameImg[x]).attr("src", data[x].background_image);
             $(genreGameName[x]).text(data[x].name);
             $(genreGameScore[x]).text(
@@ -314,7 +318,6 @@ $(function () {
         let genrePlatformsList = $("[id=genre-platform-list]");
 
         //Reveals all the cards
-        // for (let a = 0; a < iterations; a++) {
         for (let a = 0; a < iteration; a++) 
         {
             genreList.children().eq(a).removeClass("hide");
@@ -365,11 +368,13 @@ $(function () {
         genreHeader.addClass("hide");
         $("#main").removeClass("hide");
 
+        //Hides all game cards
         for (let a = 0; a < iteration; a++) 
         {
             genreList.children().eq(a).addClass("hide");
         }
 
+        //Clears form
         $("#platform-selection").val("Choose...");
         $("#game-1").val("");
         $("#game-2").val("");
@@ -408,6 +413,7 @@ $(function () {
         let resultsHeader = $("#results-header");
         let genreHeader = $("#genre-header");
 
+        //Updates header with current genre name
         $(genreHeader).text(choice + " Games:");
         genreHeader.removeClass("hide");
 
@@ -416,17 +422,21 @@ $(function () {
         $("#recommendation").addClass("hide");
         $("#games-list").removeClass("hide");
 
+        //Gets and renders games from genre selected
         listGenres(choice);
     });
 
     $("#game-seeker").on("click", function (event) {
         event.stopPropagation();
         event.preventDefault();
+
+        //Hides other menus
         $("main").addClass("hide");
         $("#recommendation").addClass("hide");
         $("#games-list").removeClass("hide");
         let genreHeader = $("#genre-header");
         genreHeader.addClass("hide");
+
         // Declare variable for user input
         var platformSelection = $('#platform-selection option:selected').val();
 
@@ -436,6 +446,7 @@ $(function () {
         $("#game-3").val(),
         ];
 
+        //Loading text when games are searched
         var loadingText = $('#loading-text');
         loadingText.removeClass("hide");
 
