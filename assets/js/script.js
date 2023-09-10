@@ -5,6 +5,8 @@ $(function () {
     var searchResults = [];
     var refinedList = [];
 
+    var day = dayjs();
+
     // Declare variable for rawgURL
     var rawgURL = "https://api.rawg.io/api/";
     // Declare variable for rawg API key
@@ -19,11 +21,15 @@ $(function () {
   // FUNCTION DECLARATIONS
 
     function renderCurrentTopGame() {
+        let lastMonth = dayjs().subtract(30, 'day');
         let requestLink =
         rawgURL +
         "games" +
         rawgID +
-        "&ordering=-metacritic&dates=2022-01-01,2023-09-05";
+        "&ordering=-metacritic&dates=" +
+        lastMonth +
+        "," +
+        day;
 
         fetch(requestLink)
         .then(function (response) {
