@@ -160,17 +160,17 @@
               <form class="container">
                 <div class="mb-3 row align-items-center">
                   <div class="input-group mb-3 col-md-12">
-                    <label class="input-group-text" for="inputGroupSelect01"
+                    <label class="input-group-text" for="platform-selection"
                       >Platform</label
                     >
-                    <select class="form-select" id="inputGroupSelect01">
+                    <select class="form-select" id="platform-selection">
                       <option selected>Choose...</option>
-                      <option value="1">PC</option>
-                      <option value="2">Playstation 5</option>
-                      <option value="3">Playstation 4</option>
-                      <option value="3">Xbox One</option>
-                      <option value="3">Xbox Series S/X</option>
-                      <option value="3">Nintendo Switch</option>
+                      <option value="4">PC</option>
+                      <option value="187">PlayStation 5</option>
+                      <option value="18">PlayStation 4</option>
+                      <option value="1">Xbox One</option>
+                      <option value="186">Xbox Series S/X</option>
+                      <option value="7">Nintendo Switch</option>
                     </select>
                   </div>
                   <div class="col-md-12">
@@ -255,13 +255,6 @@
           </section>
           </div>
     </main>
-    <div id="footer" class="mt-2 container">
-      <div class="row">
-        <div class="col-3 mx-auto">
-          <p class="text-center">this is a footer</p>
-        </div>
-      </div>
-    </div>
 
     <div id="favorites-list" class="hide">favorites list</div>
 
@@ -303,7 +296,9 @@
         </div>
       </div>
     </section> -->
-
+    <h2 id="loading-text" class="hide">Finding Games...</h2>
+    <h2 id="results-header" class="hide">Search Results:</h2>
+    <h2 id="genre-header" class="hide"></h2>
     <section class="genre-list">
       <div class="container mt-5 mb-5 game-genre-card hide">
         <div class="d-flex justify-content-center row">
@@ -336,6 +331,13 @@
       </div>
     </section>
 
+    <div id="footer" class="mt-2 container">
+      <div class="row">
+        <div class="col-3 mx-auto">
+          <p class="text-center">this is a footer</p>
+        </div>
+      </div>
+    </div>
     
 
     <script
@@ -348,6 +350,7 @@
       integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm"
       crossorigin="anonymous"
     ></script>
+    <script src="https://cdn.jsdelivr.net/npm/dayjs@1/dayjs.min.js"></script>
     <script src="./assets/js/script.js"></script>
   </body>
 </html>
