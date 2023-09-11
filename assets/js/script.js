@@ -65,7 +65,7 @@ $(function () {
                     if (x === 2)
                     {
                         break;
-                    }s
+                    }
 
                     $(topGameGenre[i]).append("<li>" + data.results[i].genres[x].name) +
                     "</li>";
