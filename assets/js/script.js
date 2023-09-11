@@ -154,7 +154,6 @@ $(function () {
         const data = await response.json();
 
         console.log(data);
-        // renderGenreList(data, 5);
         for (let i = 0; i < data.results.length; i++)
         {
             let game = data.results[i];
@@ -266,7 +265,6 @@ $(function () {
         
         console.log(searchResults);
         console.log(uniqueObjects);
-
 
         //Gets 20 random games from list and adds them to the list to be rendered
         for (let i = 0; i < 20; i++)
