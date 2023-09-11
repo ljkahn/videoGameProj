@@ -347,13 +347,21 @@ $(function () {
             //Creates a list of every genre listed listed for the game
             for (let y = 0; y < data[x].genres.length; y++) {
                 $(genreGenreList[x]).append(
+<<<<<<< HEAD
                     "<li>" + data[x].genres[y].name + "</li>");
+=======
+                "<li class ='text-start greyBodyText'>" + data[x].genres[y].name + "</li>");
+>>>>>>> main
             }
 
             //Creates a list of all platforms the game is on
             for (let z = 0; z < data[x].platforms.length; z++) {
                 $(genrePlatformsList[x]).append(
+<<<<<<< HEAD
                     "<li>" + data[x].platforms[z].platform.name + "</li>");
+=======
+                "<li class ='text-start greyBodyText'>" + data[x].platforms[z].platform.name + "</li>");
+>>>>>>> main
             }
 
             $(unusedBtn[x]).addClass("hide");
@@ -367,10 +375,13 @@ $(function () {
         }
     }
 
-    // remove duplicates
-    genres = [...new Set(genres)];
-    console.log(genres);
+    //Creates 20 card to display game when a genre is selected from
+    //the nav bar on load, as to not clog the HTML file
+    function createGenreList() {
+        let genreList = $(".genre-list");
+        let genreGameCard = $(".game-genre-card");
 
+<<<<<<< HEAD
 <<<<<<< HEAD
         for (let i = 0; i < iteration - 1; i++) {
 =======
@@ -506,14 +517,15 @@ $(function () {
             $(topGameGenre[i]).append("<li>" + data.results[i].genres[x].name) +
               "</li>";
           }
+=======
+>>>>>>> main
         for (let i = 0; i < iteration - 1; i++)
         {
 >>>>>>> main
             genreGameCard.clone().appendTo(genreList);
         }
-      }
-    })
-  }
+    }
+
     //Update the text and images of the cards to show the data for the current genre
     // function renderGenreList(data, iterations) {
     function renderGenreList(data) {
@@ -553,13 +565,21 @@ $(function () {
             //Creates a list of every genre listed listed for the game
             for (let y = 0; y < data.results[x].genres.length; y++) {
                 $(genreGenreList[x]).append(
+<<<<<<< HEAD
                     "<li>" + data.results[x].genres[y].name + "</li>");
+=======
+                "<li class ='text-start greyBodyText'>" + data.results[x].genres[y].name + "</li>");
+>>>>>>> main
             }
 
             //Creates a list of all platforms the game is on
             for (let z = 0; z < data.results[x].platforms.length; z++) {
                 $(genrePlatformsList[x]).append(
+<<<<<<< HEAD
                     "<li>" + data.results[x].platforms[z].platform.name + "</li>");
+=======
+                "<li class ='text-start greyBodyText'>" + data.results[x].platforms[z].platform.name + "</li>");
+>>>>>>> main
             }
 
             $(unusedBtn[x]).addClass("hide");
@@ -571,33 +591,6 @@ $(function () {
                 addToFavs(data.results[x])
             });
         }
-      }
-  
-
-  // EVENT LISTENERS
-
-  // Show main and hide favorites list
-  $("#home-button").on("click", function (event) {
-    $("#favorites-list").addClass("hide");
-    $("#main").removeClass("hide");
-  });
-
-  //favorites button --> local storage
-  $("#favorites-button").on("click", function (event) {
-    // var userInput = $("#input").val();
-
-    $("#main").addClass("hide");
-    $("#favorites-list").removeClass("hide");
-
-    //store search results
-    //create variable to store searches in
-
-    var favGames = JSON.parse(localStorage.getItem("favorites")) || [];
-
-    function updateFave() {
-      favGames.forEach(function (game) {
-        $("#favorites-list").append(`<li>${game}</li>`);
-      });
     }
 
     function addToFavs(game) {
@@ -606,11 +599,7 @@ $(function () {
         localStorage.setItem("favList", JSON.stringify(favoritesList));
     }
 
-    var game = $("#input").val();
-    favGames.unshift(game);
-    localStorage.setItem("favorite-game", JSON.stringify(favGames));
-    updateFave();
-  });
+    // EVENT LISTENERS
 
     // Show main and hide favorites list
     $("#home-button").on("click", function (event) {
@@ -761,5 +750,10 @@ $(function () {
             });
     }
 
+<<<<<<< HEAD
     // Push this down to keep code above the closing bracket/parenthesis
 });
+=======
+  // Push this down to keep code above the closing bracket/parenthesis
+});
+>>>>>>> main

@@ -6,9 +6,8 @@
 }
 
 body {
-  background-color: #363a43;
+  background-color: #363A43;
 }
-
 h2 {
   text-align: center;
   color: white;
@@ -17,7 +16,6 @@ h2 {
   font-family: Arial, Helvetica, sans-serif;
   padding-top: 50px;
 }
-
 h3 {
   text-align: center;
   color: white;
@@ -26,7 +24,6 @@ h3 {
   font-family: Arial, Helvetica, sans-serif;
   padding-top: 50px;
 }
-
 /* CLASSES */
 p,
 h6 {
@@ -34,21 +31,17 @@ h6 {
   color: rgba(255, 255, 255, 0.54);
   padding-left: 0.5rem;
 }
-
 /* body text for search cards */
 .greyBodyText {
   font-weight: 700;
   color: rgba(255, 255, 255, 0.54);
 }
-
 genre-list {
   text-align: center;
 }
-
 label {
   padding-left: 0.5rem;
 }
-
 li {
   text-align: center;
   font-weight: 700;
@@ -60,27 +53,21 @@ li {
 .flex-column {
   justify-content: space-between;
 }
-
 a .btn {
   align-items: center;
 }
-
 .w-50 {
   align-items: center;
 }
-
 .navbar-brand {
   font-family: Arial, Helvetica, sans-serif;
 }
-
 .footer {
   align-items: center;
 }
-
 .card {
-  background-color: #3d424d;
+  background-color: #3D424D;
 }
-
 .card-title {
   text-align: center;
   font-weight: 700;
@@ -88,20 +75,16 @@ a .btn {
   font-family: Arial, Helvetica, sans-serif;
   color: white;
 }
-
 .genre-card {
-  background-color: #3d424d;
+  background-color: #3D424D;
   color: white;
 }
-
 .gameCardInput {
   color: white;
 }
-
 .hide {
   display: none;
 }
-
 /* ID */
 
 
