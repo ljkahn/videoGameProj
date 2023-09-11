@@ -61,6 +61,12 @@ $(function () {
 
                 for (let x = 0; x < data.results[i].genres.length; x++) 
                 {
+                    //Only show 2 genres
+                    if (x === 2)
+                    {
+                        break;
+                    }
+
                     $(topGameGenre[i]).append("<li>" + data.results[i].genres[x].name) +
                     "</li>";
                 }
