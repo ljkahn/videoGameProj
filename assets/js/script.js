@@ -252,11 +252,9 @@ $(function () {
             return true;
         });
 
-        console.log(uniqueObjects);
         //Gets 20 random games from list and adds them to the list to be rendered
         for (let i = 0; i < 20; i++) {
             let pick = getRandom(uniqueObjects, selectedIndexes);
-            console.log(pick);
             // Push the unique random objects into the refinedList
             refinedList.push(uniqueObjects[pick]);
             }
