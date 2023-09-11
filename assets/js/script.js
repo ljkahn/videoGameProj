@@ -320,6 +320,8 @@ $(function () {
 
             $(unusedBtn[x]).addClass("hide");
             $(favBtn[x]).removeClass("hide");
+
+            $(favBtn[x]).off();
             
             $(favBtn[x]).on("click", function() {
                 addToFavs(data[x])
@@ -352,7 +354,6 @@ $(function () {
 
         let unusedBtn = $(".search-add-favorite");
         let favBtn = $(".genre-add-favorite");
-
 
         for (let a = 0; a < iteration; a++) 
         {
@@ -395,6 +396,8 @@ $(function () {
             $(unusedBtn[x]).addClass("hide");
             $(favBtn[x]).removeClass("hide");
 
+            $(favBtn[x]).off();
+
             $(favBtn[x]).on("click", function() {
                 addToFavs(data.results[x])
             });
@@ -418,6 +421,8 @@ $(function () {
         resultsHeader.addClass("hide");
         let genreHeader = $("#genre-header");
         genreHeader.addClass("hide");
+        let clearFavsBtn = $("#clear-favs");
+        clearFavsBtn.addClass("hide");
         $("#main").removeClass("hide");
 
         //Hides all game cards
@@ -434,27 +439,34 @@ $(function () {
     });
 
     $("#favorites-button").on("click", function (event) {
-
         $("#main").addClass("hide");
         $("#favorites-list").removeClass("hide");
         let genreHeader = $("#genre-header");
         genreHeader.addClass("hide");
         let resultsHeader = $('#results-header');
         resultsHeader.addClass("hide");
+        let clearFavsBtn = $("#clear-favs");
+        clearFavsBtn.removeClass("hide");
 
         let favs = JSON.parse(localStorage.getItem("favList"));
+        let favBtn = $(".search-add-favorite");
 
         renderGameList(favs);
+
+        $(favBtn).addClass("hide");
     });
 
     //genre button event listener to display games based on the api genre data
     $(".dropdown-item").on("click", function (event) {
         event.stopPropagation();
+
         var choice = event.target.textContent;
 
         let resultsHeader = $("#results-header");
         let genreHeader = $("#genre-header");
         let favHeader = $("#favorites-list");
+        let clearFavsBtn = $("#clear-favs");
+        clearFavsBtn.addClass("hide");
 
         //Updates header with current genre name
         $(genreHeader).text(choice + " Games:");
@@ -484,6 +496,8 @@ $(function () {
         resultsHeader.removeClass("hide");
         let favHeader = $("#favorites-list");
         favHeader.addClass("hide");
+        let clearFavsBtn = $("#clear-favs");
+        clearFavsBtn.addClass("hide");
 
         // Declare variable for user input
         var platformSelection = $('#platform-selection option:selected').val();
@@ -500,6 +514,14 @@ $(function () {
 
         findMatches(userFavorites, platformSelection);
     });
+
+    // Clears local storage on click
+    $("#clear-favs").on("click", function() {
+        localStorage.clear();
+        let favs = "";
+
+        renderGameList(favs);
+    })
 
     // FUNCTION CALLS
     createGenreList();
