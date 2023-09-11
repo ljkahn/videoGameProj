@@ -1,4 +1,10 @@
 /* All HTML TAGS */
+
+
+.hide {
+    display: none;
+}
+
 body {
   background-color: #363A43;
 }
@@ -80,3 +86,18 @@ a .btn {
   display: none;
 }
 /* ID */
+
+
+
+ /*media queries*/
+
+@media screen and (min-width: 600px) {
+
+    main {
+      display: flex;
+      flex-direction: column;
+      text-align: center;
+
+    }
+
+}
