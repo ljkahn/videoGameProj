@@ -29,6 +29,16 @@ h6 {
   padding-left: 0.5rem;
 }
 
+/* body text for search cards */
+.greyBodyText {
+  font-weight: 700;
+  color: rgba(255, 255, 255, 0.54);
+}
+
+genre-list {
+  text-align: center;
+}
+
 label {
   padding-left: 0.5rem;
 }
@@ -37,7 +47,10 @@ li {
   text-align: center;
   font-weight: 700;
 }
-
+/* navbar list */
+.nav-item {
+  text-align: left;
+}
 .flex-column {
   justify-content: space-between;
 }
@@ -58,11 +71,6 @@ a .btn {
   align-items: center;
 }
 
-/* .btn {
-  
-  
-} */
-
 .card {
   background-color: #3d424d;
 }
@@ -76,7 +84,7 @@ a .btn {
 }
 
 .genre-card {
-  background-color: #444b5a;
+  background-color: #3d424d;
   color: white;
 }
 
