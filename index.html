@@ -160,17 +160,17 @@
               <form class="container">
                 <div class="mb-3 row align-items-center">
                   <div class="input-group mb-3 col-md-12">
-                    <label class="input-group-text" for="inputGroupSelect01"
+                    <label class="input-group-text" for="platform-selection"
                       >Platform</label
                     >
-                    <select class="form-select" id="inputGroupSelect01">
+                    <select class="form-select" id="platform-selection">
                       <option selected>Choose...</option>
-                      <option value="1">PC</option>
-                      <option value="2">Playstation 5</option>
-                      <option value="3">Playstation 4</option>
-                      <option value="3">Xbox One</option>
-                      <option value="3">Xbox Series S/X</option>
-                      <option value="3">Nintendo Switch</option>
+                      <option value="4">PC</option>
+                      <option value="187">PlayStation 5</option>
+                      <option value="18">PlayStation 4</option>
+                      <option value="1">Xbox One</option>
+                      <option value="186">Xbox Series S/X</option>
+                      <option value="7">Nintendo Switch</option>
                     </select>
                   </div>
                   <div class="col-md-12">
@@ -226,7 +226,7 @@
               <h5 class="card-title top-game-name"></h5>
               <h6 class="top-game-genre"></h6>
               <p class="card-text top-game-score "style="text-align: center;"></p>
-              <a href="#" class="btn btn-dark">Add to favorites</a>
+              <a class="top-add-favorite btn btn-dark">Add to favorites</a>
             </div>
           </div>
     
@@ -238,7 +238,7 @@
               <h5 class="card-title top-game-name"></h5>
               <h6 class="top-game-genre"></h6>
               <p class="card-text top-game-score" style="text-align: center;"></p>
-              <a href="#" class="btn btn-dark">Add to favorites</a>
+              <a class="top-add-favorite btn btn-dark">Add to favorites</a>
             </div>
           </div>
           <div class="card mx-auto col-4">
@@ -249,15 +249,15 @@
               <h5 class="card-title top-game-name"></h5>
               <h6 class="top-game-genre"></h6>
               <p class="card-text top-game-score" style="text-align: center;"></p>
-              <a href="#" class="btn btn-dark">Add to favorites</a>
+              <a class="top-add-favorite btn btn-dark">Add to favorites</a>
             </div>
           </div>
           </section>
           </div>
     </main>
-    
-    <div id="favorites-list" class="hide">favorites list</div>
-    
+
+    <h2 id="favorites-list" class="hide">Favorites:</h2>
+
     <div id="games-list" class="hide"></div>
     
     <!-- <section id="recommendation" class="hide w-50">
@@ -296,20 +296,39 @@
         </div>
       </div>
     </section> -->
-    
+    <h2 id="results-header" class="hide">Search Results:</h2>
+    <h2 id="genre-header" class="hide"></h2>
+    <h3 id="loading-text" class="hide">Finding Games...</h3>
+    <div class="h-100 d-flex align-items-center justify-content-center">
+      <button id="clear-favs" class="hide btn btn-outline-danger btn-sm mt-2">CLEAR FAVORITES</button>
+    </div>
     <section class="genre-list">
       <div class="container mt-5 mb-5 game-genre-card hide">
         <div class="d-flex justify-content-center row">
-          <div class="col-md-10">
-            <div class="row p-2 border rounded genre-card">
-              <div class="col-md-3 mt-1">
-                <img id="genre-game-img" class="img-fluid img-responsive rounded product-image" src="#">
-              </div>
-              <div class="col-md-6 mt-1">
-                <h5 id="genre-game-name">Game Title</h5>
-                <div class="d-flex flex-row">
-                  <div class="ratings mr-2"><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i></div>
-                  <span id="genre-game-score">Metacritic Score: 90</span>
+            <div class="col-md-10">
+                <div class="row p-2 border rounded genre-card">
+                    <div class="col-md-3 mt-1">
+                      <img id="genre-game-img" class="img-fluid img-responsive rounded product-image" src="#">
+                    </div>
+                    <div class="col-md-6 mt-1">
+                        <h5 id="genre-game-name">Game Title</h5>
+                        <div class="d-flex flex-row">
+                            <div class="ratings mr-2"><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i></div>
+                            <span id="genre-game-score">Metacritic Score: 90</span>
+                        </div>
+                        <div class="mt-1 mb-1 spec-1"><span>Genres: </span></div>
+                        <ul id="genre-genre-list">
+                        </ul>
+                    </div>
+                    <div class="align-items-center align-content-center col-md-3 border-left mt-1">
+                        <div class="d-flex flex-row align-items-center">
+                            <h4 class="mr-1">Platforms:</h4>
+                          </div>
+                          <ul id="genre-platform-list">
+                          </ul>
+                        <div class="d-flex flex-column mt-4"><button id="searchFav" class="search-add-favorite btn btn-outline-primary btn-sm mt-2" type="button">Add to favorites</button></div>
+                        <div class="d-flex flex-column mt-4"><button id="genreFav" class="genre-add-favorite btn btn-outline-primary btn-sm mt-2" type="button">Add to favorites</button></div>
+                    </div>
                 </div>
                 <div class="mt-1 mb-1 spec-1"><span>Genres: </span></div>
                 <ul id="genre-genre-list">
@@ -348,6 +367,7 @@
       integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm"
       crossorigin="anonymous"
     ></script>
+    <script src="https://cdn.jsdelivr.net/npm/dayjs@1/dayjs.min.js"></script>
     <script src="./assets/js/script.js"></script>
   </body>
 </html>
