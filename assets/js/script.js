@@ -349,18 +349,149 @@ $(function () {
         }
     }
 
-    //Creates 20 card to display game when a genre is selected from
-    //the nav bar on load, as to not clog the HTML file
-    function createGenreList() {
-        let genreList = $(".genre-list");
-        let genreGameCard = $(".game-genre-card");
+    // remove duplicates
+    genres = [...new Set(genres)];
+    console.log(genres);
 
+    // For each genre pulled from the favorite games
+    // for (const element of genres) {
+    searchGenre(genres[0]);
+    //     console.log(element);
+    // }
+  
+
+  // Create function for searching by genre
+  function searchGenre(aGenre) {
+    // Convert searches to lowercase to pull up results
+    aGenre = aGenre.toLowerCase();
+    // If input is RPG search by genre id to pull up results
+    if (aGenre === "rpg") {
+      // RPG id
+      aGenre = 5;
+    } else if (aGenre === "massively multiplayer") {
+      // MMO id
+      aGenre = 59;
+    }
+
+    // Declare variable to store api queries
+    var genreSearchQuery =
+      "games" +
+      rawgID +
+      "&ordering=-metacritic" +
+      "&genres=" +
+      aGenre +
+      "&exclude_additions=true" +
+      "&dates=2015-01-01,2023-08-05";
+
+    // Concat queries to endpoint URL
+    var requestGenres = rawgURL + genreSearchQuery;
+
+    // Fetch request data for games by genre
+    fetch(requestGenres)
+      .then(function (response) {
+        // Validation
+        if (response.status === 404) {
+          return;
+        }
+        return response.json();
+      })
+      .then(function (data) {
+        console.log(data);
+        // renderGenreList(data, 5);
+        renderGenreList(data);
+      });
+  }
+
+  //Creates 20 card to display game when a genre is selected from
+  //the nav bar on load, as to not clog the HTML file
+  function createGenreList() {
+    let genreList = $(".genre-list");
+    let genreGameCard = $(".game-genre-card");
+
+    for (let i = 0; i < 19; i++) {
+      genreGameCard.clone().appendTo(genreList);
+    }
+  }
+
+  //Update the text and images of the cards to show the data for the current genre
+  // function renderGenreList(data, iterations) {
+  function renderGenreList(data) {
+    let genreList = $(".genre-list");
+
+    //Reveals all the cards
+    // for (let a = 0; a < iterations; a++) {
+    for (let a = 0; a < 20; a++) {
+      genreList.children().eq(a).removeClass("hide");
+    }
+
+    let genreGameImg = $("[id=genre-game-img]");
+    let genreGameName = $("[id=genre-game-name]");
+    let genreGameScore = $("[id=genre-game-score]");
+    let genreGenreList = $("[id=genre-genre-list]");
+    let genrePlatformsList = $("[id=genre-platform-list]");
+
+    for (let x = 0; x < data.results.length; x++) {
+      //Sets image, name, and metacritic score
+      $(genreGameImg[x]).attr("src", data.results[x].background_image);
+      $(genreGameName[x]).text(data.results[x].name);
+      $(genreGameScore[x]).text(
+        "Metacritic Score: " + data.results[x].metacritic
+      );
+
+      //Creates a list of every genre listed listed for the game
+      for (let y = 0; y < data.results[x].genres.length / 2; y++) {
+        $(genreGenreList[x]).append(
+          "<li class = 'text-start greyBodyText'>" +
+            data.results[x].genres[0].name +
+            "</li>"
+        );
+      }
+
+      //Creates a list of all platforms the game is on
+      for (let z = 0; z < data.results[x].platforms.length; z++) {
+        $(genrePlatformsList[x]).append(
+          "<li class ='text-start greyBodyText'>" +
+            data.results[x].platforms[z].platform.name +
+            "</li>"
+        );
+      }
+    }
+  }
+
+  function renderCurrentTopGame() {
+    let requestLink =
+      rawgURL +
+      "games" +
+      rawgID +
+      "&ordering=-metacritic&dates=2022-01-01,2023-09-05";
+    fetch(requestLink)
+      .then(function (response) {
+        return response.json();
+      })
+      .then(function (data) {
+        let topGameImg = $(".top-game-img");
+        let topGameName = $(".top-game-name");
+        let topGameScore = $(".top-game-score");
+        let topGameGenre = $(".top-game-genre");
+
+        for (let i = 0; i < 3; i++) {
+          $(topGameImg[i]).attr("src", data.results[i].background_image);
+          $(topGameName[i]).text(data.results[i].name);
+          $(topGameScore[i]).text(
+            "Metacritic Score: " + data.results[i].metacritic
+          );
+
+          for (let x = 0; x < data.results[i].genres.length; x++) {
+            $(topGameGenre[i]).append("<li>" + data.results[i].genres[x].name) +
+              "</li>";
+          }
         for (let i = 0; i < iteration - 1; i++)
         {
             genreGameCard.clone().appendTo(genreList);
         }
-    }
-
+      }
+    })
+  }
     //Update the text and images of the cards to show the data for the current genre
     // function renderGenreList(data, iterations) {
         function renderGenreList(data) {
@@ -422,6 +553,33 @@ $(function () {
                 addToFavs(data.results[x])
             });
         }
+      }
+  
+
+  // EVENT LISTENERS
+
+  // Show main and hide favorites list
+  $("#home-button").on("click", function (event) {
+    $("#favorites-list").addClass("hide");
+    $("#main").removeClass("hide");
+  });
+
+  //favorites button --> local storage
+  $("#favorites-button").on("click", function (event) {
+    // var userInput = $("#input").val();
+
+    $("#main").addClass("hide");
+    $("#favorites-list").removeClass("hide");
+
+    //store search results
+    //create variable to store searches in
+
+    var favGames = JSON.parse(localStorage.getItem("favorites")) || [];
+
+    function updateFave() {
+      favGames.forEach(function (game) {
+        $("#favorites-list").append(`<li>${game}</li>`);
+      });
     }
 
     function addToFavs(game)
@@ -431,7 +589,11 @@ $(function () {
         localStorage.setItem("favList", JSON.stringify(favoritesList));
     }
 
-    // EVENT LISTENERS
+    var game = $("#input").val();
+    favGames.unshift(game);
+    localStorage.setItem("favorite-game", JSON.stringify(favGames));
+    updateFave();
+  });
 
     // Show main and hide favorites list
     $("#home-button").on("click", function (event) {
