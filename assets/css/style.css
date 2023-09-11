@@ -93,20 +93,11 @@ a .btn {
 
 @media screen and (min-width: 600px) {
 
-    .card-body {
-        text-align: center;
+    main {
+      display: flex;
+      flex-direction: column;
+      text-align: center;
 
     }
-    /* nav ul {
-        display: flex;
-        flex-direction: row;
-        margin-right: 1rem;
-        text-align: center;
-        
-    }
-    aside ul li {
-        display: flex;
-        flex-direction: column;
-        padding-left: 1rem;
-    } */
+
 }
