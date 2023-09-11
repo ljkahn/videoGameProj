@@ -229,7 +229,7 @@ $(function () {
         }
         
 
-        // remove duplicates
+        // remove duplicate genres
         genres = [...new Set(genres)];
 
         const awaitGenres = async function () 
@@ -243,27 +243,40 @@ $(function () {
         
         const searchReturn = await awaitGenres();
 
+        
+        // console.log(searchResults);
+
+        // Create a new set to store unique object ids
+        const uniqueIds = new Set();
+
+        // Use filter to remove duplicates based on the ids
+        const uniqueObjects = searchResults.filter(obj => {
+
+            // Check if the id is already in the set
+            if (uniqueIds.has(obj.id)) {
+                // Return false if it's a duplicate to make sure it isn't added
+                return false;
+            }
+
+            // If not a duplicate, add it to the set and return true to include obj
+            uniqueIds.add(obj.id);
+            return true;
+        });
+
+        
+        console.log(searchResults);
+        console.log(uniqueObjects);
+
+
         //Gets 20 random games from list and adds them to the list to be rendered
         for (let i = 0; i < 20; i++)
         {
-            let pick = Math.floor(Math.random() * searchResults.length);
-            let game = searchResults[pick];
+            refinedList.push(uniqueObjects[i]);
+        }   
 
-            if (i === 0)
-            {
-                refinedList.push(game);
-                continue;
-            }
-            
-            for (let x = 0; x < refinedList.length; x++)
-            {
-                if (refinedList[x].name !== game.name)
-                {
-                    refinedList.push(game);
-                    break;
-                }
-            }
-        }
+        //     let pick = Math.floor(Math.random() * uniqueObjects.length);
+        //     let game = uniqueObjects[pick];
+
         console.log(refinedList);
         renderGameList(refinedList);
     }
@@ -534,48 +547,6 @@ $(function () {
     createGenreList();
     renderCurrentTopGame();
     reviewLinks();
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
