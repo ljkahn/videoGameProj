@@ -14,6 +14,8 @@ $(function () {
     var rawgID = "?key=ad61e1d9ed3844018c1885a37313c3e9";
     // Declare genres array variable
     var genres = [];
+    // Declare a variable to store each randomly selected index
+    var selectedIndexes = [];
     // Declare variable for api endpoint
     reviewUrl = "https://gamereviews.p.rapidapi.com/games/destructoid";
     // Declare variable to store object of method, key, and host
@@ -24,13 +26,12 @@ $(function () {
         "X-RapidAPI-Host": "gamereviews.p.rapidapi.com",
         },
     };
-    
 
     // FUNCTION DECLARATIONS
 
     //Gets and renders the top rated games of the last month
     function renderCurrentTopGame() {
-        let lastMonth = dayjs().subtract(30, 'day');
+        let lastMonth = dayjs().subtract(30, "day");
         let requestLink =
         rawgURL +
         "games" +
@@ -45,7 +46,6 @@ $(function () {
             return response.json();
         })
         .then(function (data) {
-
             let topGameImg = $(".top-game-img");
             let topGameName = $(".top-game-name");
             let topGameScore = $(".top-game-score");
@@ -53,36 +53,34 @@ $(function () {
             let favBtn = $(".top-add-favorite");
 
             //Renders data
-            for (let i = 0; i < 3; i++) 
-            {
+            for (let i = 0; i < 3; i++) {
                 $(topGameImg[i]).attr("src", data.results[i].background_image);
                 $(topGameName[i]).text(data.results[i].name);
-                $(topGameScore[i]).text("Metacritic Score: " + data.results[i].metacritic);
+                $(topGameScore[i]).text(
+                    "Metacritic Score: " + data.results[i].metacritic
+                );
 
-                for (let x = 0; x < data.results[i].genres.length; x++) 
-                {
+                for (let x = 0; x < data.results[i].genres.length; x++) {
                     $(topGameGenre[i]).append("<li>" + data.results[i].genres[x].name) +
                     "</li>";
                 }
 
-                $(favBtn[i]).on("click", function() {
-                    addToFavs(data.results[i])
+                $(favBtn[i]).on("click", function () {
+                    addToFavs(data.results[i]);
                 });
             }
         });
     }
 
+    // Create async function to take genres from user input and search top games of those genres
     async function listGenres(aGenre) {
         // Convert searches to lowercase to pull up results
         aGenre = aGenre.toLowerCase();
         // If input is RPG search by genre id to pull up results
-        if (aGenre === "rpg") 
-        {
+        if (aGenre === "rpg") {
             // RPG id
             aGenre = 5;
-        } 
-        else if (aGenre === "massively multiplayer") 
-        {
+        } else if (aGenre === "massively multiplayer") {
             // MMO id
             aGenre = 59;
         }
@@ -101,30 +99,27 @@ $(function () {
         var requestGenres = rawgURL + genreSearchQuery;
 
         // Fetch request data for games by genre
-        const response = await fetch(requestGenres)
+        const response = await fetch(requestGenres);
         // Validation
-        if (response.response === 404) 
-        {
+        if (response.response === 404) {
             return;
         }
 
         const data = await response.json();
 
+        // Call function to populate the user specific data to the page
         renderGenreList(data);
     }
 
-     // Create function for searching by genre
+    // Create function for searching by genre
     async function searchGenre(aGenre, platform) {
         // Convert searches to lowercase to pull up results
         aGenre = aGenre.toLowerCase();
         // If input is RPG search by genre id to pull up results
-        if (aGenre === "rpg") 
-        {
+        if (aGenre === "rpg") {
             // RPG id
             aGenre = 5;
-        } 
-        else if (aGenre === "massively multiplayer") 
-        {
+        } else if (aGenre === "massively multiplayer") {
             // MMO id
             aGenre = 59;
         }
@@ -138,29 +133,26 @@ $(function () {
         aGenre +
         "&exclude_additions=true" +
         "&dates=2015-01-01,2023-08-05" +
-        "&platforms=" + platform;
+        "&platforms=" +
+        platform;
 
         // Concat queries to endpoint URL
         var requestGenres = rawgURL + genreSearchQuery;
 
         // Fetch request data for games by genre
-        const response = await fetch(requestGenres)
+        const response = await fetch(requestGenres);
         // Validation
-        if (response.response === 404) 
-        {
+        if (response.response === 404) {
             return;
         }
 
         const data = await response.json();
 
-        console.log(data);
-
-        for (let i = 0; i < data.results.length; i++)
-        {
+        for (let i = 0; i < data.results.length; i++) {
             let game = data.results[i];
             searchResults.push(game);
         }
-        
+
         return searchResults;
     }
 
@@ -179,79 +171,69 @@ $(function () {
         "&platforms=" +
         platform +
         "&search=";
-        
+
         // Clear genres array every time findMatches is called
         genres = [];
         searchResults = [];
         refinedList = [];
+        selectedIndexes = [];
 
         // Use for of loop to iterate through array of user input
-        for (const element of userInput) 
-        {
-        // Declare variable for endpoint with concatenated queries and user input
+        for (const element of userInput) {
+            // Declare variable for endpoint with concatenated queries and user input
             let requestSearch = rawgURL + queries + element;
-        // Declare data variable that will get the results from fetching the above variable
-            const response = await fetch(requestSearch)
+            // Declare data variable that will get the results from fetching the above variable
+            const response = await fetch(requestSearch);
             // then function uses fetch results
 
             //Can get data
-            if (response.response === 404) 
-            {
+            if (response.response === 404) {
                 return;
             }
 
             const data = await response.json();
-            
+
             // Make input lowercase for comparison
             var namesLower = element.toLowerCase();
             // Declare results variable to reduce dot notation
             var results = data.results;
             // for loop to compare results against user input
-            for (var i = 0; i < results.length/2; i++) 
-            {
+            for (var i = 0; i < results.length / 2; i++) {
                 var dataGenres = results[i].genres;
                 var resultsLower = results[i].name.toLowerCase();
                 // Limit search to game titles including user input and a metacritic score
                 if (
-                resultsLower.includes(namesLower) &&
-                results[i].metacritic &&
-                results[i].suggestions_count > 200
-                ) 
-                {
+                    resultsLower.includes(namesLower) &&
+                    results[i].metacritic &&
+                    results[i].suggestions_count > 200
+                ) {
                     // Nested loop finds each genre if game has more than one listed
-                    for (const key of dataGenres) 
-                    {
+                    for (const key of dataGenres) {
                         // Push genres of top matches to genres array by id
                         genres.push(key.name);
                     }
                 }
             }
         }
-        
 
         // remove duplicate genres
         genres = [...new Set(genres)];
 
-        const awaitGenres = async function () 
-        {
+        const awaitGenres = async function () {
             let searchGenres = [];
             for (const element of genres) {
-                searchGenres = await searchGenre(element, platform);              
+                searchGenres = await searchGenre(element, platform);
             }
             return searchGenres;
-        }
-        
-        const searchReturn = await awaitGenres();
+        };
 
-        
-        // console.log(searchResults);
+        const searchReturn = await awaitGenres();
 
         // Create a new set to store unique object ids
         const uniqueIds = new Set();
 
         // Use filter to remove duplicates based on the ids
-        const uniqueObjects = searchResults.filter(obj => {
-
+        const uniqueObjects = searchResults.filter((obj) => {
             // Check if the id is already in the set
             if (uniqueIds.has(obj.id)) {
                 // Return false if it's a duplicate to make sure it isn't added
@@ -263,32 +245,25 @@ $(function () {
             return true;
         });
 
-        
-        console.log(searchResults);
         console.log(uniqueObjects);
-
-
         //Gets 20 random games from list and adds them to the list to be rendered
-        for (let i = 0; i < 20; i++)
-        {
-            refinedList.push(uniqueObjects[i]);
-        }   
-
-        //     let pick = Math.floor(Math.random() * uniqueObjects.length);
-        //     let game = uniqueObjects[pick];
-
-        console.log(refinedList);
+        for (let i = 0; i < 20; i++) {
+            let pick = getRandom(uniqueObjects, selectedIndexes);
+            console.log(pick);
+            // Push the unique random objects into the refinedList
+            refinedList.push(uniqueObjects[pick]);
+            }
+        // Render the game list
         renderGameList(refinedList);
     }
 
     //Renders refinedList
-    function renderGameList(data)
-    {
+    function renderGameList(data) {
         //Hides other menus
         $("#main").addClass("hide");
         $("#recommendation").addClass("hide");
 
-        let genreList = $(".genre-list");    
+        let genreList = $(".genre-list");
         let genreGameImg = $("[id=genre-game-img]");
         let genreGameName = $("[id=genre-game-name]");
         let genreGameScore = $("[id=genre-game-score]");
@@ -298,17 +273,15 @@ $(function () {
         let unusedBtn = $(".genre-add-favorite");
         let favBtn = $(".search-add-favorite");
 
-        var loadingText = $('#loading-text');
+        var loadingText = $("#loading-text");
         loadingText.addClass("hide");
 
-        for (let i = 0; i < iteration; i++)
-        {
+        for (let i = 0; i < iteration; i++) {
             genreList.children().eq(i).addClass("hide");
         }
-        
+
         //Updates card with data
-        for (let x = 0; x < data.length; x++) 
-        {
+        for (let x = 0; x < data.length; x++) {
             //Renders cards
             genreList.children().eq(x).removeClass("hide");
 
@@ -320,31 +293,36 @@ $(function () {
                 $(genrePlatformsList[x]).children().remove();
             }
 
-             //Sets image, name, and metacritic score
+            //Sets image, name, and metacritic score
             $(genreGameImg[x]).attr("src", data[x].background_image);
             $(genreGameName[x]).text(data[x].name);
-            $(genreGameScore[x]).text(
-                "Metacritic Score: " + data[x].metacritic);
+            $(genreGameScore[x]).text("Metacritic Score: " + data[x].metacritic);
 
             //Creates a list of every genre listed listed for the game
             for (let y = 0; y < data[x].genres.length; y++) {
                 $(genreGenreList[x]).append(
-                "<li class ='text-start greyBodyText'>" + data[x].genres[y].name + "</li>");
+                "<li class ='text-start greyBodyText'>" +
+                    data[x].genres[y].name +
+                    "</li>"
+                );
             }
 
             //Creates a list of all platforms the game is on
             for (let z = 0; z < data[x].platforms.length; z++) {
                 $(genrePlatformsList[x]).append(
-                "<li class ='text-start greyBodyText'>" + data[x].platforms[z].platform.name + "</li>");
+                "<li class ='text-start greyBodyText'>" +
+                    data[x].platforms[z].platform.name +
+                    "</li>"
+                );
             }
 
             $(unusedBtn[x]).addClass("hide");
             $(favBtn[x]).removeClass("hide");
 
             $(favBtn[x]).off();
-            
-            $(favBtn[x]).on("click", function() {
-                addToFavs(data[x])
+
+            $(favBtn[x]).on("click", function () {
+                addToFavs(data[x]);
             });
         }
     }
@@ -355,17 +333,14 @@ $(function () {
         let genreList = $(".genre-list");
         let genreGameCard = $(".game-genre-card");
 
-        for (let i = 0; i < iteration - 1; i++)
-        {
+        for (let i = 0; i < iteration - 1; i++) {
             genreGameCard.clone().appendTo(genreList);
         }
     }
 
     //Update the text and images of the cards to show the data for the current genre
-    // function renderGenreList(data, iterations) {
-        function renderGenreList(data) {
-
-        let genreList = $(".genre-list");    
+    function renderGenreList(data) {
+        let genreList = $(".genre-list");
         let genreGameImg = $("[id=genre-game-img]");
         let genreGameName = $("[id=genre-game-name]");
         let genreGameScore = $("[id=genre-game-score]");
@@ -375,23 +350,19 @@ $(function () {
         let unusedBtn = $(".search-add-favorite");
         let favBtn = $(".genre-add-favorite");
 
-        for (let a = 0; a < iteration; a++) 
-        {
+        for (let a = 0; a < iteration; a++) {
             genreList.children().eq(a).addClass("hide");
         }
 
-        for (let x = 0; x < data.results.length; x++) 
-        {
-             //Reveals all the cards
+        for (let x = 0; x < data.results.length; x++) {
+            //Reveals all the cards
             genreList.children().eq(x).removeClass("hide");
 
-            for (let y = 0; y < data.results[x].genres.length; y++) 
-            {
+            for (let y = 0; y < data.results[x].genres.length; y++) {
                 $(genreGenreList[x]).children().remove();
             }
 
-            for (let z = 0; z < data.results[x].platforms.length; z++) 
-            {
+            for (let z = 0; z < data.results[x].platforms.length; z++) {
                 $(genrePlatformsList[x]).children().remove();
             }
 
@@ -399,18 +370,25 @@ $(function () {
             $(genreGameImg[x]).attr("src", data.results[x].background_image);
             $(genreGameName[x]).text(data.results[x].name);
             $(genreGameScore[x]).text(
-                "Metacritic Score: " + data.results[x].metacritic);
+                "Metacritic Score: " + data.results[x].metacritic
+            );
 
             //Creates a list of every genre listed listed for the game
             for (let y = 0; y < data.results[x].genres.length; y++) {
                 $(genreGenreList[x]).append(
-                "<li class ='text-start greyBodyText'>" + data.results[x].genres[y].name + "</li>");
+                "<li class ='text-start greyBodyText'>" +
+                    data.results[x].genres[y].name +
+                    "</li>"
+                );
             }
 
             //Creates a list of all platforms the game is on
             for (let z = 0; z < data.results[x].platforms.length; z++) {
                 $(genrePlatformsList[x]).append(
-                "<li class ='text-start greyBodyText'>" + data.results[x].platforms[z].platform.name + "</li>");
+                "<li class ='text-start greyBodyText'>" +
+                    data.results[x].platforms[z].platform.name +
+                    "</li>"
+                );
             }
 
             $(unusedBtn[x]).addClass("hide");
@@ -418,24 +396,65 @@ $(function () {
 
             $(favBtn[x]).off();
 
-            $(favBtn[x]).on("click", function() {
-                addToFavs(data.results[x])
+            $(favBtn[x]).on("click", function () {
+                addToFavs(data.results[x]);
             });
         }
     }
 
-    function addToFavs(game)
-    {
+    // Create function for adding games to user's favorites list
+    function addToFavs(game) {
         favoritesList.push(game);
 
         localStorage.setItem("favList", JSON.stringify(favoritesList));
+    }
+
+    
+    // Create a function for a second server side api
+    function reviewLinks() {
+        // Fetch data with the url and object
+        fetch(reviewUrl, reviewOptions)
+        .then(function (response) {
+            return response.json();
+        })
+        .then(function (data) {
+            // Declare variable for review class
+            var reviews = $(".reviews");
+            // Start loop at 1 to skip first result, didn't recognize it
+            for (var i = 1; i < 15; i++) {
+                // Remove "Reviews: " from every review title
+                var fixedTitle = data[i].title.substr(data[i].title.indexOf(" ") + 1);
+                // Give reviews[i] the url of data[i] to link to the appropriate site
+                $(reviews[i]).attr("href", data[i].url);
+                // Add text of revised review title
+                $(reviews[i]).text(fixedTitle);
+            }
+        });
+    }
+
+    // Create function to get random numbers without repeats
+    function getRandom(array, newArray) {
+        // Declare local variable for random index
+        var randomIndex;
+
+        // Use a do while loop to continue generating random numbers while the number has already been used
+        do {
+            // Generate a random within the length of array
+            randomIndex = Math.floor(Math.random() * array.length);
+        } while (newArray.includes(randomIndex));
+
+        // Store the generated number in the newArray
+        newArray.push(randomIndex);
+
+        // Return the unique random index
+        return randomIndex;
     }
 
     // EVENT LISTENERS
 
     // Show main and hide favorites list
     $("#home-button").on("click", function (event) {
-        let genreList = $(".genre-list");    
+        let genreList = $(".genre-list");
         let resultsHeader = $("#results-header");
         $("#favorites-list").addClass("hide");
         resultsHeader.addClass("hide");
@@ -446,8 +465,7 @@ $(function () {
         $("#main").removeClass("hide");
 
         //Hides all game cards
-        for (let a = 0; a < iteration; a++) 
-        {
+        for (let a = 0; a < iteration; a++) {
             genreList.children().eq(a).addClass("hide");
         }
 
@@ -463,7 +481,7 @@ $(function () {
         $("#favorites-list").removeClass("hide");
         let genreHeader = $("#genre-header");
         genreHeader.addClass("hide");
-        let resultsHeader = $('#results-header');
+        let resultsHeader = $("#results-header");
         resultsHeader.addClass("hide");
         let clearFavsBtn = $("#clear-favs");
         clearFavsBtn.removeClass("hide");
@@ -491,7 +509,7 @@ $(function () {
         //Updates header with current genre name
         $(genreHeader).text(choice + " Games:");
         genreHeader.removeClass("hide");
-        
+
         resultsHeader.addClass("hide");
         favHeader.addClass("hide");
         $("#main").addClass("hide");
@@ -512,7 +530,7 @@ $(function () {
         $("#games-list").removeClass("hide");
         let genreHeader = $("#genre-header");
         genreHeader.addClass("hide");
-        let resultsHeader = $('#results-header');
+        let resultsHeader = $("#results-header");
         resultsHeader.removeClass("hide");
         let favHeader = $("#favorites-list");
         favHeader.addClass("hide");
@@ -520,7 +538,7 @@ $(function () {
         clearFavsBtn.addClass("hide");
 
         // Declare variable for user input
-        var platformSelection = $('#platform-selection option:selected').val();
+        var platformSelection = $("#platform-selection option:selected").val();
 
         var userFavorites = [
         $("#game-1").val(),
@@ -529,19 +547,19 @@ $(function () {
         ];
 
         //Loading text when games are searched
-        var loadingText = $('#loading-text');
+        var loadingText = $("#loading-text");
         loadingText.removeClass("hide");
 
         findMatches(userFavorites, platformSelection);
     });
 
     // Clears local storage on click
-    $("#clear-favs").on("click", function() {
+    $("#clear-favs").on("click", function () {
         localStorage.clear();
         let favs = "";
 
         renderGameList(favs);
-    })
+    });
 
     // FUNCTION CALLS
     createGenreList();
@@ -549,33 +567,4 @@ $(function () {
     reviewLinks();
 
 
-
-
-
-
-    // Create a function for a second server side api
-    function reviewLinks() {
-        // Fetch data with the url and object
-        fetch(reviewUrl, reviewOptions)
-        .then(function (response) {
-            return response.json();
-        })
-        .then(function (data) {
-            // console.log(data);
-
-            // Declare variable for review class
-            var reviews = $(".reviews");
-            // Start loop at 1 to skip first result, didn't recognize it
-            for (var i = 1; i < 15; i++) {
-            // Remove "Reviews: " from every review title
-            var fixedTitle = data[i].title.substr(data[i].title.indexOf(" ") + 1);
-            // Give reviews[i] the url of data[i] to link to the appropriate site
-            $(reviews[i]).attr("href", data[i].url);
-            // Add text of revised review title
-            $(reviews[i]).text(fixedTitle);
-            }
-        });
-    }
-
-  // Push this down to keep code above the closing bracket/parenthesis
 });
