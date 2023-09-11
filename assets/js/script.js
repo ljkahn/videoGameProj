@@ -329,13 +329,13 @@ $(function () {
             //Creates a list of every genre listed listed for the game
             for (let y = 0; y < data[x].genres.length; y++) {
                 $(genreGenreList[x]).append(
-                "<li>" + data[x].genres[y].name + "</li>");
+                "<li class ='text-start greyBodyText'>" + data[x].genres[y].name + "</li>");
             }
 
             //Creates a list of all platforms the game is on
             for (let z = 0; z < data[x].platforms.length; z++) {
                 $(genrePlatformsList[x]).append(
-                "<li>" + data[x].platforms[z].platform.name + "</li>");
+                "<li class ='text-start greyBodyText'>" + data[x].platforms[z].platform.name + "</li>");
             }
 
             $(unusedBtn[x]).addClass("hide");
@@ -404,13 +404,13 @@ $(function () {
             //Creates a list of every genre listed listed for the game
             for (let y = 0; y < data.results[x].genres.length; y++) {
                 $(genreGenreList[x]).append(
-                "<li>" + data.results[x].genres[y].name + "</li>");
+                "<li class ='text-start greyBodyText'>" + data.results[x].genres[y].name + "</li>");
             }
 
             //Creates a list of all platforms the game is on
             for (let z = 0; z < data.results[x].platforms.length; z++) {
                 $(genrePlatformsList[x]).append(
-                "<li>" + data.results[x].platforms[z].platform.name + "</li>");
+                "<li class ='text-start greyBodyText'>" + data.results[x].platforms[z].platform.name + "</li>");
             }
 
             $(unusedBtn[x]).addClass("hide");
