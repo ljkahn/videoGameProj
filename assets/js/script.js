@@ -40,7 +40,7 @@ $(function () {
         "X-RapidAPI-Host": "gamereviews.p.rapidapi.com",
         },
     };
-    
+
 >>>>>>> main
 
     // FUNCTION DECLARATIONS
@@ -245,7 +245,7 @@ $(function () {
 
         const searchReturn = await awaitGenres();
 
-        
+
         // console.log(searchResults);
 
         // Create a new set to store unique object ids
@@ -265,7 +265,7 @@ $(function () {
             return true;
         });
 
-        
+
         console.log(searchResults);
         console.log(uniqueObjects);
 
@@ -292,7 +292,7 @@ $(function () {
         for (let i = 0; i < 20; i++)
         {
             refinedList.push(uniqueObjects[i]);
-        }   
+        }
 
         //     let pick = Math.floor(Math.random() * uniqueObjects.length);
         //     let game = uniqueObjects[pick];
@@ -574,25 +574,25 @@ $(function () {
     function reviewLinks() {
         // Fetch data with the url and object
         fetch(reviewUrl, reviewOptions)
-        .then(function (response) {
-            return response.json();
-        })
-        .then(function (data) {
-            // console.log(data);
+            .then(function (response) {
+                return response.json();
+            })
+            .then(function (data) {
+                // console.log(data);
 
-            // Declare variable for review class
-            var reviews = $(".reviews");
-            // Start loop at 1 to skip first result, didn't recognize it
-            for (var i = 1; i < 15; i++) {
-            // Remove "Reviews: " from every review title
-            var fixedTitle = data[i].title.substr(data[i].title.indexOf(" ") + 1);
-            // Give reviews[i] the url of data[i] to link to the appropriate site
-            $(reviews[i]).attr("href", data[i].url);
-            // Add text of revised review title
-            $(reviews[i]).text(fixedTitle);
-            }
-        });
+                // Declare variable for review class
+                var reviews = $(".reviews");
+                // Start loop at 1 to skip first result, didn't recognize it
+                for (var i = 1; i < 15; i++) {
+                    // Remove "Reviews: " from every review title
+                    var fixedTitle = data[i].title.substr(data[i].title.indexOf(" ") + 1);
+                    // Give reviews[i] the url of data[i] to link to the appropriate site
+                    $(reviews[i]).attr("href", data[i].url);
+                    // Add text of revised review title
+                    $(reviews[i]).text(fixedTitle);
+                }
+            });
     }
 
-  // Push this down to keep code above the closing bracket/parenthesis
+    // Push this down to keep code above the closing bracket/parenthesis
 });
