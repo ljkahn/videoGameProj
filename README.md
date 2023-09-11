@@ -36,6 +36,7 @@ The following gif shows the Game Finder application's appearance and functionali
 
 ## Credits
 
-## License
-
-TBD
+Lia Kahn
+Pete Richardson
+Jake Zook
+Mateo Rodriguez
