@@ -22,8 +22,8 @@ $(function () {
     reviewOptions = {
         method: "GET",
         headers: {
-        "X-RapidAPI-Key": "e1809c1148msh63d6d06814bd88cp1562f3jsna58fa1824902",
-        "X-RapidAPI-Host": "gamereviews.p.rapidapi.com",
+            "X-RapidAPI-Key": "e1809c1148msh63d6d06814bd88cp1562f3jsna58fa1824902",
+            "X-RapidAPI-Host": "gamereviews.p.rapidapi.com",
         },
     };
 
@@ -33,43 +33,49 @@ $(function () {
     function renderCurrentTopGame() {
         let lastMonth = dayjs().subtract(30, "day");
         let requestLink =
-        rawgURL +
-        "games" +
-        rawgID +
-        "&ordering=-metacritic&dates=" +
-        lastMonth +
-        "," +
-        day;
+            rawgURL +
+            "games" +
+            rawgID +
+            "&ordering=-metacritic&dates=" +
+            lastMonth +
+            "," +
+            day;
 
         fetch(requestLink)
-        .then(function (response) {
-            return response.json();
-        })
-        .then(function (data) {
-            let topGameImg = $(".top-game-img");
-            let topGameName = $(".top-game-name");
-            let topGameScore = $(".top-game-score");
-            let topGameGenre = $(".top-game-genre");
-            let favBtn = $(".top-add-favorite");
+            .then(function (response) {
+                return response.json();
+            })
+            .then(function (data) {
 
-            //Renders data
-            for (let i = 0; i < 3; i++) {
-                $(topGameImg[i]).attr("src", data.results[i].background_image);
-                $(topGameName[i]).text(data.results[i].name);
-                $(topGameScore[i]).text(
-                    "Metacritic Score: " + data.results[i].metacritic
-                );
+                let topGameImg = $(".top-game-img");
+                let topGameName = $(".top-game-name");
+                let topGameScore = $(".top-game-score");
+                let topGameGenre = $(".top-game-genre");
+                let favBtn = $(".top-add-favorite");
 
-                for (let x = 0; x < data.results[i].genres.length; x++) {
+                //Renders data
+                for (let i = 0; i < 3; i++) {
+                    $(topGameImg[i]).attr("src", data.results[i].background_image);
+                    $(topGameName[i]).text(data.results[i].name);
+                    $(topGameScore[i]).text("Metacritic Score: " + data.results[i].metacritic);
+
+                for (let x = 0; x < data.results[i].genres.length; x++) 
+                {
+                    //Only show 2 genres
+                    if (x === 2)
+                    {
+                        break;
+                    }
+
                     $(topGameGenre[i]).append("<li>" + data.results[i].genres[x].name) +
                     "</li>";
                 }
 
-                $(favBtn[i]).on("click", function () {
-                    addToFavs(data.results[i]);
-                });
-            }
-        });
+                    $(favBtn[i]).on("click", function () {
+                        addToFavs(data.results[i])
+                    });
+                }
+            });
     }
 
     // Create async function to take genres from user input and search top games of those genres
@@ -80,20 +86,21 @@ $(function () {
         if (aGenre === "rpg") {
             // RPG id
             aGenre = 5;
-        } else if (aGenre === "massively multiplayer") {
+        }
+        else if (aGenre === "massively multiplayer") {
             // MMO id
             aGenre = 59;
         }
 
         // Declare variable to store api queries
         var genreSearchQuery =
-        "games" +
-        rawgID +
-        "&ordering=-metacritic" +
-        "&genres=" +
-        aGenre +
-        "&exclude_additions=true" +
-        "&dates=2015-01-01,2023-08-05";
+            "games" +
+            rawgID +
+            "&ordering=-metacritic" +
+            "&genres=" +
+            aGenre +
+            "&exclude_additions=true" +
+            "&dates=2015-01-01,2023-08-05";
 
         // Concat queries to endpoint URL
         var requestGenres = rawgURL + genreSearchQuery;
@@ -119,22 +126,22 @@ $(function () {
         if (aGenre === "rpg") {
             // RPG id
             aGenre = 5;
-        } else if (aGenre === "massively multiplayer") {
+        }
+        else if (aGenre === "massively multiplayer") {
             // MMO id
             aGenre = 59;
         }
 
         // Declare variable to store api queries
         var genreSearchQuery =
-        "games" +
-        rawgID +
-        "&ordering=-metacritic" +
-        "&genres=" +
-        aGenre +
-        "&exclude_additions=true" +
-        "&dates=2015-01-01,2023-08-05" +
-        "&platforms=" +
-        platform;
+            "games" +
+            rawgID +
+            "&ordering=-metacritic" +
+            "&genres=" +
+            aGenre +
+            "&exclude_additions=true" +
+            "&dates=2015-01-01,2023-08-05" +
+            "&platforms=" + platform;
 
         // Concat queries to endpoint URL
         var requestGenres = rawgURL + genreSearchQuery;
@@ -160,17 +167,17 @@ $(function () {
     async function findMatches(userInput, platform) {
         // Declare variable with all concatenated queries
         let queries =
-        "games" +
-        rawgID +
-        "&search_precise=true" +
-        "&search_exact=true" +
-        "&exclude_additions=true" +
-        "&ordering=-metacritic" +
-        "&exclude_collection=true" +
-        "&dates=2010-01-01,2023-08-05" +
-        "&platforms=" +
-        platform +
-        "&search=";
+            "games" +
+            rawgID +
+            "&search_precise=true" +
+            "&search_exact=true" +
+            "&exclude_additions=true" +
+            "&ordering=-metacritic" +
+            "&exclude_collection=true" +
+            "&dates=2010-01-01,2023-08-05" +
+            "&platforms=" +
+            platform +
+            "&search=";
 
         // Clear genres array every time findMatches is called
         genres = [];
@@ -183,7 +190,7 @@ $(function () {
             // Declare variable for endpoint with concatenated queries and user input
             let requestSearch = rawgURL + queries + element;
             // Declare data variable that will get the results from fetching the above variable
-            const response = await fetch(requestSearch);
+            const response = await fetch(requestSearch)
             // then function uses fetch results
 
             //Can get data
@@ -216,7 +223,7 @@ $(function () {
             }
         }
 
-        // remove duplicate genres
+        // Remove duplicate genres
         genres = [...new Set(genres)];
 
         const awaitGenres = async function () {
@@ -301,19 +308,13 @@ $(function () {
             //Creates a list of every genre listed listed for the game
             for (let y = 0; y < data[x].genres.length; y++) {
                 $(genreGenreList[x]).append(
-                "<li class ='text-start greyBodyText'>" +
-                    data[x].genres[y].name +
-                    "</li>"
-                );
+                    "<li class ='text-start greyBodyText'>" + data[x].genres[y].name + "</li>");
             }
 
             //Creates a list of all platforms the game is on
             for (let z = 0; z < data[x].platforms.length; z++) {
                 $(genrePlatformsList[x]).append(
-                "<li class ='text-start greyBodyText'>" +
-                    data[x].platforms[z].platform.name +
-                    "</li>"
-                );
+                    "<li class ='text-start greyBodyText'>" + data[x].platforms[z].platform.name + "</li>");
             }
 
             $(unusedBtn[x]).addClass("hide");
@@ -322,7 +323,7 @@ $(function () {
             $(favBtn[x]).off();
 
             $(favBtn[x]).on("click", function () {
-                addToFavs(data[x]);
+                addToFavs(data[x])
             });
         }
     }
@@ -339,7 +340,9 @@ $(function () {
     }
 
     //Update the text and images of the cards to show the data for the current genre
+    // function renderGenreList(data, iterations) {
     function renderGenreList(data) {
+
         let genreList = $(".genre-list");
         let genreGameImg = $("[id=genre-game-img]");
         let genreGameName = $("[id=genre-game-name]");
@@ -376,19 +379,13 @@ $(function () {
             //Creates a list of every genre listed listed for the game
             for (let y = 0; y < data.results[x].genres.length; y++) {
                 $(genreGenreList[x]).append(
-                "<li class ='text-start greyBodyText'>" +
-                    data.results[x].genres[y].name +
-                    "</li>"
-                );
+                    "<li class ='text-start greyBodyText'>" + data.results[x].genres[y].name + "</li>");
             }
 
             //Creates a list of all platforms the game is on
             for (let z = 0; z < data.results[x].platforms.length; z++) {
                 $(genrePlatformsList[x]).append(
-                "<li class ='text-start greyBodyText'>" +
-                    data.results[x].platforms[z].platform.name +
-                    "</li>"
-                );
+                    "<li class ='text-start greyBodyText'>" + data.results[x].platforms[z].platform.name + "</li>");
             }
 
             $(unusedBtn[x]).addClass("hide");
@@ -397,7 +394,7 @@ $(function () {
             $(favBtn[x]).off();
 
             $(favBtn[x]).on("click", function () {
-                addToFavs(data.results[x]);
+                addToFavs(data.results[x])
             });
         }
     }
@@ -541,9 +538,9 @@ $(function () {
         var platformSelection = $("#platform-selection option:selected").val();
 
         var userFavorites = [
-        $("#game-1").val(),
-        $("#game-2").val(),
-        $("#game-3").val(),
+            $("#game-1").val(),
+            $("#game-2").val(),
+            $("#game-3").val(),
         ];
 
         //Loading text when games are searched
@@ -565,6 +562,4 @@ $(function () {
     createGenreList();
     renderCurrentTopGame();
     reviewLinks();
-
-
 });
