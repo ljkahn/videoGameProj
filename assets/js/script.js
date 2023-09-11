@@ -14,6 +14,7 @@ $(function () {
     var rawgID = "?key=ad61e1d9ed3844018c1885a37313c3e9";
     // Declare genres array variable
     var genres = [];
+<<<<<<< HEAD
     // Declare variable for giant bomb api key
     var bombKey = "e5af497a03a411164e9f7c6c123e898f0a91fcff";
     // Declare variable for giant bomb endpoint url
@@ -28,6 +29,19 @@ $(function () {
     var bombKey = "e5af497a03a411164e9f7c6c123e898f0a91fcff";
     // Declare variable for giant bomb endpoint url
     var bombUrl = "https://www.giantbomb.com/api/games/?api_key=";
+=======
+    // Declare variable for api endpoint
+    reviewUrl = "https://gamereviews.p.rapidapi.com/games/destructoid";
+    // Declare variable to store object of method, key, and host
+    reviewOptions = {
+        method: "GET",
+        headers: {
+        "X-RapidAPI-Key": "e1809c1148msh63d6d06814bd88cp1562f3jsna58fa1824902",
+        "X-RapidAPI-Host": "gamereviews.p.rapidapi.com",
+        },
+    };
+    
+>>>>>>> main
 
     // FUNCTION DECLARATIONS
 
@@ -218,7 +232,7 @@ $(function () {
         }
 
 
-        // remove duplicates
+        // remove duplicate genres
         genres = [...new Set(genres)];
 
         const awaitGenres = async function () {
@@ -231,7 +245,33 @@ $(function () {
 
         const searchReturn = await awaitGenres();
 
+        
+        // console.log(searchResults);
+
+        // Create a new set to store unique object ids
+        const uniqueIds = new Set();
+
+        // Use filter to remove duplicates based on the ids
+        const uniqueObjects = searchResults.filter(obj => {
+
+            // Check if the id is already in the set
+            if (uniqueIds.has(obj.id)) {
+                // Return false if it's a duplicate to make sure it isn't added
+                return false;
+            }
+
+            // If not a duplicate, add it to the set and return true to include obj
+            uniqueIds.add(obj.id);
+            return true;
+        });
+
+        
+        console.log(searchResults);
+        console.log(uniqueObjects);
+
+
         //Gets 20 random games from list and adds them to the list to be rendered
+<<<<<<< HEAD
         for (let i = 0; i < 20; i++) {
             let pick = Math.floor(Math.random() * searchResults.length);
             let game = searchResults[pick];
@@ -248,6 +288,16 @@ $(function () {
                 }
             }
         }
+=======
+        for (let i = 0; i < 20; i++)
+        {
+            refinedList.push(uniqueObjects[i]);
+        }   
+
+        //     let pick = Math.floor(Math.random() * uniqueObjects.length);
+        //     let game = uniqueObjects[pick];
+
+>>>>>>> main
         console.log(refinedList);
         renderGameList(refinedList);
     }
@@ -513,4 +563,36 @@ $(function () {
     // FUNCTION CALLS
     createGenreList();
     renderCurrentTopGame();
+    reviewLinks();
+
+
+
+
+
+
+    // Create a function for a second server side api
+    function reviewLinks() {
+        // Fetch data with the url and object
+        fetch(reviewUrl, reviewOptions)
+        .then(function (response) {
+            return response.json();
+        })
+        .then(function (data) {
+            // console.log(data);
+
+            // Declare variable for review class
+            var reviews = $(".reviews");
+            // Start loop at 1 to skip first result, didn't recognize it
+            for (var i = 1; i < 15; i++) {
+            // Remove "Reviews: " from every review title
+            var fixedTitle = data[i].title.substr(data[i].title.indexOf(" ") + 1);
+            // Give reviews[i] the url of data[i] to link to the appropriate site
+            $(reviews[i]).attr("href", data[i].url);
+            // Add text of revised review title
+            $(reviews[i]).text(fixedTitle);
+            }
+        });
+    }
+
+  // Push this down to keep code above the closing bracket/parenthesis
 });
