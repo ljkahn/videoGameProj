@@ -14,6 +14,8 @@ $(function () {
     var rawgID = "?key=ad61e1d9ed3844018c1885a37313c3e9";
     // Declare genres array variable
     var genres = [];
+    // Declare a variable to store each randomly selected index
+    var selectedIndexes = [];
     // Declare variable for api endpoint
     reviewUrl = "https://gamereviews.p.rapidapi.com/games/destructoid";
     // Declare variable to store object of method, key, and host
@@ -25,12 +27,11 @@ $(function () {
         },
     };
 
-
     // FUNCTION DECLARATIONS
 
     //Gets and renders the top rated games of the last month
     function renderCurrentTopGame() {
-        let lastMonth = dayjs().subtract(30, 'day');
+        let lastMonth = dayjs().subtract(30, "day");
         let requestLink =
             rawgURL +
             "games" +
@@ -77,6 +78,7 @@ $(function () {
             });
     }
 
+    // Create async function to take genres from user input and search top games of those genres
     async function listGenres(aGenre) {
         // Convert searches to lowercase to pull up results
         aGenre = aGenre.toLowerCase();
@@ -104,7 +106,7 @@ $(function () {
         var requestGenres = rawgURL + genreSearchQuery;
 
         // Fetch request data for games by genre
-        const response = await fetch(requestGenres)
+        const response = await fetch(requestGenres);
         // Validation
         if (response.response === 404) {
             return;
@@ -112,6 +114,7 @@ $(function () {
 
         const data = await response.json();
 
+        // Call function to populate the user specific data to the page
         renderGenreList(data);
     }
 
@@ -144,7 +147,7 @@ $(function () {
         var requestGenres = rawgURL + genreSearchQuery;
 
         // Fetch request data for games by genre
-        const response = await fetch(requestGenres)
+        const response = await fetch(requestGenres);
         // Validation
         if (response.response === 404) {
             return;
@@ -152,8 +155,6 @@ $(function () {
 
         const data = await response.json();
 
-        console.log(data);
-        // renderGenreList(data, 5);
         for (let i = 0; i < data.results.length; i++) {
             let game = data.results[i];
             searchResults.push(game);
@@ -182,6 +183,7 @@ $(function () {
         genres = [];
         searchResults = [];
         refinedList = [];
+        selectedIndexes = [];
 
         // Use for of loop to iterate through array of user input
         for (const element of userInput) {
@@ -221,8 +223,7 @@ $(function () {
             }
         }
 
-
-        // remove duplicate genres
+        // Remove duplicate genres
         genres = [...new Set(genres)];
 
         const awaitGenres = async function () {
@@ -231,19 +232,15 @@ $(function () {
                 searchGenres = await searchGenre(element, platform);
             }
             return searchGenres;
-        }
+        };
 
         const searchReturn = await awaitGenres();
-
-
-        // console.log(searchResults);
 
         // Create a new set to store unique object ids
         const uniqueIds = new Set();
 
         // Use filter to remove duplicates based on the ids
-        const uniqueObjects = searchResults.filter(obj => {
-
+        const uniqueObjects = searchResults.filter((obj) => {
             // Check if the id is already in the set
             if (uniqueIds.has(obj.id)) {
                 // Return false if it's a duplicate to make sure it isn't added
@@ -255,20 +252,15 @@ $(function () {
             return true;
         });
 
-
-        console.log(searchResults);
         console.log(uniqueObjects);
-
-
         //Gets 20 random games from list and adds them to the list to be rendered
         for (let i = 0; i < 20; i++) {
-            refinedList.push(uniqueObjects[i]);
-        }
-
-        //     let pick = Math.floor(Math.random() * uniqueObjects.length);
-        //     let game = uniqueObjects[pick];
-
-        console.log(refinedList);
+            let pick = getRandom(uniqueObjects, selectedIndexes);
+            console.log(pick);
+            // Push the unique random objects into the refinedList
+            refinedList.push(uniqueObjects[pick]);
+            }
+        // Render the game list
         renderGameList(refinedList);
     }
 
@@ -288,7 +280,7 @@ $(function () {
         let unusedBtn = $(".genre-add-favorite");
         let favBtn = $(".search-add-favorite");
 
-        var loadingText = $('#loading-text');
+        var loadingText = $("#loading-text");
         loadingText.addClass("hide");
 
         for (let i = 0; i < iteration; i++) {
@@ -311,8 +303,7 @@ $(function () {
             //Sets image, name, and metacritic score
             $(genreGameImg[x]).attr("src", data[x].background_image);
             $(genreGameName[x]).text(data[x].name);
-            $(genreGameScore[x]).text(
-                "Metacritic Score: " + data[x].metacritic);
+            $(genreGameScore[x]).text("Metacritic Score: " + data[x].metacritic);
 
             //Creates a list of every genre listed listed for the game
             for (let y = 0; y < data[x].genres.length; y++) {
@@ -382,7 +373,8 @@ $(function () {
             $(genreGameImg[x]).attr("src", data.results[x].background_image);
             $(genreGameName[x]).text(data.results[x].name);
             $(genreGameScore[x]).text(
-                "Metacritic Score: " + data.results[x].metacritic);
+                "Metacritic Score: " + data.results[x].metacritic
+            );
 
             //Creates a list of every genre listed listed for the game
             for (let y = 0; y < data.results[x].genres.length; y++) {
@@ -407,10 +399,52 @@ $(function () {
         }
     }
 
+    // Create function for adding games to user's favorites list
     function addToFavs(game) {
         favoritesList.push(game);
 
         localStorage.setItem("favList", JSON.stringify(favoritesList));
+    }
+
+    
+    // Create a function for a second server side api
+    function reviewLinks() {
+        // Fetch data with the url and object
+        fetch(reviewUrl, reviewOptions)
+        .then(function (response) {
+            return response.json();
+        })
+        .then(function (data) {
+            // Declare variable for review class
+            var reviews = $(".reviews");
+            // Start loop at 1 to skip first result, didn't recognize it
+            for (var i = 1; i < 15; i++) {
+                // Remove "Reviews: " from every review title
+                var fixedTitle = data[i].title.substr(data[i].title.indexOf(" ") + 1);
+                // Give reviews[i] the url of data[i] to link to the appropriate site
+                $(reviews[i]).attr("href", data[i].url);
+                // Add text of revised review title
+                $(reviews[i]).text(fixedTitle);
+            }
+        });
+    }
+
+    // Create function to get random numbers without repeats
+    function getRandom(array, newArray) {
+        // Declare local variable for random index
+        var randomIndex;
+
+        // Use a do while loop to continue generating random numbers while the number has already been used
+        do {
+            // Generate a random within the length of array
+            randomIndex = Math.floor(Math.random() * array.length);
+        } while (newArray.includes(randomIndex));
+
+        // Store the generated number in the newArray
+        newArray.push(randomIndex);
+
+        // Return the unique random index
+        return randomIndex;
     }
 
     // EVENT LISTENERS
@@ -444,7 +478,7 @@ $(function () {
         $("#favorites-list").removeClass("hide");
         let genreHeader = $("#genre-header");
         genreHeader.addClass("hide");
-        let resultsHeader = $('#results-header');
+        let resultsHeader = $("#results-header");
         resultsHeader.addClass("hide");
         let clearFavsBtn = $("#clear-favs");
         clearFavsBtn.removeClass("hide");
@@ -493,7 +527,7 @@ $(function () {
         $("#games-list").removeClass("hide");
         let genreHeader = $("#genre-header");
         genreHeader.addClass("hide");
-        let resultsHeader = $('#results-header');
+        let resultsHeader = $("#results-header");
         resultsHeader.removeClass("hide");
         let favHeader = $("#favorites-list");
         favHeader.addClass("hide");
@@ -501,7 +535,7 @@ $(function () {
         clearFavsBtn.addClass("hide");
 
         // Declare variable for user input
-        var platformSelection = $('#platform-selection option:selected').val();
+        var platformSelection = $("#platform-selection option:selected").val();
 
         var userFavorites = [
             $("#game-1").val(),
@@ -510,7 +544,7 @@ $(function () {
         ];
 
         //Loading text when games are searched
-        var loadingText = $('#loading-text');
+        var loadingText = $("#loading-text");
         loadingText.removeClass("hide");
 
         findMatches(userFavorites, platformSelection);
@@ -522,41 +556,10 @@ $(function () {
         let favs = "";
 
         renderGameList(favs);
-    })
+    });
 
     // FUNCTION CALLS
     createGenreList();
     renderCurrentTopGame();
     reviewLinks();
-
-
-
-
-
-
-    // Create a function for a second server side api
-    function reviewLinks() {
-        // Fetch data with the url and object
-        fetch(reviewUrl, reviewOptions)
-            .then(function (response) {
-                return response.json();
-            })
-            .then(function (data) {
-                // console.log(data);
-
-                // Declare variable for review class
-                var reviews = $(".reviews");
-                // Start loop at 1 to skip first result, didn't recognize it
-                for (var i = 1; i < 15; i++) {
-                    // Remove "Reviews: " from every review title
-                    var fixedTitle = data[i].title.substr(data[i].title.indexOf(" ") + 1);
-                    // Give reviews[i] the url of data[i] to link to the appropriate site
-                    $(reviews[i]).attr("href", data[i].url);
-                    // Add text of revised review title
-                    $(reviews[i]).text(fixedTitle);
-                }
-            });
-    }
-
-    // Push this down to keep code above the closing bracket/parenthesis
 });
