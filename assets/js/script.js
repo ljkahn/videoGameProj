@@ -502,7 +502,13 @@ $(function () {
         let favs = "";
 
         renderGameList(favs);
-    })
+    });
+
+
+
+    //hide nav bar upon link click
+
+
 
     // FUNCTION CALLS
     createGenreList();
