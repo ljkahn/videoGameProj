@@ -6,95 +6,103 @@
 }
 
 body {
-    background-color: #363a43;
-  }
-  
-  h2 {
-    text-align: center;
-    color: white;
-    font-weight: 700;
-    font-size: 100px;
-    font-family: Arial, Helvetica, sans-serif;
-    padding-top: 50px;
-  }
-  
-  h3 {
-    text-align: center;
-    color: white;
-    font-weight: 700;
-    font-size: 50px;
-    font-family: Arial, Helvetica, sans-serif;
-    padding-top: 50px;
-  }
-  
-  /* CLASSES */
-  p,
-  h6 {
-    font-weight: 700;
-    color: rgba(255, 255, 255, 0.54);
-    padding-left: 0.5rem;
-  }
-  
-  label {
-    padding-left: 0.5rem;
-  }
-  
-  li {
-    text-align: center;
-    font-weight: 700;
-  }
-  
-  .flex-column {
-    justify-content: space-between;
-  }
-  
-  a .btn {
-    align-items: center;
-  }
-  
-  .w-50 {
-    align-items: center;
-  }
-  
-  .navbar-brand {
-    font-family: Arial, Helvetica, sans-serif;
-  }
-  
-  .footer {
-    align-items: center;
-  }
-  
-  /* .btn {
-    
-    
-  } */
-  
-  .card {
-    background-color: #3d424d;
-  }
-  
-  .card-title {
-    text-align: center;
-    font-weight: 700;
-    font-size: 2 rem;
-    font-family: Arial, Helvetica, sans-serif;
-    color: white;
-  }
-  
-  .genre-card {
-    background-color: #444b5a;
-    color: white;
-  }
-  
-  .gameCardInput {
-    color: white;
-  }
-  
-  .hide {
-    display: none;
-  }
-  
-  /* ID */
+  background-color: #363a43;
+}
+
+h2 {
+  text-align: center;
+  color: white;
+  font-weight: 700;
+  font-size: 100px;
+  font-family: Arial, Helvetica, sans-serif;
+  padding-top: 50px;
+}
+
+h3 {
+  text-align: center;
+  color: white;
+  font-weight: 700;
+  font-size: 50px;
+  font-family: Arial, Helvetica, sans-serif;
+  padding-top: 50px;
+}
+
+/* CLASSES */
+p,
+h6 {
+  font-weight: 700;
+  color: rgba(255, 255, 255, 0.54);
+  padding-left: 0.5rem;
+}
+
+/* body text for search cards */
+.greyBodyText {
+  font-weight: 700;
+  color: rgba(255, 255, 255, 0.54);
+}
+
+genre-list {
+  text-align: center;
+}
+
+label {
+  padding-left: 0.5rem;
+}
+
+li {
+  text-align: center;
+  font-weight: 700;
+}
+/* navbar list */
+.nav-item {
+  text-align: left;
+}
+.flex-column {
+  justify-content: space-between;
+}
+
+a .btn {
+  align-items: center;
+}
+
+.w-50 {
+  align-items: center;
+}
+
+.navbar-brand {
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.footer {
+  align-items: center;
+}
+
+.card {
+  background-color: #3d424d;
+}
+
+.card-title {
+  text-align: center;
+  font-weight: 700;
+  font-size: 2 rem;
+  font-family: Arial, Helvetica, sans-serif;
+  color: white;
+}
+
+.genre-card {
+  background-color: #3d424d;
+  color: white;
+}
+
+.gameCardInput {
+  color: white;
+}
+
+.hide {
+  display: none;
+}
+
+/* ID */
 
 
 
