@@ -241,7 +241,7 @@
               <h5 class="card-title top-game-name"></h5>
               <h6 class="top-game-genre"></h6>
               <p class="card-text top-game-score "style="text-align: center;"></p>
-              <a href="#" class="btn btn-dark">Add to favorites</a>
+              <a class="top-add-favorite btn btn-dark">Add to favorites</a>
             </div>
           </div>
     
@@ -253,7 +253,7 @@
               <h5 class="card-title top-game-name"></h5>
               <h6 class="top-game-genre"></h6>
               <p class="card-text top-game-score" style="text-align: center;"></p>
-              <a href="#" class="btn btn-dark">Add to favorites</a>
+              <a class="top-add-favorite btn btn-dark">Add to favorites</a>
             </div>
           </div>
           <div class="card mx-auto col-4">
@@ -264,14 +264,14 @@
               <h5 class="card-title top-game-name"></h5>
               <h6 class="top-game-genre"></h6>
               <p class="card-text top-game-score" style="text-align: center;"></p>
-              <a href="#" class="btn btn-dark">Add to favorites</a>
+              <a class="top-add-favorite btn btn-dark">Add to favorites</a>
             </div>
           </div>
           </section>
           </div>
     </main>
 
-    <div id="favorites-list" class="hide">favorites list</div>
+    <h2 id="favorites-list" class="hide">Favorites:</h2>
 
     <div id="games-list" class="hide"></div>
 
@@ -311,9 +311,12 @@
         </div>
       </div>
     </section> -->
-    <h2 id="loading-text" class="hide">Finding Games...</h2>
     <h2 id="results-header" class="hide">Search Results:</h2>
     <h2 id="genre-header" class="hide"></h2>
+    <h3 id="loading-text" class="hide">Finding Games...</h3>
+    <div class="h-100 d-flex align-items-center justify-content-center">
+      <button id="clear-favs" class="hide btn btn-outline-danger btn-sm mt-2">CLEAR FAVORITES</button>
+    </div>
     <section class="genre-list">
       <div class="container mt-5 mb-5 game-genre-card hide">
         <div class="d-flex justify-content-center row">
@@ -338,7 +341,8 @@
                           </div>
                           <ul id="genre-platform-list">
                           </ul>
-                        <div class="d-flex flex-column mt-4"><button class="btn btn-outline-primary btn-sm mt-2" type="button">Add to favorites</button></div>
+                        <div class="d-flex flex-column mt-4"><button id="searchFav" class="search-add-favorite btn btn-outline-primary btn-sm mt-2" type="button">Add to favorites</button></div>
+                        <div class="d-flex flex-column mt-4"><button id="genreFav" class="genre-add-favorite btn btn-outline-primary btn-sm mt-2" type="button">Add to favorites</button></div>
                     </div>
                 </div>
             </div>
