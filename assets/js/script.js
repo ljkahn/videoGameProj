@@ -4,6 +4,7 @@ $(function () {
     var iteration = 20;
     var searchResults = [];
     var refinedList = [];
+    var favoritesList = JSON.parse(localStorage.getItem("favList")) || [];
 
     var day = dayjs();
 
@@ -42,6 +43,7 @@ $(function () {
             let topGameName = $(".top-game-name");
             let topGameScore = $(".top-game-score");
             let topGameGenre = $(".top-game-genre");
+            let favBtn = $(".top-add-favorite");
 
             //Renders data
             for (let i = 0; i < 3; i++) 
@@ -55,6 +57,10 @@ $(function () {
                     $(topGameGenre[i]).append("<li>" + data.results[i].genres[x].name) +
                     "</li>";
                 }
+
+                $(favBtn[i]).on("click", function() {
+                    addToFavs(data.results[i])
+                });
             }
         });
     }
@@ -235,38 +241,57 @@ $(function () {
         {
             let pick = Math.floor(Math.random() * searchResults.length);
             let game = searchResults[pick];
-            refinedList.push(game);
+
+            if (i === 0)
+            {
+                refinedList.push(game);
+                continue;
+            }
+            
+            for (let x = 0; x < refinedList.length; x++)
+            {
+                if (refinedList[x].name !== game.name)
+                {
+                    refinedList.push(game);
+                    break;
+                }
+            }
         }
-        renderSearchList(refinedList);
+        console.log(refinedList);
+        renderGameList(refinedList);
     }
 
     //Renders refinedList
-    function renderSearchList(data)
+    function renderGameList(data)
     {
+        //Hides other menus
+        $("#main").addClass("hide");
+        $("#recommendation").addClass("hide");
+
         let genreList = $(".genre-list");    
         let genreGameImg = $("[id=genre-game-img]");
         let genreGameName = $("[id=genre-game-name]");
         let genreGameScore = $("[id=genre-game-score]");
         let genreGenreList = $("[id=genre-genre-list]");
         let genrePlatformsList = $("[id=genre-platform-list]");
+
+        let unusedBtn = $(".genre-add-favorite");
+        let favBtn = $(".search-add-favorite");
+
         var loadingText = $('#loading-text');
         loadingText.addClass("hide");
-        let resultsHeader = $('#results-header');
-        resultsHeader.removeClass("hide");
 
-        //Hides other menus
-        $("#main").addClass("hide");
-        $("#recommendation").addClass("hide");
-
-        //Renders cards
-        for (let a = 0; a < data.length; a++) 
+        for (let i = 0; i < iteration; i++)
         {
-            genreList.children().eq(a).removeClass("hide");
+            genreList.children().eq(i).addClass("hide");
         }
-
+        
         //Updates card with data
         for (let x = 0; x < data.length; x++) 
         {
+            //Renders cards
+            genreList.children().eq(x).removeClass("hide");
+
             for (let y = 0; y < data[x].genres.length; y++) {
                 $(genreGenreList[x]).children().remove();
             }
@@ -292,6 +317,15 @@ $(function () {
                 $(genrePlatformsList[x]).append(
                 "<li>" + data[x].platforms[z].platform.name + "</li>");
             }
+
+            $(unusedBtn[x]).addClass("hide");
+            $(favBtn[x]).removeClass("hide");
+
+            $(favBtn[x]).off();
+            
+            $(favBtn[x]).on("click", function() {
+                addToFavs(data[x])
+            });
         }
     }
 
@@ -301,7 +335,7 @@ $(function () {
         let genreList = $(".genre-list");
         let genreGameCard = $(".game-genre-card");
 
-        for (let i = 0; i < 19; i++)
+        for (let i = 0; i < iteration - 1; i++)
         {
             genreGameCard.clone().appendTo(genreList);
         }
@@ -309,7 +343,8 @@ $(function () {
 
     //Update the text and images of the cards to show the data for the current genre
     // function renderGenreList(data, iterations) {
-    function renderGenreList(data) {
+        function renderGenreList(data) {
+
         let genreList = $(".genre-list");    
         let genreGameImg = $("[id=genre-game-img]");
         let genreGameName = $("[id=genre-game-name]");
@@ -317,14 +352,18 @@ $(function () {
         let genreGenreList = $("[id=genre-genre-list]");
         let genrePlatformsList = $("[id=genre-platform-list]");
 
-        //Reveals all the cards
+        let unusedBtn = $(".search-add-favorite");
+        let favBtn = $(".genre-add-favorite");
+
         for (let a = 0; a < iteration; a++) 
         {
-            genreList.children().eq(a).removeClass("hide");
+            genreList.children().eq(a).addClass("hide");
         }
 
         for (let x = 0; x < data.results.length; x++) 
         {
+             //Reveals all the cards
+            genreList.children().eq(x).removeClass("hide");
 
             for (let y = 0; y < data.results[x].genres.length; y++) 
             {
@@ -353,7 +392,23 @@ $(function () {
                 $(genrePlatformsList[x]).append(
                 "<li>" + data.results[x].platforms[z].platform.name + "</li>");
             }
+
+            $(unusedBtn[x]).addClass("hide");
+            $(favBtn[x]).removeClass("hide");
+
+            $(favBtn[x]).off();
+
+            $(favBtn[x]).on("click", function() {
+                addToFavs(data.results[x])
+            });
         }
+    }
+
+    function addToFavs(game)
+    {
+        favoritesList.push(game);
+
+        localStorage.setItem("favList", JSON.stringify(favoritesList));
     }
 
     // EVENT LISTENERS
@@ -366,6 +421,8 @@ $(function () {
         resultsHeader.addClass("hide");
         let genreHeader = $("#genre-header");
         genreHeader.addClass("hide");
+        let clearFavsBtn = $("#clear-favs");
+        clearFavsBtn.addClass("hide");
         $("#main").removeClass("hide");
 
         //Hides all game cards
@@ -381,43 +438,42 @@ $(function () {
         $("#game-3").val("");
     });
 
-    //favorites button --> local storage
     $("#favorites-button").on("click", function (event) {
-        // var userInput = $("#input").val();
-
         $("#main").addClass("hide");
         $("#favorites-list").removeClass("hide");
+        let genreHeader = $("#genre-header");
+        genreHeader.addClass("hide");
+        let resultsHeader = $('#results-header');
+        resultsHeader.addClass("hide");
+        let clearFavsBtn = $("#clear-favs");
+        clearFavsBtn.removeClass("hide");
 
-        //store search results
-        //create variable to store searches in
+        let favs = JSON.parse(localStorage.getItem("favList"));
+        let favBtn = $(".search-add-favorite");
 
-        var favGames = JSON.parse(localStorage.getItem("favorites")) || [];
+        renderGameList(favs);
 
-        function updateFave() {
-            favGames.forEach(function (game) {
-                $("#favorites-list").append(`<li>${game}</li>`);
-            });
-        }
-
-        var game = $("#input").val();
-        favGames.unshift(game);
-        localStorage.setItem("favorite-game", JSON.stringify(favGames));
-        updateFave();
+        $(favBtn).addClass("hide");
     });
 
     //genre button event listener to display games based on the api genre data
     $(".dropdown-item").on("click", function (event) {
         event.stopPropagation();
+
         var choice = event.target.textContent;
 
         let resultsHeader = $("#results-header");
         let genreHeader = $("#genre-header");
+        let favHeader = $("#favorites-list");
+        let clearFavsBtn = $("#clear-favs");
+        clearFavsBtn.addClass("hide");
 
         //Updates header with current genre name
         $(genreHeader).text(choice + " Games:");
         genreHeader.removeClass("hide");
-
+        
         resultsHeader.addClass("hide");
+        favHeader.addClass("hide");
         $("#main").addClass("hide");
         $("#recommendation").addClass("hide");
         $("#games-list").removeClass("hide");
@@ -436,6 +492,12 @@ $(function () {
         $("#games-list").removeClass("hide");
         let genreHeader = $("#genre-header");
         genreHeader.addClass("hide");
+        let resultsHeader = $('#results-header');
+        resultsHeader.removeClass("hide");
+        let favHeader = $("#favorites-list");
+        favHeader.addClass("hide");
+        let clearFavsBtn = $("#clear-favs");
+        clearFavsBtn.addClass("hide");
 
         // Declare variable for user input
         var platformSelection = $('#platform-selection option:selected').val();
@@ -452,6 +514,14 @@ $(function () {
 
         findMatches(userFavorites, platformSelection);
     });
+
+    // Clears local storage on click
+    $("#clear-favs").on("click", function() {
+        localStorage.clear();
+        let favs = "";
+
+        renderGameList(favs);
+    })
 
     // FUNCTION CALLS
     createGenreList();
