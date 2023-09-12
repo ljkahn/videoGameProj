@@ -32,7 +32,7 @@ Once you have found a game (or a few) that you want to save, hit the "Add to Fav
 
 The following short video shows the Game Finder application's appearance and functionality.
 
-![Video of Game Finder application](../videoGameProj/assets/images/gameSeekers.gif)
+![Video of Game Finder application](./assets/images/gameSeekers.gif)
 
 ## Credits
 
