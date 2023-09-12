@@ -16,12 +16,11 @@ Our video game recommendation web application offers a wide range of features to
 
 - Favorites List: Create and manage a favorites list of games you want to play in the future.
 
-
-To visit GAME SEEKERS click [here!](https://ljkahn.github.io/videoGameProj/)
-
 ## Installation
 
 N/A
+
+To visit GAME SEEKERS click [here!](https://ljkahn.github.io/videoGameProj/)
 
 ## Usage
 
