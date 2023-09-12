@@ -1,4 +1,4 @@
-# Game Finder (Working Title)
+# GAMESEEKER
 
 ## Description
 
