@@ -38,7 +38,7 @@ The following short video shows the Game Finder application's appearance and fun
 
 Lia Kahn
 https://github.com/ljkahn
-Pete Richardson
+Pete Richards
 https://github.com/PRich57
 Jake Zook
 https://github.com/jakezook
