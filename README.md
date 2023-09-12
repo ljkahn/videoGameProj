@@ -20,9 +20,11 @@ Our video game recommendation web application offers a wide range of features to
 
 N/A
 
+To visit GAME SEEKERS click [here!](https://ljkahn.github.io/videoGameProj/)
+
 ## Usage
 
-To use GAME SEEKERS, scroll down to the input form and enter in what platform you use and then enter three games that you like to play and hit submit! Our application will return back 20 games that will be similar to what you already know and love!
+To use GAME SEEKERS, scroll down to the input form, enter what platform you use, then enter three games that you like to play and hit submit! Our application will return 20 games that will be similar to what you already know and love!
 
 To search games by genre, click on the three line icon on the top right corner of the web browser and click the "Genre" button. A dropdown menu will display and you can click on any genre! Up to 20 games will display.
 
